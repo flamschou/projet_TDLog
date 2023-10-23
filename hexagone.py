@@ -21,6 +21,8 @@ class hexagon:
         self._index = index
         self._x = x
         self._y = y
+        self._type = None
+        self._accessibility = True
         self._players = []
 
     @property
@@ -34,3 +36,20 @@ class hexagon:
     @property
     def y(self):
         return self._y
+
+    @property
+    def type(self):
+        return self._type
+
+    @property
+    def accessibility(self):
+        return self._accessibility
+
+class basicHex(hexagon):
+    """
+    The basic hexagon is the one that is the most common on the board.
+    It is the one that will be used to create the board.
+    """
+    def __init__(self, index, x, y):
+        super().__init__(index, x, y)
+        self._type = "basic"
