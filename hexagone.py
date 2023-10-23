@@ -45,6 +45,7 @@ class hexagon:
     def accessibility(self):
         return self._accessibility
 
+
 class basicHex(hexagon):
     """
     The basic hexagon is the one that is the most common on the board.
