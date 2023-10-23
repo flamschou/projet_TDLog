@@ -1,1 +1,1 @@
-## create the class hexagone for the board
+# create the class hexagone for the board
