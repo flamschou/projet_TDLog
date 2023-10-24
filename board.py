@@ -187,7 +187,5 @@ def load(path):
             "x": x - min_x,
             "y": y - min_y,
         }
-        if kind == HexagonKind.POSITION:
-            constr_params["positions"] = set(map(int, params))
         board.append(HEXAGON_CONSTRUCTORS[kind](**constr_params))
     return board
