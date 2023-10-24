@@ -3,6 +3,7 @@
 import enum
 import hexagone
 import utils
+import math
 
 
 class RelativePosition(enum.Enum):
@@ -27,12 +28,12 @@ RELATIVE_POSITIONS = {
 
 # The dictionary from relatives positions to (delta_x, delta_y) couples
 DELTAS = {
-    RelativePosition.TOP: (0, -2),
-    RelativePosition.TOP_LEFT: (-1, -2),
-    RelativePosition.TOP_RIGHT: (1, -2),
-    RelativePosition.BOTTOM: (0, 2),
-    RelativePosition.BOTTOM_LEFT: (-1, 2),
-    RelativePosition.BOTTOM_RIGHT: (1, 2),
+    RelativePosition.TOP: (0, -math.sqrt(3)),
+    RelativePosition.TOP_LEFT: (-1.5, -math.sqrt(3)/2),
+    RelativePosition.TOP_RIGHT: (1.5, -math.sqrt(3)/2),
+    RelativePosition.BOTTOM: (0, math.sqrt(3)),
+    RelativePosition.BOTTOM_LEFT: (-1.5, math.sqrt(3)/2),
+    RelativePosition.BOTTOM_RIGHT: (1.5, math.sqrt(3)/2),
 }
 
 
@@ -134,8 +135,8 @@ def check_hexagons(hexagons):
     not.
 
     Each element of the list is a tuple with the following components:
-    - the x coordinate of the square (`int`);
-    - the y coordinate of the square (`int`);
+    - the x coordinate of the square (`float`);
+    - the y coordinate of the square (`float`);
     - the kind of the square (`SquareKind`);
     - the parameters for the construction of the square (`str` list);
     - the relative position of the square (optional `RelativePosition`).
