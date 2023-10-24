@@ -2,6 +2,7 @@
 
 import enum
 import hexagone
+import utils
 
 
 class RelativePosition(enum.Enum):
@@ -24,6 +25,17 @@ RELATIVE_POSITIONS = {
 }
 
 
+# The dictionary from relatives positions to (delta_x, delta_y) couples
+DELTAS = {
+    RelativePosition.TOP: (0, -2),
+    RelativePosition.TOP_LEFT: (-1, -2),
+    RelativePosition.TOP_RIGHT: (1, -2),
+    RelativePosition.BOTTOM: (0, 2),
+    RelativePosition.BOTTOM_LEFT: (-1, 2),
+    RelativePosition.BOTTOM_RIGHT: (1, 2),
+}
+
+
 class HexagonKind(enum.Enum):
     """
     The possible kinds of hexagons.
@@ -34,6 +46,12 @@ class HexagonKind(enum.Enum):
 
 # The dictionary from names (strings) to instances for all square kinds
 HEXAGON_KINDS = {kind.value: kind for kind in HexagonKind}
+
+
+# The dictionary from square kinds to square constructors
+HEXAGON_CONSTRUCTORS = {
+    HexagonKind.BASIC: hexagone.basicHex,
+}
 
 
 class InvalidData(Exception):
@@ -135,3 +153,41 @@ def check_hexagons(hexagons):
             raise InvalidBoard(
                 "a board must have a relative position for all squares in the middle"
             )
+
+
+def load(path):
+    """
+    Loads and returns the board specified in the file whose path is passed,
+    as a list of `Hexagon` instances. Raises `InvalidData` if the contents
+    of the file does not specify a correct board.
+    """
+    with open(path, "r") as file:
+        lines = file.readlines()
+    x = 0
+    y = 0
+    min_x = None
+    min_y = None
+    hexagon_defs = []
+    for line_num, line in enumerate(lines):
+        decoded = decode_line(line, line_num + 1)
+        if decoded is not None:
+            kind, params, relative_position = decoded
+            if relative_position is not None:
+                dx, dy = DELTAS[relative_position]
+                x += dx
+                y += dy
+                min_x = utils.min_opt(min_x, x)
+                min_y = utils.min_opt(min_y, y)
+            hexagon_defs.append((x, y, kind, params, relative_position))
+    check_hexagons(hexagon_defs)
+    board = []
+    for index, (x, y, kind, params, _) in enumerate(hexagon_defs):
+        constr_params = {
+            "index": index,
+            "x": x - min_x,
+            "y": y - min_y,
+        }
+        if kind == HexagonKind.POSITION:
+            constr_params["positions"] = set(map(int, params))
+        board.append(HEXAGON_CONSTRUCTORS[kind](**constr_params))
+    return board
