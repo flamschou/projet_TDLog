@@ -43,6 +43,7 @@ class HexagonKind(enum.Enum):
     """
 
     BASIC = "basic"
+    SWAMP = "swamp"
 
 
 # The dictionary from names (strings) to instances for all square kinds
@@ -52,6 +53,7 @@ HEXAGON_KINDS = {kind.value: kind for kind in HexagonKind}
 # The dictionary from square kinds to square constructors
 HEXAGON_CONSTRUCTORS = {
     HexagonKind.BASIC: hexagone.basicHex,
+    HexagonKind.SWAMP: hexagone.swampHex,
 }
 
 
