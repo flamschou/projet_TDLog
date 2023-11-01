@@ -28,6 +28,6 @@ def basic_display(path):
 
 
 # change the path to the path of the board you want to display
-path = "C:\\ENPC\\Projects\\TDLOG\\projet_TDLog\\first_board.board"
-
+path = "C:\\Data\\2023-24\\TDLOG\\projet_TDLog\\first_board.board"
+# cocopath = "C:\\Data\\2023-24\\TDLOG\\projet_TDLog\\first_board.board"
 basic_display(path)
