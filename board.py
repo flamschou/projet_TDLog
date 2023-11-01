@@ -28,12 +28,12 @@ RELATIVE_POSITIONS = {
 
 # The dictionary from relatives positions to (delta_x, delta_y) couples
 DELTAS = {
-    RelativePosition.TOP: (0, -math.sqrt(3)),
-    RelativePosition.TOP_LEFT: (-1.5, -math.sqrt(3)/2),
-    RelativePosition.TOP_RIGHT: (1.5, -math.sqrt(3)/2),
-    RelativePosition.BOTTOM: (0, math.sqrt(3)),
-    RelativePosition.BOTTOM_LEFT: (-1.5, math.sqrt(3)/2),
-    RelativePosition.BOTTOM_RIGHT: (1.5, math.sqrt(3)/2),
+    RelativePosition.TOP: (0, math.sqrt(3)),
+    RelativePosition.TOP_LEFT: (-1.5, math.sqrt(3)/2),
+    RelativePosition.TOP_RIGHT: (1.5, math.sqrt(3)/2),
+    RelativePosition.BOTTOM: (0, -math.sqrt(3)),
+    RelativePosition.BOTTOM_LEFT: (-1.5, -math.sqrt(3)/2),
+    RelativePosition.BOTTOM_RIGHT: (1.5, -math.sqrt(3)/2),
 }
 
 
@@ -43,6 +43,7 @@ class HexagonKind(enum.Enum):
     """
 
     BASIC = "basic"
+    SWAMP = "swamp"
 
 
 # The dictionary from names (strings) to instances for all square kinds
@@ -52,6 +53,7 @@ HEXAGON_KINDS = {kind.value: kind for kind in HexagonKind}
 # The dictionary from square kinds to square constructors
 HEXAGON_CONSTRUCTORS = {
     HexagonKind.BASIC: hexagone.basicHex,
+    HexagonKind.SWAMP: hexagone.swampHex,
 }
 
 
@@ -166,8 +168,8 @@ def load(path):
         lines = file.readlines()
     x = 0
     y = 0
-    min_x = None
-    min_y = None
+    min_x = 0
+    min_y = 0
     hexagon_defs = []
     for line_num, line in enumerate(lines):
         decoded = decode_line(line, line_num + 1)
