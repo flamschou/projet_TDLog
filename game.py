@@ -1,8 +1,8 @@
 # create a game
 
+# import pygame
 import board
 import turtle
-import pygame
 
 
 def basic_display(path):
@@ -14,13 +14,10 @@ def basic_display(path):
 
     turtle.setup(800, 800)
     turtle.hideturtle()
-    turtle.speed(25)
+    turtle.speed(50)
 
     for i in range(len(Board)):
-        if Board[i].type == "basic":
-            turtle.color('black')
-        else:
-            turtle.color('orange')
+        turtle.color(Board[i].color)
         turtle.penup()
         turtle.goto(20*Board[i].x, 20*Board[i].y)
         turtle.fd(20)

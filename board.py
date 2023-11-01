@@ -11,7 +11,6 @@ class RelativePosition(enum.Enum):
     The possible relative positions of a hexagon, with respect to the previous
     square.
     """
-
     TOP = "top"
     TOP_LEFT = "top-left"
     TOP_RIGHT = "top-right"
@@ -44,6 +43,7 @@ class HexagonKind(enum.Enum):
 
     BASIC = "basic"
     SWAMP = "swamp"
+    FOREST = "forest"
 
 
 # The dictionary from names (strings) to instances for all square kinds
@@ -54,6 +54,7 @@ HEXAGON_KINDS = {kind.value: kind for kind in HexagonKind}
 HEXAGON_CONSTRUCTORS = {
     HexagonKind.BASIC: hexagone.basicHex,
     HexagonKind.SWAMP: hexagone.swampHex,
+    HexagonKind.FOREST: hexagone.forestHex,
 }
 
 

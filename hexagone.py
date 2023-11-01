@@ -21,9 +21,10 @@ class hexagon:
         self._index = index
         self._x = x
         self._y = y
-        self._type = None
+        self._name = None
         self._accessibility = True
         self._players = []
+        self._color = None
 
     @property
     def index(self):
@@ -38,12 +39,16 @@ class hexagon:
         return self._y
 
     @property
-    def type(self):
-        return self._type
+    def name(self):
+        return self._name
 
     @property
     def accessibility(self):
         return self._accessibility
+
+    @property
+    def color(self):
+        return self._color
 
 
 class basicHex(hexagon):
@@ -53,4 +58,25 @@ class basicHex(hexagon):
     """
     def __init__(self, index, x, y):
         super().__init__(index, x, y)
-        self._type = "basic"
+        self._name = "basic"
+        self._color = "black"
+
+
+class swampHex(hexagon):
+    """
+    The swamp hexagon is the one that will slow down the troops.
+    """
+    def __init__(self, index, x, y):
+        super().__init__(index, x, y)
+        self._name = "swamp"
+        self._color = "orange"
+
+
+class forestHex(hexagon):
+    """
+    The forest hexagon is the one that will reduce range of attacks of troops.
+    """
+    def __init__(self, index, x, y):
+        super().__init__(index, x, y)
+        self._name = "forest"
+        self._color = "green"
