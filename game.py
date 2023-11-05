@@ -33,4 +33,5 @@ def basic_display(path):
 # change the path to the path of the board you want to display
 path = "C:\\Data\\2023-24\\TDLOG\\projet_TDLog\\first_board.board"
 # cocopath = "C:\\Data\\2023-24\\TDLOG\\projet_TDLog\\first_board.board"
+# beloupath = "C:\\Users\\abels\\Documents\\Ponts ParisTech\\IMI\\S1\\TDLOG\\Projet\\projet_TDLog\\first_board.board"
 basic_display(path)
