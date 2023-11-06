@@ -7,7 +7,6 @@ import troops as t
 import card as c
 import hexagone as h
 
-
 pygame.init()
 WHITE = (255, 255, 255)
 SCREEN_WIDTH = 800
