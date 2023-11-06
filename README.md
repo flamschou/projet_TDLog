@@ -11,6 +11,7 @@ Board : Le plateau est composé d'hexagones de plusieurs types
 - basic : pas d'attributs
 - swamp : ralenti les troupes
 - forest : réduit la portée des attaques des troupes
+- rock : ne peut pas devenir swamp
 
 Troops : il existe plusieurs types de troupes
 - Attaque : 

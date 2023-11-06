@@ -1,5 +1,5 @@
 import random
-from hexagone import Basic, Swamp, Forest
+from hexagone import Basic, Swamp, Forest, Rock
 
 
 class Plateau:
@@ -8,20 +8,22 @@ class Plateau:
         self.num_cols = num_cols
         self.board = []
         self.troops = []
-        self.events = []
+        self.deck = []
 
     def generate_board(self):
         for row in range(self.num_rows):
             for col in range(self.num_cols):
-                hex_type = random.choice(["basic", "swamp", "forest"])
-                x = col * 60 + (30 if row % 2 == 0 else 60) + 60
-                y = row * 52 + 30
+                hex_type = random.choice(["basic", "swamp", "forest", "rock"])
+                x = col * 60 + (30 if row % 2 == 0 else 60)
+                y = row * 52 + 100
                 if hex_type == "basic":
                     hexagon = Basic(x, y)
                 if hex_type == "swamp":
                     hexagon = Swamp(x, y)
                 if hex_type == "forest":
                     hexagon = Forest(x, y)
+                if hex_type == "rock":
+                    hexagon = Rock(x, y)
                 self.board.append(hexagon)
 
     def draw(self, screen):
@@ -37,11 +39,8 @@ class Plateau:
     def add_troop(self, troop):
         self.troops.append(troop)
 
-    def add_event(self, event):
-        self.events.append(event)
-
     def apply_events(self):
-        for event in self.events:
+        for event in self.deck:
             event.apply_effect(self)
         self.events = []
 
