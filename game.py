@@ -1,8 +1,8 @@
 # create a game
 
+# import pygame
 import board
 import turtle
-import pygame
 
 
 def basic_display(path):
@@ -14,13 +14,10 @@ def basic_display(path):
 
     turtle.setup(800, 800)
     turtle.hideturtle()
-    turtle.speed(25)
+    turtle.speed(50)
 
     for i in range(len(Board)):
-        if Board[i].type == "basic":
-            turtle.color('black')
-        else:
-            turtle.color('orange')
+        turtle.color(Board[i].color)
         turtle.penup()
         turtle.goto(20*Board[i].x, 20*Board[i].y)
         turtle.fd(20)
@@ -34,6 +31,7 @@ def basic_display(path):
 
 
 # change the path to the path of the board you want to display
-path = "C:\\ENPC\\Projects\\TDLOG\\projet_TDLog\\first_board.board"
-
+path = "C:\\Data\\2023-24\\TDLOG\\projet_TDLog\\first_board.board"
+# cocopath = "C:\\Data\\2023-24\\TDLOG\\projet_TDLog\\first_board.board"
+# beloupath = "C:\\Users\\abels\\Documents\\Ponts ParisTech\\IMI\\S1\\TDLOG\\Projet\\projet_TDLog\\first_board.board"
 basic_display(path)
