@@ -1,11 +1,11 @@
 import pygame
-import hexagone_1 as hex
+from hexagone import Hexagone
 
 
 class Troupe:
-    def __init__(self, troop_type, hexagone):
+    def __init__(self, troop_type, hex):
         self.troop_type = troop_type
-        self.hexagone = hexagone
+        self.hex = hex
         self.health = 0
         self.attack_power = 0
         self.status = "none"
@@ -13,11 +13,17 @@ class Troupe:
         self.color = (0, 0, 0)
 
     def move(self, destination_h):
-        speed = self.speed
+        if destination_h.troupe is None:
+            speed = self.speed
 
-        if  self.hexagone.voisin(destination_h) & speed >0:
-            self.hexagone = destination_h
-            speed -= 1
+            if self.hexagone.voisin(destination_h):
+
+                if speed > 0 & self.hex.hex_type != "swamp":
+                    self.hex = destination_h
+                    speed -= 1
+
+                if speed > 1 & self.hex.hex_type == "swamp":
+                    speed -= 2
 
     def attack(self, target):
         if isinstance(target, Troupe):
