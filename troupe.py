@@ -12,9 +12,9 @@ class Troupe:
         self.speed = 0
         self.color = (0, 0, 0)
 
-    def move(self, destination_h):
+    def move(self, destination_h, adrenaline):
         if destination_h.troupe is None:
-            speed = self.speed
+            speed = self.speed*adrenaline
 
             if self.hexagone.voisin(destination_h):
 
@@ -25,9 +25,9 @@ class Troupe:
                 if speed > 1 & self.hex.hex_type == "swamp":
                     speed -= 2
 
-    def attack(self, target):
+    def attack(self, target, adrenaline):
         if isinstance(target, Troupe):
-            damage = self.attack_power
+            damage = self.attack_power*adrenaline
             target.health -= damage
 
             if target.health <= 0:
