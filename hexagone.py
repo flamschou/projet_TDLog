@@ -1,5 +1,4 @@
 import pygame
-import plateau as b
 
 
 class Hexagone:
@@ -40,11 +39,11 @@ class Hexagone:
                 voisins.append(hexagon)
 
         return voisins
-
+    
     def voisin(self, hexagon):
         if hexagon in self.list_voisins():
             return True
-        else:
+        else:    
             return False
 
 
@@ -65,8 +64,11 @@ class Forest(Hexagone):
         super().__init__("forest", x, y)
         self.color = (0, 100, 0)
 
+<<<<<<< HEAD
+=======
 
 class Rock(Hexagone):
     def __init__(self, x, y):
         super().__init__("rock", x, y)
         self.color = (128, 128, 128)
+>>>>>>> f806044a1b54f0e56f26ce1fefebc15615f5e2e1
