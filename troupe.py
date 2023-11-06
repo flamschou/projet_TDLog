@@ -1,5 +1,6 @@
 import pygame
 
+
 class Troupe:
     def __init__(self, troop_type, x, y):
         self.troop_type = troop_type

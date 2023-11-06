@@ -6,31 +6,43 @@ class Hexagone:
         self.hex_type = hex_type
         self.x = x
         self.y = y
+        self.color = None
 
     def draw(self, screen):
-        color_mapping = {
-            "basic": (200, 200, 200),
-            "swamp": (0, 128, 0),
-            "forest": (0, 100, 0),
-        }
-
         hex_center_x = self.x
         hex_center_y = self.y
         hex_radius = 30
 
-        pygame.draw.polygon(screen, color_mapping[self.hex_type], [
+        pygame.draw.polygon(screen, self.color, [
             (hex_center_x, hex_center_y - hex_radius),
-            (hex_center_x + int(hex_radius * 0.866), hex_center_y - int(hex_radius / 2)),
-            (hex_center_x + int(hex_radius * 0.866), hex_center_y + int(hex_radius / 2)),
+            (hex_center_x + int(hex_radius * 0.866),
+             hex_center_y - int(hex_radius / 2)),
+            (hex_center_x + int(hex_radius * 0.866),
+             hex_center_y + int(hex_radius / 2)),
             (hex_center_x, hex_center_y + hex_radius),
-            (hex_center_x - int(hex_radius * 0.866), hex_center_y + int(hex_radius / 2)),
-            (hex_center_x - int(hex_radius * 0.866), hex_center_y - int(hex_radius / 2))
+            (hex_center_x - int(hex_radius * 0.866),
+             hex_center_y + int(hex_radius / 2)),
+            (hex_center_x - int(hex_radius * 0.866),
+             hex_center_y - int(hex_radius / 2))
         ])
 
     def handle_event(self, event):
         pass
 
 
-    @property
-    def color(self):
-        return self._color
+class Basic(Hexagone):
+    def __init__(self, x, y):
+        super().__init__("basic", x, y)
+        self.color = (200, 200, 200)
+
+
+class Swamp(Hexagone):
+    def __init__(self, x, y):
+        super().__init__("swamp", x, y)
+        self.color = (0, 128, 0)
+
+
+class Forest(Hexagone):
+    def __init__(self, x, y):
+        super().__init__("forest", x, y)
+        self.color = (0, 100, 0)
