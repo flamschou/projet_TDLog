@@ -1,49 +1,35 @@
-# create the class hexagone for the board
+import pygame
 
-class hexagon:
-    """
-    Each hexagon will constitute the board, and the edifferent subclasses will
-    constitute the different type of squares of the game.
 
-    The hexagons will have different properties depending on their type.
+class Hexagone:
+    def __init__(self, hex_type, x, y):
+        self.hex_type = hex_type
+        self.x = x
+        self.y = y
 
-    The first one is the accessibility : all of the hexagon can switch from accessible
-    to not accessible during the game, knowing that at the beginning the configuration
-    is precisely defined.
+    def draw(self, screen):
+        color_mapping = {
+            "basic": (200, 200, 200),
+            "swamp": (0, 128, 0),
+            "forest": (0, 100, 0),
+        }
 
-    The second one is the position, depending on the couple (x, y), knowing that the one
-    at the center has the position (0, 0).
-    """
-    def __init__(self, index, x, y):
-        assert index >= 0, "invalid index"
-        assert x >= 0, "invalid x"
-        assert y >= 0, "invalid y"
-        self._index = index
-        self._x = x
-        self._y = y
-        self._type = None
-        self._accessibility = True
-        self._players = []
+        hex_center_x = self.x
+        hex_center_y = self.y
+        hex_radius = 30
 
-    @property
-    def index(self):
-        return self._index
+        pygame.draw.polygon(screen, color_mapping[self.hex_type], [
+            (hex_center_x, hex_center_y - hex_radius),
+            (hex_center_x + int(hex_radius * 0.866), hex_center_y - int(hex_radius / 2)),
+            (hex_center_x + int(hex_radius * 0.866), hex_center_y + int(hex_radius / 2)),
+            (hex_center_x, hex_center_y + hex_radius),
+            (hex_center_x - int(hex_radius * 0.866), hex_center_y + int(hex_radius / 2)),
+            (hex_center_x - int(hex_radius * 0.866), hex_center_y - int(hex_radius / 2))
+        ])
 
-    @property
-    def x(self):
-        return self._x
+    def handle_event(self, event):
+        pass
 
-    @property
-    def y(self):
-        return self._y
-
-    @property
-    def type(self):
-        return self._type
-
-    @property
-    def accessibility(self):
-        return self._accessibility
 
 
 class basicHex(hexagon):
@@ -54,3 +40,35 @@ class basicHex(hexagon):
     def __init__(self, index, x, y):
         super().__init__(index, x, y)
         self._type = "basic"
+
+
+class emptyHex(hexagon):
+    """
+    The empty hexagon is the one that is the most common on the board.
+    You can build on this hexagon.
+    """
+    def __init__(self, index, x, y):
+        super().__init__(index, x, y)
+        self._type = "empty"
+
+
+class swampHex(hexagon):
+    """
+    The swamp hexagon is an hexagon that is not accessible.
+    You can't build on this hexagon.
+    """
+    def __init__(self, index, x, y):
+        super().__init__(index, x, y)
+        self._type = "swamp"
+        self._accessibility = False
+        self.constructible = False
+
+
+class forestHex(emptyHex):
+    """
+    The forest hexagon is an hexagon that is not accessible by vehicles.
+    Zadists fight better in this type of hexagon.
+    """
+    def __init__(self, index, x, y):
+        super().__init__(index, x, y)
+        self._type = "forest"
