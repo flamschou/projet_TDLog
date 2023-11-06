@@ -7,6 +7,8 @@ class Hexagone:
         self.x = x
         self.y = y
         self.color = None
+        self.accessible = True
+        self.index = None
 
     def draw(self, screen):
         hex_center_x = self.x
@@ -46,3 +48,9 @@ class Forest(Hexagone):
     def __init__(self, x, y):
         super().__init__("forest", x, y)
         self.color = (0, 100, 0)
+
+
+class Rock(Hexagone):
+    def __init__(self, x, y):
+        super().__init__("rock", x, y)
+        self.color = (128, 128, 128)
