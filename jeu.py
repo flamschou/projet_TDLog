@@ -3,6 +3,7 @@ import sys
 from plateau import Plateau
 # from evenement import Evenement
 # from hexagone import Hexagone
+# import hexagone
 # from troupe import Troupe
 
 # Initialisation de Pygame
@@ -40,4 +41,4 @@ while running:
     pygame.display.flip()
 
 pygame.quit()
-sys.exit()
+sys.quit()

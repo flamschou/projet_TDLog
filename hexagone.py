@@ -40,11 +40,11 @@ class Hexagone:
                 voisins.append(hexagon)
 
         return voisins
-    
+
     def voisin(self, hexagon):
         if hexagon in self.list_voisins():
             return True
-        else:    
+        else:
             return False
 
 
