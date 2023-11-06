@@ -31,21 +31,6 @@ class Hexagone:
     def handle_event(self, event):
         pass
 
-    def list_voisins(self):
-        voisins = []
-
-        for hexagon in b.Plateau.board:
-            if abs(hexagon.x-self.x) < 100 and abs(hexagon.y-self.y) < 100:
-                voisins.append(hexagon)
-
-        return voisins
-    
-    def voisin(self, hexagon):
-        if hexagon in self.list_voisins():
-            return True
-        else:    
-            return False
-
 
 class Basic(Hexagone):
     def __init__(self, x, y):
