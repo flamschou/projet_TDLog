@@ -9,6 +9,8 @@ class Plateau:
         self.board = []
         self.troops = []
         self.deck = []
+        self.time = 20
+        self.adrenalin = 1
 
     def generate_board(self):
         for row in range(self.num_rows):
