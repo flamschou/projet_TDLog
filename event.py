@@ -1,12 +1,12 @@
 import random
 
 
-class Evenement:
+class Event:
     def __init__(self, event_type):
         self.event_type = event_type
 
 
-class Rain(Evenement):
+class Rain(Event):
     def __init__(self):
         super().__init__("rain")
 
@@ -18,7 +18,7 @@ class Rain(Evenement):
                     hexagon.toSwamp()
 
 
-class Fire(Evenement):
+class Fire(Event):
     def __init__(self):
         super().__init__("fire")
 
@@ -30,7 +30,7 @@ class Fire(Evenement):
                     hexagon.toBasic()
 
 
-class Rescue(Evenement):
+class Rescue(Event):
     def __init__(self):
         super().__init__("rescue")
 
@@ -38,7 +38,7 @@ class Rescue(Evenement):
         plateau.time -= random.randint(1, 3)
 
 
-class Betrayal(Evenement):
+class Betrayal(Event):
     def __init__(self):
         super().__init__("betrayal")
 
@@ -46,7 +46,7 @@ class Betrayal(Evenement):
         plateau.time += random.randint(1, 3)
 
 
-class Adrenalin(Evenement):
+class Adrenalin(Event):
     def __init__(self):
         super().__init__("adrenalin")
 
@@ -54,7 +54,7 @@ class Adrenalin(Evenement):
         plateau.adrenaline = 2
 
 
-class Expansion(Evenement):
+class Expansion(Event):
     def __init__(self):
         super().__init__("expansion")
 
