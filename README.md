@@ -12,7 +12,7 @@ Interface :
 - le joueur clique sur la troupe qu'il veut déplacer
 - les hexagones accessibles changent de couleur
 - les troupes adverses accessibles changent de couleur 
-- le joueur clique sur l'hexagone où il déplace la troupe ou l'adversaire qu'il veut  attaquer
+- le joueur clique sur l'hexagone où il déplace la troupe ou l'adversaire qu'il veut attaquer
 
 Board : Le plateau est composé d'hexagones de plusieurs types
 - basic : pas d'attributs
