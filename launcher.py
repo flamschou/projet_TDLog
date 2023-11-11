@@ -1,6 +1,6 @@
 import pygame
 import sys
-from plateau import Plateau
+from game import Game
 # from evenement import Evenement
 # from hexagone import Hexagone
 # import hexagone
@@ -10,6 +10,7 @@ from plateau import Plateau
 pygame.init()
 
 # Couleurs
+
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
@@ -23,8 +24,8 @@ pygame.display.set_caption("Hexagonal Board Game")
 num_rows = 8  # Nombre de lignes
 num_cols = 10  # Nombre de colonnes
 
-test = Plateau(num_rows, num_cols)
-test.generate_board()
+test = Game(num_rows, num_cols)
+test.generate()
 
 # Boucle principale
 running = True
@@ -41,4 +42,4 @@ while running:
     pygame.display.flip()
 
 pygame.quit()
-sys.quit()
+sys.exit()

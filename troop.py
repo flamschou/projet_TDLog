@@ -1,8 +1,7 @@
 import pygame
-from hexagone import Hexagone
 
 
-class Troupe:
+class Troop:
     def __init__(self, troop_type, hex):
         self.troop_type = troop_type
         self.hex = hex
@@ -26,7 +25,7 @@ class Troupe:
                     speed -= 2
 
     def attack(self, target, adrenaline):
-        if isinstance(target, Troupe):
+        if isinstance(target, Troop):
             damage = self.attack_power*adrenaline
             target.health -= damage
 
@@ -41,7 +40,7 @@ class Troupe:
         pygame.draw.circle(screen, self.color, (troop_center_x, troop_center_y), troop_radius)
 
 
-class Assassin(Troupe):
+class Assassin(Troop):
     def __init__(self, x, y):
         super().__init__("assassin", x, y)
         self.color = (255, 0, 0)
@@ -50,7 +49,7 @@ class Assassin(Troupe):
         self.speed = 5
 
 
-class Magician(Troupe):
+class Magician(Troop):
     def __init__(self, x, y):
         super().__init__("magician", x, y)
         self.health = 200
@@ -59,7 +58,7 @@ class Magician(Troupe):
         self.color = (0, 0, 255)
 
 
-class Turret(Troupe):
+class Turret(Troop):
     def __init__(self, x, y):
         super().__init__("turret", x, y)
         self.health = 500

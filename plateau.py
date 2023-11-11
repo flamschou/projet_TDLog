@@ -70,3 +70,4 @@ class Plateau:
             return True
         else:
             return False
+

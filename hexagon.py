@@ -31,6 +31,14 @@ class Hexagone:
     def handle_event(self, event):
         pass
 
+    def toBasic(self):
+        self.hex_type = "basic"
+        self.color = (200, 200, 200)
+
+    def toSwamp(self):
+        self.hex_type = "swamp"
+        self.color = (0, 128, 0)
+
 
 class Basic(Hexagone):
     def __init__(self, x, y):
