@@ -22,3 +22,27 @@ class Board():
                     hexagon = Rock(x, y)
                 self.list.append(hexagon)
                 hexagon.index = len(self.list) - 1
+
+    def list_neighbors(self, hexagon1):
+        neighbors = []
+
+        for hexagon in self.list:
+            if abs(hexagon.x-hexagon1.x) < 80 and abs(hexagon.y-hexagon1.y) < 80 and hexagon != hexagon1:
+                neighbors.append(hexagon)
+
+        return neighbors
+
+    def neighbors(self, hexagon, hexagon1):
+        if hexagon in self.list_neighbors(hexagon1):
+            return True
+        else:
+            return False
+
+    def isdistance(self, hexagon, hexagon1, k):
+        if k == 0:
+            return hexagon == hexagon1
+        else:
+            for hexagon2 in self.list_neighbors(hexagon1):
+                if self.isdistance(hexagon, hexagon2, k-1):
+                    return True
+            return False

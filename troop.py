@@ -1,4 +1,5 @@
 import pygame
+import board
 
 
 class Troop:
@@ -10,12 +11,13 @@ class Troop:
         self.status = "none"
         self.speed = 0
         self.color = (0, 0, 0)
+        self.attack_range = 0
 
     def move(self, destination_h, adrenaline):
         if destination_h.troupe is None:
             speed = self.speed*adrenaline
 
-            if self.hexagone.voisin(destination_h):
+            if board.neighbors(self.hex, destination_h):
 
                 if speed > 0 & self.hex.hex_type != "swamp":
                     self.hex = destination_h
@@ -25,7 +27,7 @@ class Troop:
                     speed -= 2
 
     def attack(self, target, adrenaline):
-        if isinstance(target, Troop):
+        if isinstance(target, Troop) & board.isdistance(self.hex, target.hex, self.attack_range):
             damage = self.attack_power*adrenaline
             target.health -= damage
 
@@ -47,6 +49,7 @@ class Assassin(Troop):
         self.health = 100
         self.attack_power = 20
         self.speed = 5
+        self.attack_range = 1
 
 
 class Magician(Troop):
@@ -56,6 +59,7 @@ class Magician(Troop):
         self.attack_power = 50
         self.speed = 3
         self.color = (0, 0, 255)
+        self.attack_range = 2
 
 
 class Turret(Troop):
@@ -65,3 +69,4 @@ class Turret(Troop):
         self.attack_power = 100
         self.speed = 1
         self.color = (0, 255, 0)
+        self.attack_range = 3
