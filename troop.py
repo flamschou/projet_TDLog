@@ -70,3 +70,33 @@ class Turret(Troop):
         self.speed = 1
         self.color = (0, 255, 0)
         self.attack_range = 3
+
+
+class Archer(Troop):
+    def __init__(self, x, y):
+        super().__init__("archer", x, y)
+        self.health = 100
+        self.attack_power = 20
+        self.speed = 5
+        self.color = (255, 255, 0)
+        self.attack_range = 2
+
+
+class Engineer(Troop):
+    def __init__(self, x, y):
+        super().__init__("engineer", x, y)
+        self.health = 200
+        self.attack_power = 50
+        self.speed = 3
+        self.color = (0, 255, 255)
+        self.attack_range = 1
+
+
+class Shield(Troop):
+    def __init__(self, x, y):
+        super().__init__("shield", x, y)
+        self.health = 500
+        self.attack_power = 100
+        self.speed = 1
+        self.color = (255, 0, 255)
+        self.attack_range = 1
