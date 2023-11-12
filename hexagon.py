@@ -9,6 +9,7 @@ class Hexagone:
         self.color = None
         self.accessible = True
         self.index = None
+        self.occupied = False
 
     def draw(self, screen):
         hex_center_x = self.x

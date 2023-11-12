@@ -1,4 +1,5 @@
 import random
+from hexagon import Hexagone
 
 
 class Event:
@@ -12,7 +13,7 @@ class Rain(Event):
 
     def apply_effect(self, plateau):
         for hexagon in plateau.board:
-            if hexagon.hex_type == "basic":
+            if hexagon.hex_type == "basic" and not hexagon.occupied:
                 test = random.choice([True, False, False, False])
                 if test:
                     hexagon.toSwamp()
