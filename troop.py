@@ -33,16 +33,15 @@ class Troop:
                 target.status = "dead"
 
     def draw(self, screen):
-        troop_center_x = self.x
-        troop_center_y = self.y
-        troop_radius = 20
-
+        troop_center_x = self.hex.x
+        troop_center_y = self.hex.y
+        troop_radius = 15
         pygame.draw.circle(screen, self.color, (troop_center_x, troop_center_y), troop_radius)
 
 
 class Assassin(Troop):
-    def __init__(self, x, y):
-        super().__init__("assassin", x, y)
+    def __init__(self, hex):
+        super().__init__("assassin", hex)
         self.color = (255, 0, 0)
         self.health = 100
         self.attack_power = 20
@@ -50,8 +49,8 @@ class Assassin(Troop):
 
 
 class Magician(Troop):
-    def __init__(self, x, y):
-        super().__init__("magician", x, y)
+    def __init__(self, hex):
+        super().__init__("magician", hex)
         self.health = 200
         self.attack_power = 50
         self.speed = 3
@@ -59,8 +58,8 @@ class Magician(Troop):
 
 
 class Turret(Troop):
-    def __init__(self, x, y):
-        super().__init__("turret", x, y)
+    def __init__(self, hex):
+        super().__init__("turret", hex)
         self.health = 500
         self.attack_power = 100
         self.speed = 1
