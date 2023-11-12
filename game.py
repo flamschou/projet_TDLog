@@ -2,20 +2,22 @@ import random
 from event import Rain, Fire, Rescue, Betrayal, Adrenalin, Expansion
 from board import Board
 from troop import Assassin, Magician, Turret
+from players import Attacker, Defender
 
 
 class Game:
     def __init__(self, num_rows, num_cols):
         self.num_rows = num_rows
         self.num_cols = num_cols
-        self.board = None
+        self.board = Board()
+        self.attacker = Attacker()
+        self.defender = Defender()
         self.troops = []
         self.deck = []
         self.time = 20
         self.adrenalin = 1
 
     def generate(self):
-        self.board = Board()
         self.board.generate_board(self.num_rows, self.num_cols)
         self.create_deck()
         self.place_troops()
@@ -27,7 +29,8 @@ class Game:
         for troop in self.troops:
             troop.draw(screen)
 
-    def handle_event(self, event):
+    def handle_event(self):
+        event = self.deck[0]
         for hexagon in self.board.list:
             hexagon.handle_event(event)
 
@@ -37,10 +40,13 @@ class Game:
     def place_troops(self):
         a1 = Assassin(self.board.list[0])
         self.add_troop(a1)
+        self.attacker.troops.append(a1)
         m1 = Magician(self.board.list[10])
         self.add_troop(m1)
+        self.attacker.troops.append(m1)
         t1 = Turret(self.board.list[1])
         self.add_troop(t1)
+        self.attacker.troops.append(t1)
 
     def apply_events(self):
         for event in self.deck:

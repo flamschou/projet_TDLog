@@ -12,6 +12,8 @@ class Troop:
         self.speed = 0
         self.color = (0, 0, 0)
         self.attack_range = 0
+        self.rect = pygame.Rect(hex.x - 20, hex.y - 20, 40, 40)
+        self.selected = False
 
     def move(self, destination_h, adrenaline):
         if destination_h.troupe is None:
