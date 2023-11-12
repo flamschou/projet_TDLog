@@ -1,5 +1,4 @@
 import random
-from hexagon import Hexagone
 
 
 class Event:
