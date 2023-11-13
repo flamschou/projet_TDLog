@@ -1,5 +1,6 @@
 import pygame
 import board
+import pytest
 
 
 class Troop:
@@ -27,6 +28,10 @@ class Troop:
 
                 if speed > 1 & self.hex.hex_type == "swamp":
                     speed -= 2
+
+    def test_move(self, destination_h, adrenaline):
+        self.move(self, destination_h, adrenaline)
+        assert self.hex == destination_h
 
     def attack(self, target, adrenaline):
         if isinstance(target, Troop) & board.isdistance(self.hex, target.hex, self.attack_range):
