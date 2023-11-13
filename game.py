@@ -16,6 +16,7 @@ class Game:
         self.deck = []
         self.time = 20
         self.adrenalin = 1
+        self.event_counter = 0
 
     def generate(self):
         self.board.generate_board(self.num_rows, self.num_cols)
@@ -28,11 +29,6 @@ class Game:
             hexagon.draw(screen)
         for troop in self.troops:
             troop.draw(screen)
-
-    def handle_event(self):
-        event = self.deck[0]
-        for hexagon in self.board.list:
-            hexagon.handle_event(event)
 
     def add_troop(self, troop):
         self.troops.append(troop)
@@ -49,9 +45,8 @@ class Game:
         self.attacker.troops.append(t1)
 
     def apply_events(self):
-        for event in self.deck:
-            event.apply_effect(self)
-        self.events = []
+        self.deck[self.event_counter].apply_effect(self)
+        self.event_counter += 1
 
     def get_hexagon_at(self, x, y):
         for hexagon in self.board.list:

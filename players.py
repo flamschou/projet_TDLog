@@ -1,6 +1,5 @@
 import pygame
 from board import Board
-from dice import Dice
 
 
 class Player:
@@ -35,9 +34,9 @@ class Player:
 class Attacker(Player):
     def __init__(self):
         super().__init__("Attacker")
-        for i in range(4):
-            # creates the four dices of the attacker
-            self.dices.append(Dice("archeer", "engineer", "shield", "stepback", "missed"))
+        # for i in range(4):
+        # creates the four dices of the attacker
+        # self.dices.append(Dice("archeer", "engineer", "shield", "stepback", "missed")) later..
 
     def make_move(self):
         # Implement attacker's move logic
@@ -47,9 +46,9 @@ class Attacker(Player):
 class Defender(Player):
     def __init__(self):
         super().__init__("Defender")
-        for i in range(4):
-            # creates the four dices of the attacker
-            self.dices.append(Dice("magician", "assassin", "turret", "stepback", "missed"))
+        # for i in range(4):
+        # creates the four dices of the attacker
+        # self.dices.append(Dice("magician", "assassin", "turret", "stepback", "missed")) later..
 
     def make_move(self):
         # Implement defender's move logic

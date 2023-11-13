@@ -1,4 +1,5 @@
 import pygame
+from event import Event
 
 
 class Hexagone:
@@ -33,8 +34,6 @@ class Hexagone:
         text_rect = text.get_rect(center=[hex_center_x, hex_center_y+hex_radius*0.6])
         screen.blit(text, text_rect)
 
-    def handle_event(self, event):
-        pass
 
     def toBasic(self):
         self.hex_type = "basic"
