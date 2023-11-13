@@ -13,20 +13,22 @@ class Troop:
         self.speed = 0
         self.color = (0, 0, 0)
         self.attack_range = 0
-        self.rect = pygame.Rect(hex.x - 20, hex.y - 20, 40, 40)
+        self.rect = pygame.Rect(self.hex.x-10, self.hex.y-10, 20, 20)
         self.selected = False
 
-    def move(self, destination_h, adrenaline):
-        if destination_h.troupe is None:
-            speed = self.speed*adrenaline
+    def move(self, destination_h, game):
+        if not destination_h.occupied:
+            speed = self.speed*game.adrenalin
+            if game.board.neighbors(self.hex, destination_h):
 
-            if board.neighbors(self.hex, destination_h):
+                print("moving")
 
-                if speed > 0 & self.hex.hex_type != "swamp":
+                if speed > 0 and self.hex.hex_type != "swamp":
                     self.hex = destination_h
                     speed -= 1
+                    print("moved to "+str(destination_h.index)+" hexagon")
 
-                if speed > 1 & self.hex.hex_type == "swamp":
+                if speed > 1 and self.hex.hex_type == "swamp":
                     speed -= 2
 
     def test_move(self, destination_h, adrenaline):
@@ -34,7 +36,7 @@ class Troop:
         assert self.hex == destination_h
 
     def attack(self, target, adrenaline):
-        if isinstance(target, Troop) & board.isdistance(self.hex, target.hex, self.attack_range):
+        if isinstance(target, Troop) and board.isdistance(self.hex, target.hex, self.attack_range):
             damage = self.attack_power*adrenaline
             target.health -= damage
 

@@ -48,6 +48,3 @@ class Board():
                 if self.isdistance(hexagon, hexagon2, k-1):
                     return True
             return False
-
-
-        
