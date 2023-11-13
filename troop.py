@@ -18,18 +18,21 @@ class Troop:
 
     def move(self, destination_h, game):
         if not destination_h.occupied:
-            speed = self.speed*game.adrenalin
+            self.speed = self.speed*game.adrenalin
             if game.board.neighbors(self.hex, destination_h):
 
                 print("moving")
 
-                if speed > 0 and self.hex.hex_type != "swamp":
+                if self.speed > 0 and self.hex.hex_type != "swamp":
                     self.hex = destination_h
-                    speed -= 1
+                    self.speed -= 1
                     print("moved to "+str(destination_h.index)+" hexagon")
+                    print("speed left: "+str(self.speed))
 
-                if speed > 1 and self.hex.hex_type == "swamp":
-                    speed -= 2
+                if self.speed > 1 and self.hex.hex_type == "swamp":
+                    self.speed -= 2
+
+        self.rect = pygame.Rect(self.hex.x-10, self.hex.y-10, 20, 20)
 
     def test_move(self, destination_h, adrenaline):
         self.move(self, destination_h, adrenaline)

@@ -20,6 +20,7 @@ class Player:
                 for troop in self.troops:
                     if troop.selected and troop.hex != hexagon:
                         troop.move(hexagon, game)
+                        troop.selected = False
 
 
 class Attacker(Player):
