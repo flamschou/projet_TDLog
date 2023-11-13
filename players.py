@@ -1,5 +1,3 @@
-import pygame
-from board import Board
 from dice import Dice
 
 
@@ -20,7 +18,7 @@ class Player:
         for hexagon in game.board.list:
             if hexagon.rect.collidepoint(clicked_pos) and any(troop.selected for troop in self.troops):
                 for troop in self.troops:
-                    if troop.selected and troop.hex != hexagon:
+                    if troop.selected and troop.hex != hexagon and hexagon.accessible:
                         troop.move(hexagon, game)
                         troop.selected = False
 

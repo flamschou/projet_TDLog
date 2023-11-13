@@ -45,7 +45,7 @@ class Game:
         self.attacker.troops.append(t1)
 
     def apply_events(self):
-        self.deck[self.event_counter].apply_effect(self)
+        self.deck[self.event_counter % 54].apply_effect(self)
         self.event_counter += 1
 
     def get_hexagon_at(self, x, y):
