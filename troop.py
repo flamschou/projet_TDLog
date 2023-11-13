@@ -19,7 +19,10 @@ class Troop:
     def move(self, destination_h, game):
         if not destination_h.occupied:
             self.speed = self.speed * game.adrenalin
-            if game.board.neighbors(self.hex, destination_h):
+            if self.speed == 0:
+                print("no speed left ; you can't move anymore")
+
+            elif game.board.neighbors(self.hex, destination_h) and destination_h.accessible:
                 print("moving")
 
                 if self.speed > 0 and self.hex.hex_type != "swamp":

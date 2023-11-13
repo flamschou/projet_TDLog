@@ -11,12 +11,18 @@ class Player:
         clicked_pos = clicked
         print("clicked at", clicked_pos)
         for troop in self.troops:
-            if troop.rect.collidepoint(clicked_pos):
+            if troop.speed == 0:
+                troop.selected = False
+                print("no speed left ; you can't move anymore")
+
+            elif troop.rect.collidepoint(clicked_pos):
                 troop.selected = True
                 print("troop selected")
 
         for hexagon in game.board.list:
-            if hexagon.rect.collidepoint(clicked_pos) and any(troop.selected for troop in self.troops):
+            if hexagon.rect.collidepoint(clicked_pos) and any(
+                troop.selected for troop in self.troops
+            ):
                 for troop in self.troops:
                     if troop.selected and troop.hex != hexagon and hexagon.accessible:
                         troop.move(hexagon, game)
@@ -36,7 +42,9 @@ class Defender(Player):
         super().__init__("Defender")
         for i in range(4):
             # creates the four dices of the attacker
-            self.dices.append(Dice("magician", "assassin", "turret", "stepback", "missed"))
+            self.dices.append(
+                Dice("magician", "assassin", "turret", "stepback", "missed")
+            )
 
     def make_move(self):
         # Implement defender's move logic
