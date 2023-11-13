@@ -1,10 +1,6 @@
 import pygame
 import sys
 from game import Game
-# from evenement import Evenement
-# from hexagone import Hexagone
-# import hexagone
-# from troupe import Troupe
 
 # Initialisation de Pygame
 pygame.init()
@@ -36,20 +32,12 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-            clicked_pos = pygame.mouse.get_pos()
-            print("clicked at", clicked_pos)
-            for hexagon in test.board.list:
-                if hexagon.rect.collidepoint(clicked_pos):
-                    print("hexagon", hexagon.index, "clicked")
-            for troop in test.troops:
-                if troop.rect.collidepoint(clicked_pos):
-                    print("troop", troop.index, "clicked")
+            test.attacker.make_move(pygame.mouse.get_pos(), test)
 
     screen.fill(WHITE)
 
     test.apply_events()
     test.draw(screen)
-    test.attacker.make_move()
 
     pygame.display.flip()
 
