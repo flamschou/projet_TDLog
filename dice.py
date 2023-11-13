@@ -1,6 +1,7 @@
 # file to define the dices and there methods, because the game use special dices
 import random
 
+
 class Dice:
     def __init__(self, attr1, attr2, attr3, attr4, attr5):
         # initialisation with 5 attributes on the 5 first faces

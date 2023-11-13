@@ -10,6 +10,7 @@ class Hexagone:
         self.accessible = True
         self.index = None
         self.occupied = False
+        self.rect = pygame.Rect(self.x-20, self.y-20, 40, 40)
 
     def draw(self, screen):
         hex_center_x = self.x
@@ -38,32 +39,32 @@ class Hexagone:
 
     def toBasic(self):
         self.hex_type = "basic"
-        self.color = (200, 200, 200)
+        self.color = (205, 133, 63)  # light brown
 
     def toSwamp(self):
         self.hex_type = "swamp"
-        self.color = (0, 128, 0)
+        self.color = (139, 69, 19)  # dark brown
 
 
 class Basic(Hexagone):
     def __init__(self, x, y):
         super().__init__("basic", x, y)
-        self.color = (205, 133, 63)
+        self.color = (205, 133, 63)  # light brown
 
 
 class Swamp(Hexagone):
     def __init__(self, x, y):
         super().__init__("swamp", x, y)
-        self.color = (139, 69, 19)
+        self.color = (139, 69, 19)  # dark brown
 
 
 class Forest(Hexagone):
     def __init__(self, x, y):
         super().__init__("forest", x, y)
-        self.color = (0, 100, 0)
+        self.color = (0, 100, 0)  # dark green
 
 
 class Rock(Hexagone):
     def __init__(self, x, y):
         super().__init__("rock", x, y)
-        self.color = (128, 128, 128)
+        self.color = (128, 128, 128)  # grey
