@@ -21,14 +21,14 @@ Board : Le plateau est composé d'hexagones de plusieurs types
 - rock : ne peut pas devenir swamp
 
 Troops : il existe plusieurs types de troupes
-- Attaque : 
-    - assassin : rapide et léger
-    - magician : capacités spéciales
-    - turret : défensif et lent
-- Défense : 
-    - archer : rapide et léger
-    - engineer : capacités spéciales
-    - shield : défensif et lent
+- Attaque (rouge) : 
+    - assassin : rapide et léger : représenté par un triangle
+    - magician : capacités spéciales : représenté par un disque
+    - turret : défensif et lent : représenté par un rectangle
+- Défense (bleu) : 
+    - archer : rapide et léger : représenté par un triangle
+    - engineer : capacités spéciales : représenté par un disque
+    - shield : défensif et lent représenté par un rectangle
 
 Events : à chaque tour se produit un évènement
 - rain : augmentation des swamps
