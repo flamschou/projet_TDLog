@@ -18,7 +18,7 @@ class Player:
         for hexagon in game.board.list:
             if hexagon.rect.collidepoint(clicked_pos) and any(troop.selected for troop in self.troops):
                 for troop in self.troops:
-                    if troop.selected and troop.hex != hexagon:
+                    if troop.selected and troop.hex != hexagon and hexagon.accessible:
                         troop.move(hexagon, game)
                         troop.selected = False
 
@@ -26,9 +26,9 @@ class Player:
 class Attacker(Player):
     def __init__(self):
         super().__init__("Attacker")
-        for i in range(4):
-            # creates the four dices of the attacker
-            self.dices.append(Dice("archeer", "engineer", "shield", "stepback", "missed"))
+        # for i in range(4):
+        # creates the four dices of the attacker
+        # self.dices.append(Dice("archeer", "engineer", "shield", "stepback", "missed")) later..
 
 
 class Defender(Player):
@@ -37,3 +37,7 @@ class Defender(Player):
         for i in range(4):
             # creates the four dices of the attacker
             self.dices.append(Dice("magician", "assassin", "turret", "stepback", "missed"))
+
+    def make_move(self):
+        # Implement defender's move logic
+        pass  # Placeholder, implement your logic

@@ -1,6 +1,6 @@
 import pygame
 import board
-import pytest
+#  import pytest
 
 
 class Troop:

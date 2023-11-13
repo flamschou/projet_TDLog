@@ -36,7 +36,7 @@ while running:
 
     screen.fill(WHITE)
 
-    test.handle_event()
+    #  test.apply_events()
     test.draw(screen)
 
     pygame.display.flip()
