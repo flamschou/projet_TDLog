@@ -28,6 +28,23 @@ class Player:
                         troop.move(hexagon, game)
                         troop.selected = False
 
+    def initialize_troops(self, clicked, game, troop):
+        # beginning of the game, the attacker starts by placing his troops
+
+        clicked_pos = clicked
+        print("clicked at", clicked_pos)
+        for hexagon in game.board.list:
+            if hexagon.rect.collidepoint(clicked_pos):
+                if not hexagon.occupied and hexagon.accessible:
+                    hexagon.occupied = True
+                    troop.hex = hexagon
+                    self.troops.append(troop)
+                    print("troop placed")
+                elif hexagon.occupied:
+                    print("this hexagon is already occupied")
+                else:
+                    print("this hexagon is not accessible")
+
 
 class Attacker(Player):
     def __init__(self):
