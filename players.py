@@ -37,6 +37,7 @@ class Player:
                         hexagon.occupied = True
                         troop.selected = False
 
+<<<<<<< HEAD
     def selected_button(self, clicked, i):
         clicked_pos = clicked
         print("clicked at", clicked_pos)
@@ -48,6 +49,29 @@ class Player:
         return (i)
 
     def initialize_troops(self, clicked, i, game):
+=======
+    def make_attack(self, clicked, game):
+        clicked_pos = clicked
+        print("clicked at", clicked_pos)
+        attacker = None
+        defender = None
+
+        for troop in self.troops:
+            if troop.selected:
+                attacker = troop
+
+            if troop.rect.collidepoint(clicked_pos) and not troop.selected:
+                defender = troop
+
+        if attacker is not None and defender is not None:
+            attacker.attack(defender, game.adrenalin)
+        else:
+            print("No attacker or defender selected.")
+
+    def initialize_troops(self, clicked, game, troop):
+        # beginning of the game, the attacker starts by placing his troops
+
+>>>>>>> 776f9e4b1e9e9d35d2d0f1b03f586fd329e59f4c
         clicked_pos = clicked
         print("clicked at", clicked_pos)
 

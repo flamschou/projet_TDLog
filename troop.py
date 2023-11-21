@@ -1,5 +1,5 @@
 import pygame
-import board
+#  import board
 #  import pytest
 
 
@@ -34,22 +34,24 @@ class Troop:
 
                 if self.speed > 1 and self.hex.hex_type == "swamp":
                     self.speed -= 2
-
-        self.rect = pygame.Rect(self.hex.x - 10, self.hex.y - 10, 20, 20)
+            self.rect = pygame.Rect(self.hex.x - 10, self.hex.y - 10, 20, 20)
+        else:
+            for troop in game.troops:
+                if troop.hex == destination_h:
+                    self.attack(troop, game.adrenalin)
 
     def test_move(self, destination_h, adrenaline):
         self.move(self, destination_h, adrenaline)
         assert self.hex == destination_h
 
     def attack(self, target, adrenaline):
-        if isinstance(target, Troop) and board.isdistance(
-            self.hex, target.hex, self.attack_range
-        ):
-            damage = self.attack_power * adrenaline
-            target.health -= damage
+        damage = self.attack_power * adrenaline
+        target.health -= damage
+        print("attacked " + target.troop_type + " for " + str(damage) + " damage")
 
-            if target.health <= 0:
-                target.status = "dead"
+        if target.health <= 0:
+            target.status = "dead"
+            print(target.troop_type + " is dead")
 
 
 class Assassin(Troop):
@@ -84,6 +86,12 @@ class Assassin(Troop):
             ],
         )
 
+        #  draw health
+        font = pygame.font.Font(None, 24)
+        health_text = font.render(str(self.health), True, (255, 255, 255))
+        text_rect = health_text.get_rect(center=(troop_center_x, troop_center_y))
+        screen.blit(health_text, text_rect)
+
 
 class Magician(Troop):
     def __init__(self, hex):
@@ -103,6 +111,12 @@ class Magician(Troop):
         pygame.draw.circle(
             screen, self.color, (troop_center_x, troop_center_y), troop_radius
         )
+
+        #  draw health
+        font = pygame.font.Font(None, 24)
+        health_text = font.render(str(self.health), True, (255, 255, 255))
+        text_rect = health_text.get_rect(center=(troop_center_x, troop_center_y))
+        screen.blit(health_text, text_rect)
 
 
 class Turret(Troop):
@@ -130,6 +144,12 @@ class Turret(Troop):
                 2 * troop_radius,
             ),
         )
+
+        #  draw health
+        font = pygame.font.Font(None, 24)
+        health_text = font.render(str(self.health), True, (255, 255, 255))
+        text_rect = health_text.get_rect(center=(troop_center_x, troop_center_y))
+        screen.blit(health_text, text_rect)
 
 
 class Archer(Troop):
@@ -164,6 +184,12 @@ class Archer(Troop):
             ],
         )
 
+        #  draw health
+        font = pygame.font.Font(None, 24)
+        health_text = font.render(str(self.health), True, (255, 255, 255))
+        text_rect = health_text.get_rect(center=(troop_center_x, troop_center_y))
+        screen.blit(health_text, text_rect)
+
 
 class Engineer(Troop):
     def __init__(self, hex):
@@ -183,6 +209,12 @@ class Engineer(Troop):
         pygame.draw.circle(
             screen, self.color, (troop_center_x, troop_center_y), troop_radius
         )
+
+        #  draw health
+        font = pygame.font.Font(None, 24)
+        health_text = font.render(str(self.health), True, (255, 255, 255))
+        text_rect = health_text.get_rect(center=(troop_center_x, troop_center_y))
+        screen.blit(health_text, text_rect)
 
 
 class Shield(Troop):
@@ -210,3 +242,9 @@ class Shield(Troop):
                 2 * troop_radius,
             ),
         )
+
+        #  draw health
+        font = pygame.font.Font(None, 24)
+        health_text = font.render(str(self.health), True, (255, 255, 255))
+        text_rect = health_text.get_rect(center=(troop_center_x, troop_center_y))
+        screen.blit(health_text, text_rect)
