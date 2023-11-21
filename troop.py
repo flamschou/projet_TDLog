@@ -1,5 +1,5 @@
 import pygame
-import board
+#  import board
 #  import pytest
 
 
@@ -41,14 +41,13 @@ class Troop:
         assert self.hex == destination_h
 
     def attack(self, target, adrenaline):
-        if isinstance(target, Troop) and board.isdistance(
-            self.hex, target.hex, self.attack_range
-        ):
-            damage = self.attack_power * adrenaline
-            target.health -= damage
+        damage = self.attack_power * adrenaline
+        target.health -= damage
+        print("attacked " + target.troop_type + " for " + str(damage) + " damage")
 
-            if target.health <= 0:
-                target.status = "dead"
+        if target.health <= 0:
+            target.status = "dead"
+            print(target.troop_type + " is dead")
 
 
 class Assassin(Troop):

@@ -44,7 +44,6 @@ class Game:
             if self.troops_available[j][2].collidepoint(clicked_pos) and self.troops_available[j][1] > 0:
                 self.button_selected = True
                 return (j)
-
         else:
             return (i)
 
