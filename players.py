@@ -33,6 +33,9 @@ class Player:
 
         clicked_pos = clicked
         print("clicked at", clicked_pos)
+        
+        
+
         for hexagon in game.board.list:
             if hexagon.rect.collidepoint(clicked_pos):
                 if not hexagon.occupied and hexagon.accessible:

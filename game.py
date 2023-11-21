@@ -17,12 +17,15 @@ class Game:
         self.time = 20
         self.adrenalin = 1
         self.event_counter = 0
+        self.button_selected = False
+        self.troops_available = [["assassin", 2], ["archer", 2], ["magician", 1], ["engineer", 1], ["turret", 1], ["shield", 1]]
 
     def generate(self):
+        self.board = Board()
         self.board.generate_board(self.num_rows, self.num_cols)
         self.create_deck()
-        self.place_troops()
         # initialize players
+        # initialize troops
 
     def draw(self, screen):
         for hexagon in self.board.list:
@@ -33,16 +36,48 @@ class Game:
     def add_troop(self, troop):
         self.troops.append(troop)
 
-    def place_troops(self):
-        a1 = Assassin(self.board.list[0])
-        self.add_troop(a1)
-        self.attacker.troops.append(a1)
-        m1 = Magician(self.board.list[10])
-        self.add_troop(m1)
-        self.attacker.troops.append(m1)
-        t1 = Turret(self.board.list[1])
-        self.add_troop(t1)
-        self.attacker.troops.append(t1)
+    def selected_button(self, clicked, i):
+        clicked_pos = clicked
+        print("clicked at", clicked_pos)
+        for j in range(len(self.troops_available)):
+            if self.troops_available[j][2].collidepoint(clicked_pos) and self.troops_available[j][1] > 0:
+                self.button_selected = True
+                return (j)
+
+        else:
+            return (i)
+
+    def initialize_troops(self, clicked, i):
+        # beginning of the game, the attacker starts by placing his troops
+
+        clicked_pos = clicked
+        print("clicked at", clicked_pos)
+
+        for hexagon in self.board.list:
+            if hexagon.rect.collidepoint(clicked_pos) and self.button_selected:
+                if not hexagon.occupied and hexagon.accessible:
+                    hexagon.occupied = True
+                    troop = Assassin(hexagon)
+                    self.add_troop(troop)
+                    self.attacker.troops.append(troop)
+                    print("troop placed")
+                    self.troops_available[i][1] -= 1
+                    print(self.troops_available[i][1])
+                    self.button_selected = False
+                elif hexagon.occupied:
+                    print("this hexagon is already occupied")
+                else:
+                    print("this hexagon is not accessible")
+
+    def end_ini(self):
+        S = 0
+        for troop in self.troops_available:
+            S += troop[1]
+
+        if S == 0:
+            return False
+        else:
+            return True
 
     def apply_events(self):
         self.deck[self.event_counter % 54].apply_effect(self)

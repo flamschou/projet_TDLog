@@ -59,6 +59,7 @@ class Assassin(Troop):
         self.attack_power = 20
         self.speed = 5
         self.attack_range = 1
+        self.player = "attacker"
 
     def draw(self, screen):
         troop_center_x = self.hex.x
@@ -90,6 +91,7 @@ class Magician(Troop):
         self.speed = 3
         self.color = (255, 0, 0)
         self.attack_range = 2
+        self.player = "attacker"
 
     def draw(self, screen):
         troop_center_x = self.hex.x
@@ -108,6 +110,7 @@ class Turret(Troop):
         self.speed = 1
         self.color = (255, 0, 0)
         self.attack_range = 3
+        self.player = "attacker"
 
     def draw(self, screen):
         troop_center_x = self.hex.x
@@ -133,6 +136,7 @@ class Archer(Troop):
         self.speed = 5
         self.color = (0, 255, 0)
         self.attack_range = 2
+        self.player = "defender"
 
     def draw(self, screen):
         troop_center_x = self.hex.x
@@ -164,6 +168,7 @@ class Engineer(Troop):
         self.speed = 3
         self.color = (0, 255, 0)
         self.attack_range = 1
+        self.player = "defender"
 
     def draw(self, screen):
         troop_center_x = self.hex.x
@@ -182,6 +187,7 @@ class Shield(Troop):
         self.speed = 1
         self.color = (0, 255, 0)
         self.attack_range = 1
+        self.player = "defender"
 
     def draw(self, screen):
         troop_center_x = self.hex.x
