@@ -75,8 +75,6 @@ while running:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             test.attacker.make_move(pygame.mouse.get_pos(), test)
-        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
-            test.attacker.make_attack(pygame.mouse.get_pos(), test)
 
     screen.fill(WHITE)
 

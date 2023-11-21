@@ -33,8 +33,11 @@ class Troop:
 
                 if self.speed > 1 and self.hex.hex_type == "swamp":
                     self.speed -= 2
-
-        self.rect = pygame.Rect(self.hex.x - 10, self.hex.y - 10, 20, 20)
+            self.rect = pygame.Rect(self.hex.x - 10, self.hex.y - 10, 20, 20)
+        else:
+            for troop in game.troops:
+                if troop.hex == destination_h:
+                    self.attack(troop, game.adrenalin)
 
     def test_move(self, destination_h, adrenaline):
         self.move(self, destination_h, adrenaline)
