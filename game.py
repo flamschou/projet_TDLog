@@ -18,7 +18,8 @@ class Game:
         self.adrenalin = 1
         self.event_counter = 0
         self.button_selected = False
-        self.troops_available = [["assassin", 2], ["archer", 2], ["magician", 1], ["engineer", 1], ["turret", 1], ["shield", 1]]
+        self.troops_available = [["assassin", 2], ["archer", 2], ["magician", 1],
+                                 ["engineer", 1], ["turret", 1], ["shield", 1]]
 
     def generate(self):
         self.board = Board()
@@ -62,13 +63,13 @@ class Game:
 
                     elif self.troops_available[i][0] == "assassin":
                         troop = Assassin(hexagon)
-                    
+
                     elif self.troops_available[i][0] == "magician":
                         troop = Magician(hexagon)
 
                     elif self.troops_available[i][0] == "engineer":
                         troop = Engineer(hexagon)
-                    
+
                     elif self.troops_available[i][0] == "turret":
                         troop = Turret(hexagon)
 
