@@ -129,8 +129,8 @@ class Turret(Troop):
 
 
 class Archer(Troop):
-    def __init__(self, x, y):
-        super().__init__("archer", x, y)
+    def __init__(self, hex):
+        super().__init__("archer", hex)
         self.health = 100
         self.attack_power = 20
         self.speed = 5
@@ -161,8 +161,8 @@ class Archer(Troop):
 
 
 class Engineer(Troop):
-    def __init__(self, x, y):
-        super().__init__("engineer", x, y)
+    def __init__(self, hex):
+        super().__init__("engineer", hex)
         self.health = 200
         self.attack_power = 50
         self.speed = 3
@@ -180,8 +180,8 @@ class Engineer(Troop):
 
 
 class Shield(Troop):
-    def __init__(self, x, y):
-        super().__init__("shield", x, y)
+    def __init__(self, hex):
+        super().__init__("shield", hex)
         self.health = 500
         self.attack_power = 100
         self.speed = 1

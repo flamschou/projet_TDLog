@@ -32,6 +32,7 @@ print(test.deck[0].event_type)
 screen.fill(WHITE)
 test.draw(screen)
 
+
 # Dessiner les boutons
 def drawButtons():
     pos_y = SCREEN_HEIGHT - 150  # Position verticale initiale des boutons

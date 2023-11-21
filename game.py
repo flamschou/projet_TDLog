@@ -1,7 +1,7 @@
 import random
 from event import Rain, Fire, Rescue, Betrayal, Adrenalin, Expansion
 from board import Board
-from troop import Assassin, Magician, Turret
+from troop import Assassin, Magician, Turret, Engineer, Archer, Shield
 from players import Attacker, Defender
 
 
@@ -57,7 +57,24 @@ class Game:
             if hexagon.rect.collidepoint(clicked_pos) and self.button_selected:
                 if not hexagon.occupied and hexagon.accessible:
                     hexagon.occupied = True
-                    troop = Assassin(hexagon)
+                    if self.troops_available[i][0] == "archer":
+                        troop = Archer(hexagon)
+
+                    elif self.troops_available[i][0] == "assassin":
+                        troop = Assassin(hexagon)
+                    
+                    elif self.troops_available[i][0] == "magician":
+                        troop = Magician(hexagon)
+
+                    elif self.troops_available[i][0] == "engineer":
+                        troop = Engineer(hexagon)
+                    
+                    elif self.troops_available[i][0] == "turret":
+                        troop = Turret(hexagon)
+
+                    elif self.troops_available[i][0] == "shield":
+                        troop = Shield(hexagon)
+
                     self.add_troop(troop)
                     self.attacker.troops.append(troop)
                     print("troop placed")
