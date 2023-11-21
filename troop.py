@@ -84,6 +84,12 @@ class Assassin(Troop):
             ],
         )
 
+        #  draw health
+        font = pygame.font.Font(None, 24)
+        health_text = font.render(str(self.health), True, (255, 255, 255))
+        text_rect = health_text.get_rect(center=(troop_center_x, troop_center_y))
+        screen.blit(health_text, text_rect)
+
 
 class Magician(Troop):
     def __init__(self, hex):
@@ -102,6 +108,12 @@ class Magician(Troop):
         pygame.draw.circle(
             screen, self.color, (troop_center_x, troop_center_y), troop_radius
         )
+
+        #  draw health
+        font = pygame.font.Font(None, 24)
+        health_text = font.render(str(self.health), True, (255, 255, 255))
+        text_rect = health_text.get_rect(center=(troop_center_x, troop_center_y))
+        screen.blit(health_text, text_rect)
 
 
 class Turret(Troop):
@@ -128,6 +140,12 @@ class Turret(Troop):
                 2 * troop_radius,
             ),
         )
+
+        #  draw health
+        font = pygame.font.Font(None, 24)
+        health_text = font.render(str(self.health), True, (255, 255, 255))
+        text_rect = health_text.get_rect(center=(troop_center_x, troop_center_y))
+        screen.blit(health_text, text_rect)
 
 
 class Archer(Troop):
@@ -161,6 +179,12 @@ class Archer(Troop):
             ],
         )
 
+        #  draw health
+        font = pygame.font.Font(None, 24)
+        health_text = font.render(str(self.health), True, (255, 255, 255))
+        text_rect = health_text.get_rect(center=(troop_center_x, troop_center_y))
+        screen.blit(health_text, text_rect)
+
 
 class Engineer(Troop):
     def __init__(self, hex):
@@ -179,6 +203,12 @@ class Engineer(Troop):
         pygame.draw.circle(
             screen, self.color, (troop_center_x, troop_center_y), troop_radius
         )
+
+        #  draw health
+        font = pygame.font.Font(None, 24)
+        health_text = font.render(str(self.health), True, (255, 255, 255))
+        text_rect = health_text.get_rect(center=(troop_center_x, troop_center_y))
+        screen.blit(health_text, text_rect)
 
 
 class Shield(Troop):
@@ -205,3 +235,9 @@ class Shield(Troop):
                 2 * troop_radius,
             ),
         )
+
+        #  draw health
+        font = pygame.font.Font(None, 24)
+        health_text = font.render(str(self.health), True, (255, 255, 255))
+        text_rect = health_text.get_rect(center=(troop_center_x, troop_center_y))
+        screen.blit(health_text, text_rect)
