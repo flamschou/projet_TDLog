@@ -32,7 +32,9 @@ class Player:
             ):
                 for troop in self.troops:
                     if troop.selected and troop.hex != hexagon and hexagon.accessible:
+                        troop.hex.occupied = False
                         troop.move(hexagon, game)
+                        hexagon.occupied = True
                         troop.selected = False
 
     def selected_button(self, clicked, i):
@@ -102,6 +104,10 @@ class Player:
         else:
             return True
 
+    def regenerate_speed(self):
+        for troop in self.troops:
+            troop.speed = troop.default_speed
+
 
 class Attacker(Player):
     def __init__(self):
@@ -121,7 +127,3 @@ class Defender(Player):
             self.dices.append(
                 Dice("magician", "assassin", "turret", "stepback", "missed")
             )
-
-    def make_move(self):
-        # Implement defender's move logic
-        pass  # Placeholder, implement your logic

@@ -1,6 +1,7 @@
 import pygame
 import sys
 from game import Game
+import utils
 
 # Initialisation de Pygame
 pygame.init()
@@ -54,18 +55,26 @@ for current_player in [test.attacker, test.defender]:
         pygame.display.flip()
 
 running = True
+players = [test.attacker, test.defender]
+i = 0
+current_player = players[i]
 
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-            test.attacker.make_move(pygame.mouse.get_pos(), test)
+            if utils.end_tour(pygame.mouse.get_pos(), SCREEN_WIDTH, SCREEN_HEIGHT):
+                i += 1
+                current_player.regenerate_speed()
+                current_player = players[i % 2]
+            current_player.make_move(pygame.mouse.get_pos(), test)
 
-    screen.fill(BLACK)
+    screen.fill(WHITE)
 
     #  test.apply_events()
     test.draw(screen)
+    utils.drawButton_end_tour(screen, SCREEN_WIDTH, SCREEN_HEIGHT, BLACK)
 
     pygame.display.flip()
 

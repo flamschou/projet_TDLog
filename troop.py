@@ -10,6 +10,7 @@ class Troop:
         self.health = 0
         self.attack_power = 0
         self.status = "none"
+        self.default_speed = 0
         self.speed = 0
         self.color = (0, 0, 0)
         self.attack_range = 0
@@ -58,6 +59,7 @@ class Assassin(Troop):
         self.health = 100
         self.attack_power = 20
         self.speed = 5
+        self.default_speed = self.speed
         self.attack_range = 1
         self.player = "attacker"
 
@@ -89,6 +91,7 @@ class Magician(Troop):
         self.health = 200
         self.attack_power = 50
         self.speed = 3
+        self.default_speed = self.speed
         self.color = (255, 0, 0)
         self.attack_range = 2
         self.player = "attacker"
@@ -108,6 +111,7 @@ class Turret(Troop):
         self.health = 500
         self.attack_power = 100
         self.speed = 1
+        self.default_speed = self.speed
         self.color = (255, 0, 0)
         self.attack_range = 3
         self.player = "attacker"
@@ -134,6 +138,7 @@ class Archer(Troop):
         self.health = 100
         self.attack_power = 20
         self.speed = 5
+        self.default_speed = self.speed
         self.color = (0, 255, 0)
         self.attack_range = 2
         self.player = "defender"
@@ -166,6 +171,7 @@ class Engineer(Troop):
         self.health = 200
         self.attack_power = 50
         self.speed = 3
+        self.default_speed = self.speed
         self.color = (0, 255, 0)
         self.attack_range = 1
         self.player = "defender"
@@ -185,6 +191,7 @@ class Shield(Troop):
         self.health = 500
         self.attack_power = 100
         self.speed = 1
+        self.default_speed = self.speed
         self.color = (0, 255, 0)
         self.attack_range = 1
         self.player = "defender"
