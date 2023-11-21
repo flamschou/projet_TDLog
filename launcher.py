@@ -1,6 +1,5 @@
 import pygame
 import sys
-import utils
 from game import Game
 
 # Initialisation de Pygame
@@ -32,65 +31,27 @@ print(test.deck[0].event_type)
 screen.fill(WHITE)
 test.draw(screen)
 
-
 # Dessiner les boutons
-def drawButtons(player):
-    pos_y = SCREEN_HEIGHT - 150  # Position verticale initiale des boutons
+
+for current_player in [test.attacker, test.defender]:
     i = 0
-    if player == "attacker":
-        for troop in test.troops_available_attacker:
-            utils.drawButton_troop(troop[0], screen, troop[1], SCREEN_WIDTH, pos_y, BLACK, test.troops_available_attacker[i])
-            i += 1
+    running = True
 
-            pos_y -= 30  # Ajustement vertical pour chaque bouton
-    else:
-        for troop in test.troops_available_defender:
-            utils.drawButton_troop(troop[0], screen, troop[1], SCREEN_WIDTH, pos_y, BLACK, test.troops_available_defender[i])
-            i += 1
+    while current_player.end_ini() and running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                i = current_player.selected_button(pygame.mouse.get_pos(), i)
+                current_player.initialize_troops(pygame.mouse.get_pos(), i, test)
 
-            pos_y -= 30  # Ajustement vertical pour chaque bouton
+        screen.fill(WHITE)
 
-current_player = "attacker"
-drawButtons(current_player)
+        #  test.apply_events()
+        test.draw(screen)
+        current_player.draw_button(screen, SCREEN_HEIGHT, SCREEN_WIDTH, BLACK)
 
-i = 0
-running = True
-
-while test.end_ini(current_player) and running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-            i = test.selected_button(pygame.mouse.get_pos(), i, current_player)
-            test.initialize_troops(pygame.mouse.get_pos(), i, current_player)
-
-    screen.fill(WHITE)
-
-    #  test.apply_events()
-    test.draw(screen)
-    drawButtons(current_player)
-
-    pygame.display.flip()
-
-current_player = "defender"
-
-while test.end_ini(current_player) and running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-            i = test.selected_button(pygame.mouse.get_pos(), i, current_player)
-            test.initialize_troops(pygame.mouse.get_pos(), i, current_player)
-
-    screen.fill(WHITE)
-
-    #  test.apply_events()
-    test.draw(screen)
-    drawButtons(current_player)
-
-    pygame.display.flip()
-
-# Boucle principale
+        pygame.display.flip()
 
 running = True
 
@@ -101,7 +62,7 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             test.attacker.make_move(pygame.mouse.get_pos(), test)
 
-    screen.fill(WHITE)
+    screen.fill(BLACK)
 
     #  test.apply_events()
     test.draw(screen)
