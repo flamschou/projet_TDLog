@@ -80,7 +80,8 @@ class Game:
                     print("troop placed")
                     self.troops_available[i][1] -= 1
                     print(self.troops_available[i][1])
-                    self.button_selected = False
+                    if self.troops_available[i][1] == 0:
+                        self.button_selected = False
                 elif hexagon.occupied:
                     print("this hexagon is already occupied")
                 else:
