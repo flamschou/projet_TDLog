@@ -1,4 +1,5 @@
 import pygame
+
 #  import board
 #  import pytest
 
@@ -8,6 +9,7 @@ class Troop:
         self.troop_type = troop_type
         self.hex = hex
         self.health = 0
+        self.attack_capacity = 0
         self.attack_power = 0
         self.status = "none"
         self.default_speed = 0
@@ -36,9 +38,11 @@ class Troop:
                     self.speed -= 2
             self.rect = pygame.Rect(self.hex.x - 10, self.hex.y - 10, 20, 20)
         else:
-            for troop in game.troops:
-                if troop.hex == destination_h:
-                    self.attack(troop, game.adrenalin)
+            for current_player in [game.attacker, game.defender]:
+                for troop in current_player.troops:
+                    if troop.hex == destination_h:
+                        if self.is_troop_allowed_to_strike(troop, game):
+                            self.attack(troop, game.adrenalin)
 
     def test_move(self, destination_h, adrenaline):
         self.move(self, destination_h, adrenaline)
@@ -48,10 +52,23 @@ class Troop:
         damage = self.attack_power * adrenaline
         target.health -= damage
         print("attacked " + target.troop_type + " for " + str(damage) + " damage")
+        self.attack_capacity -= 1
 
         if target.health <= 0:
             target.status = "dead"
             print(target.troop_type + " is dead")
+
+    def is_troop_allowed_to_strike(self, target, game):
+        if self.attack_capacity == 0:
+            print(self.troop_type + " has no attack power")
+            return False
+        else:
+            if game.board.distance(self.hex, target.hex) <= self.attack_range:
+                return True
+            else:
+                print(self.troop_type + " has not enough attack range")
+                print(game.board.distance(self.hex, target.hex), "is higher than",  self.attack_range)
+                return False
 
 
 class Assassin(Troop):
@@ -60,6 +77,7 @@ class Assassin(Troop):
         self.color = (255, 0, 0)
         self.health = 100
         self.attack_power = 20
+        self.attack_capacity = 1
         self.speed = 5
         self.default_speed = self.speed
         self.attack_range = 1
@@ -98,6 +116,7 @@ class Magician(Troop):
         super().__init__("magician", hex)
         self.health = 200
         self.attack_power = 50
+        self.attack_capacity = 1
         self.speed = 3
         self.default_speed = self.speed
         self.color = (255, 0, 0)
@@ -124,6 +143,7 @@ class Turret(Troop):
         super().__init__("turret", hex)
         self.health = 500
         self.attack_power = 100
+        self.attack_capacity = 1
         self.speed = 1
         self.default_speed = self.speed
         self.color = (255, 0, 0)
@@ -157,6 +177,7 @@ class Archer(Troop):
         super().__init__("archer", hex)
         self.health = 100
         self.attack_power = 20
+        self.attack_capacity = 1
         self.speed = 5
         self.default_speed = self.speed
         self.color = (0, 255, 0)
@@ -196,6 +217,7 @@ class Engineer(Troop):
         super().__init__("engineer", hex)
         self.health = 200
         self.attack_power = 50
+        self.attack_capacity = 1
         self.speed = 3
         self.default_speed = self.speed
         self.color = (0, 255, 0)
@@ -222,6 +244,7 @@ class Shield(Troop):
         super().__init__("shield", hex)
         self.health = 500
         self.attack_power = 100
+        self.attack_capacity = 1
         self.speed = 1
         self.default_speed = self.speed
         self.color = (0, 255, 0)

@@ -46,6 +46,16 @@ class Board:
         else:
             return False
 
+    def distance(self, hexagon, hexagon1):
+        d = -1
+        for i in range(20):
+            if self.isdistance(hexagon, hexagon1, i):
+                d = i
+        if d == -1:
+            print("problem with distance computing")
+        else:
+            return d
+
     def isdistance(self, hexagon, hexagon1, k):
         if k == 0:
             return hexagon == hexagon1
