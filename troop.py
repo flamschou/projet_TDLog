@@ -22,25 +22,28 @@ class Troop:
     def move(self, destination_h, game):
         if not destination_h.occupied:
             self.speed = self.speed * game.adrenalin
-            if self.speed == 0:
-                print("no speed left ; you can't move anymore")
 
-            elif game.board.neighbors(self.hex, destination_h) and destination_h.accessible:
-                print("moving")
+            if game.board.neighbors(self.hex, destination_h) and destination_h.accessible:
 
-                if self.speed > 0 and self.hex.hex_type != "swamp":
-                    self.hex.occupied = False
-                    self.hex = destination_h
-                    self.hex.occupied = True
-                    self.speed -= 1
-                    print("moved to " + str(destination_h.index) + " hexagon")
-                    print("speed left: " + str(self.speed))
+                if self.speed == 0:
+                    print("no speed left ; you can't move anymore")
 
-                if self.speed > 1 and self.hex.hex_type == "swamp":
-                    self.hex.occupied = False
-                    self.hex = destination_h
-                    self.hex.occupied = True
-                    self.speed -= 2
+                else:
+                    print("moving")
+
+                    if self.speed > 0 and self.hex.hex_type != "swamp":
+                        self.hex.occupied = False
+                        self.hex = destination_h
+                        self.hex.occupied = True
+                        self.speed -= 1
+                        print("moved to " + str(destination_h.index) + " hexagon")
+                        print("speed left: " + str(self.speed))
+
+                    if self.speed > 1 and self.hex.hex_type == "swamp":
+                        self.hex.occupied = False
+                        self.hex = destination_h
+                        self.hex.occupied = True
+                        self.speed -= 2
             self.rect = pygame.Rect(self.hex.x - 10, self.hex.y - 10, 20, 20)
         else:
             for current_player in [game.attacker, game.defender]:
