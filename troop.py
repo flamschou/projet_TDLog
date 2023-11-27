@@ -1,8 +1,5 @@
 import pygame
 
-#  import board
-#  import pytest
-
 
 class Troop:
     def __init__(self, troop_type, hex):
@@ -80,15 +77,14 @@ class Troop:
     def draw(self, screen):
         troop_center_x = self.hex.x
         troop_center_y = self.hex.y
-        #  troop_radius = 15
-
         image_rect = self.image.get_rect(center=(troop_center_x, troop_center_y))
         screen.blit(self.image, image_rect)
 
     def info(self, screen):
-        font = pygame.font.Font(None, 35)
-        health_text = font.render(str(self.health), True, (0, 0, 0))
-        text_rect = health_text.get_rect(center=(60, 30))
+        font = pygame.font.Font(None, 25)
+        text = "Health = "+str(self.health)
+        health_text = font.render(text, True, (0, 0, 0))
+        text_rect = health_text.get_rect(center=(90, 30))
         screen.blit(health_text, text_rect)
 
     def isHovered(self, mousePos):
