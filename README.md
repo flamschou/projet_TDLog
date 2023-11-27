@@ -37,7 +37,7 @@ Board : Le plateau est composé d'hexagones de plusieurs types
 
 Troops : il existe plusieurs types de troupes
 - Attaque (rouge) : 
-    - assassin : rapide et léger : représenté par un triangle
+    - assassin : rapide et léger : représenté par un 
     - magician : capacités spéciales : représenté par un disque
     - turret : défensif et lent : représenté par un rectangle
 - Défense (bleu) : 
