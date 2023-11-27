@@ -3,6 +3,11 @@ Projet long de TDLog. Corentin Caris, Wandrille Flamant, Abel Salmona.
 
 Jeu de plateau avec des cases hexagonales qui voit s'affronter un attaquant et un défenseur. Le défenseur doit résister jusqu'à ce que la durée du jeu expire. L'attaquant doit éliminer ou chasser le défenseur avant la fin du jeu. Le logiciel permet de jouer contre l'autre joueur (IA ou humain) et affiche le plateau, la liste d'actions et des informations supplémentaires. Il ne fonctionne que par point & click. 
 
+Rôles : 
+- Clean le code et implémenter les tests
+- Faire un affichage plus complet
+- Implémenter un bot (IA + Glouton)
+
 Initialisation : 
 - le défenseur clique sur l'hexagone qu'il veut défendre (hors de la périphérie du plateau)
 - l'attaquant place ses 3 troupes en périphérie du plateau
