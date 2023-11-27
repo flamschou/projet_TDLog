@@ -32,9 +32,7 @@ class Player:
             ):
                 for troop in self.troops:
                     if troop.selected and troop.hex != hexagon and hexagon.accessible:
-                        troop.hex.occupied = False
                         troop.move(hexagon, game)
-                        hexagon.occupied = True
                         troop.selected = False
 
     def make_attack(self, clicked, game):
