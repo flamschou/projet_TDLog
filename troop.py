@@ -29,12 +29,17 @@ class Troop:
                 print("moving")
 
                 if self.speed > 0 and self.hex.hex_type != "swamp":
+                    self.hex.occupied = False
                     self.hex = destination_h
+                    self.hex.occupied = True
                     self.speed -= 1
                     print("moved to " + str(destination_h.index) + " hexagon")
                     print("speed left: " + str(self.speed))
 
                 if self.speed > 1 and self.hex.hex_type == "swamp":
+                    self.hex.occupied = False
+                    self.hex = destination_h
+                    self.hex.occupied = True
                     self.speed -= 2
             self.rect = pygame.Rect(self.hex.x - 10, self.hex.y - 10, 20, 20)
         else:
