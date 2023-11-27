@@ -63,11 +63,10 @@ class Troop:
             print(self.troop_type + " has no attack power")
             return False
         else:
-            if game.board.distance(self.hex, target.hex) <= self.attack_range:
+            if game.board.isdistance(self.hex, target.hex, self.attack_range):
                 return True
             else:
                 print(self.troop_type + " has not enough attack range")
-                print(game.board.distance(self.hex, target.hex), "is higher than",  self.attack_range)
                 return False
 
 
