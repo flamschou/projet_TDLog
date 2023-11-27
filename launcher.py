@@ -57,6 +57,7 @@ for current_player in [test.attacker, test.defender]:
 running = True
 players = [test.attacker, test.defender]
 i = 0
+test.apply_events
 current_player = players[i]
 
 while running:
@@ -66,6 +67,8 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             if utils.end_tour(pygame.mouse.get_pos(), SCREEN_WIDTH, SCREEN_HEIGHT):
                 i += 1
+                if i % 2 == 0:
+                    test.apply_events
                 current_player.regenerate_speed()
                 current_player = players[i % 2]
             current_player.make_move(pygame.mouse.get_pos(), test)
