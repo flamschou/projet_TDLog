@@ -53,7 +53,7 @@ class Adrenalin(Event):
         super().__init__("adrenalin")
 
     def apply_effect(self, game):
-        game.adrenaline = 2
+        game.adrenalin = 2
 
 
 class Expansion(Event):
