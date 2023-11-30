@@ -1,8 +1,5 @@
 import pygame
 
-#  import board
-#  import pytest
-
 
 class Troop:
     def __init__(self, troop_type, hex):
@@ -22,25 +19,28 @@ class Troop:
     def move(self, destination_h, game):
         if not destination_h.occupied:
             self.speed = self.speed * game.adrenalin
-            if self.speed == 0:
-                print("no speed left ; you can't move anymore")
 
-            elif game.board.neighbors(self.hex, destination_h) and destination_h.accessible:
-                print("moving")
+            if game.board.neighbors(self.hex, destination_h) and destination_h.accessible:
 
-                if self.speed > 0 and self.hex.hex_type != "swamp":
-                    self.hex.occupied = False
-                    self.hex = destination_h
-                    self.hex.occupied = True
-                    self.speed -= 1
-                    print("moved to " + str(destination_h.index) + " hexagon")
-                    print("speed left: " + str(self.speed))
+                if self.speed == 0:
+                    print("no speed left ; you can't move anymore")
 
-                if self.speed > 1 and self.hex.hex_type == "swamp":
-                    self.hex.occupied = False
-                    self.hex = destination_h
-                    self.hex.occupied = True
-                    self.speed -= 2
+                else:
+                    print("moving")
+
+                    if self.speed > 0 and self.hex.hex_type != "swamp":
+                        self.hex.occupied = False
+                        self.hex = destination_h
+                        self.hex.occupied = True
+                        self.speed -= 1
+                        print("moved to " + str(destination_h.index) + " hexagon")
+                        print("speed left: " + str(self.speed))
+
+                    if self.speed > 1 and self.hex.hex_type == "swamp":
+                        self.hex.occupied = False
+                        self.hex = destination_h
+                        self.hex.occupied = True
+                        self.speed -= 2
             self.rect = pygame.Rect(self.hex.x - 10, self.hex.y - 10, 20, 20)
         else:
             for current_player in [game.attacker, game.defender]:
@@ -74,6 +74,24 @@ class Troop:
                 print(self.troop_type + " has not enough attack range")
                 return False
 
+    def draw(self, screen):
+        troop_center_x = self.hex.x
+        troop_center_y = self.hex.y
+        image_rect = self.image.get_rect(center=(troop_center_x, troop_center_y))
+        if self.selected:
+            screen.blit(self.imageSelected, image_rect)
+        screen.blit(self.image, image_rect)
+
+    def info(self, screen):
+        font = pygame.font.Font(None, 25)
+        text = "Health = "+str(self.health)
+        health_text = font.render(text, True, (0, 0, 0))
+        text_rect = health_text.get_rect(center=(90, 30))
+        screen.blit(health_text, text_rect)
+
+    def isHovered(self, mousePos):
+        return self.rect.collidepoint(mousePos)
+
 
 class Assassin(Troop):
     def __init__(self, hex):
@@ -86,33 +104,10 @@ class Assassin(Troop):
         self.default_speed = self.speed
         self.attack_range = 1
         self.player = "attacker"
-
-    def draw(self, screen):
-        troop_center_x = self.hex.x
-        troop_center_y = self.hex.y
-        troop_radius = 15
-        troop_point_1_x = troop_center_x
-        troop_point_1_y = troop_center_y + troop_radius
-        troop_point_2_x = troop_center_x - 3**0.5 * troop_radius / 2
-        troop_point_2_y = troop_center_y - troop_radius / 2
-        troop_point_3_x = troop_center_x + 3**0.5 * troop_radius / 2
-        troop_point_3_y = troop_center_y - troop_radius / 2
-
-        pygame.draw.polygon(
-            screen,
-            self.color,
-            [
-                (troop_point_1_x, troop_point_1_y),
-                (troop_point_2_x, troop_point_2_y),
-                (troop_point_3_x, troop_point_3_y),
-            ],
-        )
-
-        #  draw health
-        font = pygame.font.Font(None, 24)
-        health_text = font.render(str(self.health), True, (255, 255, 255))
-        text_rect = health_text.get_rect(center=(troop_center_x, troop_center_y))
-        screen.blit(health_text, text_rect)
+        self.image = pygame.image.load("Images\\assassin.png")
+        self.image = pygame.transform.scale(self.image, (30, 30))
+        self.imageSelected = pygame.image.load("Images\\assassinSelected.png")
+        self.imageSelected = pygame.transform.scale(self.imageSelected, (30, 30))
 
 
 class Magician(Troop):
@@ -126,20 +121,10 @@ class Magician(Troop):
         self.color = (255, 0, 0)
         self.attack_range = 2
         self.player = "attacker"
-
-    def draw(self, screen):
-        troop_center_x = self.hex.x
-        troop_center_y = self.hex.y
-        troop_radius = 15
-        pygame.draw.circle(
-            screen, self.color, (troop_center_x, troop_center_y), troop_radius
-        )
-
-        #  draw health
-        font = pygame.font.Font(None, 24)
-        health_text = font.render(str(self.health), True, (255, 255, 255))
-        text_rect = health_text.get_rect(center=(troop_center_x, troop_center_y))
-        screen.blit(health_text, text_rect)
+        self.image = pygame.image.load("Images\\magician.png")
+        self.image = pygame.transform.scale(self.image, (30, 30))
+        self.imageSelected = pygame.image.load("Images\\magicianSelected.png")
+        self.imageSelected = pygame.transform.scale(self.imageSelected, (30, 30))
 
 
 class Turret(Troop):
@@ -153,27 +138,10 @@ class Turret(Troop):
         self.color = (255, 0, 0)
         self.attack_range = 3
         self.player = "attacker"
-
-    def draw(self, screen):
-        troop_center_x = self.hex.x
-        troop_center_y = self.hex.y
-        troop_radius = 15
-        pygame.draw.rect(
-            screen,
-            self.color,
-            (
-                troop_center_x - troop_radius,
-                troop_center_y - troop_radius,
-                2 * troop_radius,
-                2 * troop_radius,
-            ),
-        )
-
-        #  draw health
-        font = pygame.font.Font(None, 24)
-        health_text = font.render(str(self.health), True, (255, 255, 255))
-        text_rect = health_text.get_rect(center=(troop_center_x, troop_center_y))
-        screen.blit(health_text, text_rect)
+        self.image = pygame.image.load("Images\\turret.png")
+        self.image = pygame.transform.scale(self.image, (30, 30))
+        self.imageSelected = pygame.image.load("Images\\turretSelected.png")
+        self.imageSelected = pygame.transform.scale(self.imageSelected, (30, 30))
 
 
 class Archer(Troop):
@@ -187,33 +155,10 @@ class Archer(Troop):
         self.color = (0, 255, 0)
         self.attack_range = 2
         self.player = "defender"
-
-    def draw(self, screen):
-        troop_center_x = self.hex.x
-        troop_center_y = self.hex.y
-        troop_radius = 15
-        troop_point_1_x = troop_center_x
-        troop_point_1_y = troop_center_y + troop_radius
-        troop_point_2_x = troop_center_x - 3**0.5 * troop_radius / 2
-        troop_point_2_y = troop_center_y - troop_radius / 2
-        troop_point_3_x = troop_center_x + 3**0.5 * troop_radius / 2
-        troop_point_3_y = troop_center_y - troop_radius / 2
-
-        pygame.draw.polygon(
-            screen,
-            self.color,
-            [
-                (troop_point_1_x, troop_point_1_y),
-                (troop_point_2_x, troop_point_2_y),
-                (troop_point_3_x, troop_point_3_y),
-            ],
-        )
-
-        #  draw health
-        font = pygame.font.Font(None, 24)
-        health_text = font.render(str(self.health), True, (255, 255, 255))
-        text_rect = health_text.get_rect(center=(troop_center_x, troop_center_y))
-        screen.blit(health_text, text_rect)
+        self.image = pygame.image.load("Images\\archer.png")
+        self.image = pygame.transform.scale(self.image, (30, 30))
+        self.imageSelected = pygame.image.load("Images\\archerSelected.png")
+        self.imageSelected = pygame.transform.scale(self.imageSelected, (30, 30))
 
 
 class Engineer(Troop):
@@ -227,20 +172,10 @@ class Engineer(Troop):
         self.color = (0, 255, 0)
         self.attack_range = 1
         self.player = "defender"
-
-    def draw(self, screen):
-        troop_center_x = self.hex.x
-        troop_center_y = self.hex.y
-        troop_radius = 15
-        pygame.draw.circle(
-            screen, self.color, (troop_center_x, troop_center_y), troop_radius
-        )
-
-        #  draw health
-        font = pygame.font.Font(None, 24)
-        health_text = font.render(str(self.health), True, (255, 255, 255))
-        text_rect = health_text.get_rect(center=(troop_center_x, troop_center_y))
-        screen.blit(health_text, text_rect)
+        self.image = pygame.image.load("Images\\engineer.png")
+        self.image = pygame.transform.scale(self.image, (30, 30))
+        self.imageSelected = pygame.image.load("Images\\engineerSelected.png")
+        self.imageSelected = pygame.transform.scale(self.imageSelected, (30, 30))
 
 
 class Shield(Troop):
@@ -254,24 +189,7 @@ class Shield(Troop):
         self.color = (0, 255, 0)
         self.attack_range = 1
         self.player = "defender"
-
-    def draw(self, screen):
-        troop_center_x = self.hex.x
-        troop_center_y = self.hex.y
-        troop_radius = 15
-        pygame.draw.rect(
-            screen,
-            self.color,
-            (
-                troop_center_x - troop_radius,
-                troop_center_y - troop_radius,
-                2 * troop_radius,
-                2 * troop_radius,
-            ),
-        )
-
-        #  draw health
-        font = pygame.font.Font(None, 24)
-        health_text = font.render(str(self.health), True, (255, 255, 255))
-        text_rect = health_text.get_rect(center=(troop_center_x, troop_center_y))
-        screen.blit(health_text, text_rect)
+        self.image = pygame.image.load("Images\\shield.png")
+        self.image = pygame.transform.scale(self.image, (30, 30))
+        self.imageSelected = pygame.image.load("Images\\shieldSelected.png")
+        self.imageSelected = pygame.transform.scale(self.imageSelected, (30, 30))
