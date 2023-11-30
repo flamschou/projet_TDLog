@@ -5,8 +5,6 @@ Jeu de plateau avec des cases hexagonales qui voit s'affronter un attaquant et u
 
 Fonctionnalités à ajouter/débugger : 
 - implémenter un test début-fin
-- avoir un event à chaque tour
-- mouvement sur les hexagones occupés
 - attaque sur les troupes amies
 - choix de l'hexagone à défendre
 - détruire les joueurs morts
