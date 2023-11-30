@@ -34,7 +34,7 @@ test.draw(screen)
 
 # Dessiner les boutons
 
-for current_player in [test.attacker, test.defender]:
+for current_player in [test.defender, test.attacker]:
     i = 0
     running = True
 
@@ -54,7 +54,7 @@ for current_player in [test.attacker, test.defender]:
         pygame.display.flip()
 
 running = True
-players = [test.attacker, test.defender]
+players = [test.defender, test.attacker]
 i = 0
 current_player = players[i]
 

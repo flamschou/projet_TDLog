@@ -46,16 +46,6 @@ class Board:
         else:
             return False
 
-    """def distance(self, hexagon, hexagon1):
-        d = -1
-        for i in range(20):
-            if self.isdistance(hexagon, hexagon1, i):
-                d = i
-        if d == -1:
-            print("problem with distance computing")
-        else:
-            return d"""
-
     def isdistance(self, hexagon, hexagon1, k):
         if k == 0:
             return hexagon == hexagon1
@@ -63,4 +53,23 @@ class Board:
             for hexagon2 in self.list_neighbors(hexagon1):
                 if self.isdistance(hexagon, hexagon2, k - 1):
                     return True
+            return False
+
+    def larger_list_neighbors(self, hexagon1):
+        neighbors = []
+
+        for hexagon in self.list:
+            if (
+                abs(hexagon.x - hexagon1.x) < 200
+                and abs(hexagon.y - hexagon1.y) < 200
+                and hexagon != hexagon1
+            ):
+                neighbors.append(hexagon)
+
+        return neighbors
+
+    def larger_neighbors(self, hexagon, hexagon1):
+        if hexagon in self.larger_list_neighbors(hexagon1):
+            return True
+        else:
             return False

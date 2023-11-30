@@ -72,39 +72,48 @@ class Player:
         clicked_pos = clicked
         print("clicked at", clicked_pos)
 
-        for hexagon in game.board.list:
-            if hexagon.rect.collidepoint(clicked_pos) and self.button_selected:
-                if not hexagon.occupied and hexagon.accessible:
-                    hexagon.occupied = True
-                    if self.troops_available[i][0] == "assassin":
-                        troop = Assassin(hexagon)
+        if self.name == "Defender" and not self.placed:
+            for hexagon in game.board.list:
+                if hexagon.rect.collidepoint(clicked_pos):
+                    if not hexagon.occupied:
+                        hexagon.toDefended()
+                        print("hexagon defended")
+                        self.placed = True
 
-                    elif self.troops_available[i][0] == "magician":
-                        troop = Magician(hexagon)
+        else:
+            for hexagon in game.board.list:
+                if hexagon.rect.collidepoint(clicked_pos) and self.button_selected:
+                    if not hexagon.occupied and hexagon.accessible:
+                        hexagon.occupied = True
+                        if self.troops_available[i][0] == "assassin":
+                            troop = Assassin(hexagon)
 
-                    elif self.troops_available[i][0] == "turret":
-                        troop = Turret(hexagon)
+                        elif self.troops_available[i][0] == "magician":
+                            troop = Magician(hexagon)
 
-                    elif self.troops_available[i][0] == "archer":
-                        troop = Archer(hexagon)
+                        elif self.troops_available[i][0] == "turret":
+                            troop = Turret(hexagon)
 
-                    elif self.troops_available[i][0] == "engineer":
-                        troop = Engineer(hexagon)
+                        elif self.troops_available[i][0] == "archer":
+                            troop = Archer(hexagon)
 
-                    elif self.troops_available[i][0] == "shield":
-                        troop = Shield(hexagon)
+                        elif self.troops_available[i][0] == "engineer":
+                            troop = Engineer(hexagon)
 
-                    self.add_troop(troop)
-                    print("troop placed")
-                    self.troops_available[i][1] -= 1
-                    print(self.troops_available[i][1])
-                    if self.troops_available[i][1] == 0:
-                        self.button_selected = False
+                        elif self.troops_available[i][0] == "shield":
+                            troop = Shield(hexagon)
 
-                elif hexagon.occupied:
-                    print("this hexagon is already occupied")
-                else:
-                    print("this hexagon is not accessible")
+                        self.add_troop(troop)
+                        print("troop placed")
+                        self.troops_available[i][1] -= 1
+                        print(self.troops_available[i][1])
+                        if self.troops_available[i][1] == 0:
+                            self.button_selected = False
+
+                    elif hexagon.occupied:
+                        print("this hexagon is already occupied")
+                    else:
+                        print("this hexagon is not accessible")
 
     def draw_button(self, screen, height, width, col):
         pos_y = height - 150  # Position verticale initiale des boutons
@@ -142,6 +151,7 @@ class Attacker(Player):
 class Defender(Player):
     def __init__(self):
         super().__init__("Defender")
+        self.placed = False
         self.troops_available = [["archer", 2], ["engineer", 1], ["shield", 1]]
         for i in range(4):
             # creates the four dices of the attacker
