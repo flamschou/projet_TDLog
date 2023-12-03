@@ -56,7 +56,11 @@ class Game:
         neighbors = []
 
         for hexagon in self.board:
-            if abs(hexagon.x-hexagon1.x) < 80 and abs(hexagon.y-hexagon1.y) < 80 and hexagon != hexagon1:
+            if (
+                abs(hexagon.x - hexagon1.x) < 80
+                and abs(hexagon.y - hexagon1.y) < 80
+                and hexagon != hexagon1
+            ):
                 neighbors.append(hexagon)
 
         return neighbors
@@ -69,7 +73,9 @@ class Game:
 
     def create_deck(self):
         for i in range(54):
-            choice = random.choice(["rain", "fire", "rescue", "betrayal", "adrenalin", "expansion"])
+            choice = random.choice(
+                ["rain", "fire", "rescue", "betrayal", "adrenalin", "expansion"]
+            )
             if choice == "rain":
                 self.deck.append(Rain())
             if choice == "fire":

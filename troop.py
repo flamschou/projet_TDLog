@@ -23,8 +23,10 @@ class Troop:
         if not destination_h.occupied:
             self.speed = self.speed * game.adrenalin
 
-            if game.board.neighbors(self.hex, destination_h) and destination_h.accessible:
-
+            if (
+                game.board.neighbors(self.hex, destination_h)
+                and destination_h.accessible
+            ):
                 if self.speed == 0:
                     print("no speed left ; you can't move anymore")
 
@@ -86,7 +88,7 @@ class Troop:
 
     def info(self, screen):
         font = pygame.font.Font(None, 25)
-        text = "Health = "+str(self.health)
+        text = "Health = " + str(self.health)
         health_text = font.render(text, True, (0, 0, 0))
         text_rect = health_text.get_rect(center=(90, 30))
         screen.blit(health_text, text_rect)

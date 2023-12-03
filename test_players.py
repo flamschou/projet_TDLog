@@ -17,7 +17,11 @@ def test___init__Attacker():
     attacker = Attacker()
 
     assert attacker.name == "Attacker"
-    assert attacker.troops_available == [["assassin", 2], ["magician", 1], ["turret", 1]]
+    assert attacker.troops_available == [
+        ["assassin", 2],
+        ["magician", 1],
+        ["turret", 1],
+    ]
 
 
 def test___init__Defender():

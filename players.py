@@ -118,7 +118,9 @@ class Player:
         pos_y = height - 150  # Position verticale initiale des boutons
         i = 0
         for troop in self.troops_available:
-            utils.drawButton_troop(troop[0], screen, troop[1], width, pos_y, col, self.troops_available[i])
+            utils.drawButton_troop(
+                troop[0], screen, troop[1], width, pos_y, col, self.troops_available[i]
+            )
             i += 1
 
             pos_y -= 30  # Ajustement vertical pour chaque bouton
@@ -153,7 +155,11 @@ class Defender(Player):
     def __init__(self):
         super().__init__("Defender")
         self.placed = False
-        self.troops_available = [["archer", 2, None], ["engineer", 1, None], ["shield", 1, None]]
+        self.troops_available = [
+            ["archer", 2, None],
+            ["engineer", 1, None],
+            ["shield", 1, None],
+        ]
         # for i in range(4):
         #   creates the four dices of the attacker
         #   self.dices.append(

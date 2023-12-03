@@ -51,7 +51,6 @@ class AttackerBot(Bot):
         pass
 
     def initialize_troops(self, game):
-
         # placing the troops a bit far from the defended hexagon
         entiers = list(range(0, 79))
         entiers_aleatoires = random.shuffle(entiers)
@@ -61,9 +60,14 @@ class AttackerBot(Bot):
             j = 0
             while d == 0:
                 # flake8: noqa
-                if not game.board.list[entiers_aleatoires[i]].occupied and game.board.list[entiers_aleatoires[i]].accessible and game.board.list[entiers_aleatoires[i]] not in game.defender.defended_hexagon.larger_neighbors:
+                if (
+                    not game.board.list[entiers_aleatoires[i]].occupied
+                    and game.board.list[entiers_aleatoires[i]].accessible
+                    and game.board.list[entiers_aleatoires[i]]
+                    not in game.defender.defended_hexagon.larger_neighbors
+                ):
                     game.board.list[entiers_aleatoires[i]].occupied = True
-      
+
                     i += 1
                     d += 1
 
@@ -123,9 +127,18 @@ class DefenderBot(Bot):
             j = 0
             while d == 0 and i < 18:
                 # flake8: noqa
-                if not self.defended_hexagon.larger_neighbors[entiers_aleatoires[i]].occupied and self.defended_hexagon.larger_neighbors[entiers_aleatoires[i]].accessible:
-                    self.defended_hexagon.larger_list_neighbors[entiers_aleatoires[i]].occupied = True
-      
+                if (
+                    not self.defended_hexagon.larger_neighbors[
+                        entiers_aleatoires[i]
+                    ].occupied
+                    and self.defended_hexagon.larger_neighbors[
+                        entiers_aleatoires[i]
+                    ].accessible
+                ):
+                    self.defended_hexagon.larger_list_neighbors[
+                        entiers_aleatoires[i]
+                    ].occupied = True
+
                     i += 1
                     d += 1
 
@@ -145,4 +158,5 @@ class DefenderBot(Bot):
 
                 else:
                     i += 1
+
     # Les autres méthodes spécifiques au défenseur peuvent être ajoutées ici

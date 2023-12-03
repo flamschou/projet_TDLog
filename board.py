@@ -10,7 +10,18 @@ class Board:
         for row in range(num_rows):
             for col in range(num_cols):
                 hex_type = random.choice(
-                    ["basic", "basic", "basic", "basic", "basic", "sand", "forest", "forest", "rock", "forest"]
+                    [
+                        "basic",
+                        "basic",
+                        "basic",
+                        "basic",
+                        "basic",
+                        "sand",
+                        "forest",
+                        "forest",
+                        "rock",
+                        "forest",
+                    ]
                 )
                 x = col * 60 + (30 if row % 2 == 0 else 60) + 80
                 y = row * 52 + 100
