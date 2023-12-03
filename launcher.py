@@ -54,9 +54,8 @@ for current_player in [test.defender, test.attacker]:
         pygame.display.flip()
 
 running = True
-players = [test.defender, test.attacker]
+test.apply_events()
 i = 0
-current_player = players[i]
 
 while running:
     for event in pygame.event.get():
@@ -65,7 +64,7 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             if utils.end_tour(pygame.mouse.get_pos(), SCREEN_WIDTH, SCREEN_HEIGHT):
                 i += 1
-                current_player = players[i % 2]
+                test.change_player()
                 current_player.regenerate_speed()
                 if i % 2 == 0:
                     test.adrenalin = 1
@@ -75,10 +74,12 @@ while running:
 
     screen.fill(WHITE)
     mousePos = pygame.mouse.get_pos()
-    for player in players:
-        for troop in player.troops:
-            if troop.isHovered(mousePos):
-                troop.info(screen)
+    for troop in test.attacker.troops:
+        if troop.isHovered(mousePos):
+            troop.info(screen)
+    for troop in test.defender.troops:
+        if troop.isHovered(mousePos):
+            troop.info(screen)
     test.draw(screen)
     test.display_info(screen)
     utils.drawButton_end_tour(screen, SCREEN_WIDTH, SCREEN_HEIGHT, BLACK)

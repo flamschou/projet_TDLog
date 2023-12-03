@@ -14,7 +14,7 @@ class Player:
     def add_troop(self, troop):
         self.troops.append(troop)
 
-    def make_move(self, clicked, game, screen):
+    def make_move(self, clicked, game):
         clicked_pos = clicked
         print("clicked at", clicked_pos)
         for troop in self.troops:
