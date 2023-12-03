@@ -70,7 +70,7 @@ while running:
                     test.adrenalin = 1
                     test.apply_events()
                     test.time -= 1
-            current_player.make_move(pygame.mouse.get_pos(), test, screen)
+            current_player.make_move(pygame.mouse.get_pos(), test)
 
     screen.fill(WHITE)
     mousePos = pygame.mouse.get_pos()
