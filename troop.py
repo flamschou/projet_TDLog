@@ -55,15 +55,7 @@ class Troop:
                         if self.is_troop_allowed_to_strike(troop, game):
                             self.attack(troop, game.adrenalin, game)
 
-<<<<<<< HEAD
-    def attack(self, target, adrenaline):
-=======
-    def test_move(self, destination_h, adrenaline):
-        self.move(self, destination_h, adrenaline)
-        assert self.hex == destination_h
-
     def attack(self, target, adrenaline, game):
->>>>>>> 7aa9ea99b63e0d45e7fd9b5db3e47f473117edcf
         damage = self.attack_power * adrenaline
         target.health -= damage
         print("attacked " + target.troop_type + " for " + str(damage) + " damage")
