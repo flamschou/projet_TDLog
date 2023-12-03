@@ -84,7 +84,6 @@ class Player:
             for hexagon in game.board.list:
                 if hexagon.rect.collidepoint(clicked_pos) and self.button_selected:
                     if not hexagon.occupied and hexagon.accessible:
-                        hexagon.occupied = True
                         if self.troops_available[i][0] == "assassin":
                             troop = Assassin(hexagon)
 

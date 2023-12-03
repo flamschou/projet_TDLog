@@ -19,7 +19,6 @@ class Game:
         self.event_counter = 0
 
     def generate(self):
-        self.board = Board()
         self.board.generate_board(self.num_rows, self.num_cols)
         self.create_deck()
 
