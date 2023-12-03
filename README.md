@@ -5,8 +5,6 @@ Jeu de plateau avec des cases hexagonales qui voit s'affronter un attaquant et u
 
 Fonctionnalités à ajouter/débugger : 
 - implémenter un test début-fin
-- avoir un event à chaque tour
-- mouvement sur les hexagones occupés
 - attaque sur les troupes amies
 - choix de l'hexagone à défendre
 - détruire les joueurs morts
@@ -37,7 +35,7 @@ Board : Le plateau est composé d'hexagones de plusieurs types
 
 Troops : il existe plusieurs types de troupes
 - Attaque (rouge) : 
-    - assassin : rapide et léger : représenté par un triangle
+    - assassin : rapide et léger : représenté par un 
     - magician : capacités spéciales : représenté par un disque
     - turret : défensif et lent : représenté par un rectangle
 - Défense (bleu) : 
@@ -52,3 +50,5 @@ Events : à chaque tour se produit un évènement
 - betrayal : la durée de fin du jeu s'éloigne
 - adrenalin : les déplacements et dégats des troupes sont multipliés par 2
 - expansion : certains hexagones deviennent accessibles
+
+Objectif : créer ensuite un joueur virtuel qui va pouvoir jouer contre l'humain de manière éaquilibrée, qu'il soit au poste d'attaquant ou de défenseur. On va déjà créer un bot, puis l'obectif serait de l'entrainer avec l'IA pour que le jeu soit relativement équilibré et que le bot soit relativement fort au jeu. 

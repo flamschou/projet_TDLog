@@ -1,4 +1,5 @@
 import random
+import pygame
 from event import Rain, Fire, Rescue, Betrayal, Adrenalin, Expansion
 from board import Board
 from players import Attacker, Defender
@@ -13,7 +14,7 @@ class Game:
         self.defender = Defender()
         self.current_player = self.attacker
         self.deck = []
-        self.time = 20
+        self.time = 35
         self.adrenalin = 1
         self.event_counter = 0
 
@@ -33,6 +34,7 @@ class Game:
     def apply_events(self):
         self.deck[self.event_counter % 54].apply_effect(self)
         self.event_counter += 1
+        print(self.deck[self.event_counter % 54].event_type)
 
     def get_hexagon_at(self, x, y):
         for hexagon in self.board.list:
@@ -77,3 +79,10 @@ class Game:
         else:
             self.current_player = self.attacker
             self.apply_events()
+
+    def display_info(self, screen):
+        font = pygame.font.Font(None, 25)
+        text = "Time left: " + str(self.time) + ", Adrenalin : " + str(self.adrenalin)
+        info_text = font.render(text, True, (255, 0, 0))
+        text_rect = info_text.get_rect(center=(120, 550))
+        screen.blit(info_text, text_rect)

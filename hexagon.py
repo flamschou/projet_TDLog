@@ -56,11 +56,21 @@ class Hexagone:
         self.hex_type = "swamp"
         self.color = (139, 69, 19)  # dark brown
 
+    def toDefended(self):
+        self.hex_type = "defended"
+        self.color = (255, 20, 147)  # pink
+
 
 class Basic(Hexagone):
     def __init__(self, x, y):
         super().__init__("basic", x, y)
         self.color = (205, 133, 63)  # light brown
+
+
+class Defended(Hexagone):
+    def __init__(self, x, y):
+        super().__init__("Defended", x, y)
+        self.color = (255, 20, 147)  # pink
 
 
 class Swamp(Hexagone):

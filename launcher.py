@@ -34,7 +34,7 @@ test.draw(screen)
 
 # Dessiner les boutons
 
-for current_player in [test.attacker, test.defender]:
+for current_player in [test.defender, test.attacker]:
     i = 0
     running = True
 
@@ -47,15 +47,15 @@ for current_player in [test.attacker, test.defender]:
                 current_player.initialize_troops(pygame.mouse.get_pos(), i, test)
 
         screen.fill(WHITE)
-
-        #  test.apply_events()
         test.draw(screen)
+        test.display_info(screen)
         current_player.draw_button(screen, SCREEN_HEIGHT, SCREEN_WIDTH, BLACK)
 
         pygame.display.flip()
 
 running = True
 test.apply_events()
+i = 0
 
 while running:
     for event in pygame.event.get():
@@ -65,11 +65,23 @@ while running:
             if utils.end_tour(pygame.mouse.get_pos(), SCREEN_WIDTH, SCREEN_HEIGHT):
                 test.change_player()
             test.current_player.make_move(pygame.mouse.get_pos(), test)
+            i += 1
+            if i % 2 == 0:
+                test.adrenalin = 1
+                test.apply_events()
+                test.time -= 1
+            current_player.make_move(pygame.mouse.get_pos(), test)
 
     screen.fill(WHITE)
-
-    #  test.apply_events()
+    mousePos = pygame.mouse.get_pos()
+    for troop in test.attacker.troops:
+        if troop.isHovered(mousePos):
+            troop.info(screen)
+    for troop in test.defender.troops:
+        if troop.isHovered(mousePos):
+            troop.info(screen)
     test.draw(screen)
+    test.display_info(screen)
     utils.drawButton_end_tour(screen, SCREEN_WIDTH, SCREEN_HEIGHT, BLACK)
 
     pygame.display.flip()
