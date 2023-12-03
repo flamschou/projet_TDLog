@@ -66,6 +66,7 @@ while running:
             if utils.end_tour(pygame.mouse.get_pos(), SCREEN_WIDTH, SCREEN_HEIGHT):
                 i += 1
                 current_player = players[i % 2]
+                current_player.regenerate_speed()
                 if i % 2 == 0:
                     test.adrenalin = 1
                     test.apply_events()

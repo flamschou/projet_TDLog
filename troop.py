@@ -15,6 +15,8 @@ class Troop:
         self.attack_range = 0
         self.rect = pygame.Rect(self.hex.x - 10, self.hex.y - 10, 20, 20)
         self.selected = False
+        self.attack_image = pygame.image.load("Images\\explosion.png")
+        self.attack_image = pygame.transform.scale(self.attack_image, (60, 60))
 
     def move(self, destination_h, game):
         if not destination_h.occupied:
@@ -47,17 +49,19 @@ class Troop:
                 for troop in current_player.troops:
                     if troop.hex == destination_h:
                         if self.is_troop_allowed_to_strike(troop, game):
-                            self.attack(troop, game.adrenalin)
+                            self.attack(troop, game.adrenalin, game)
 
     def test_move(self, destination_h, adrenaline):
         self.move(self, destination_h, adrenaline)
         assert self.hex == destination_h
 
-    def attack(self, target, adrenaline):
+    def attack(self, target, adrenaline, game):
         damage = self.attack_power * adrenaline
         target.health -= damage
         print("attacked " + target.troop_type + " for " + str(damage) + " damage")
         self.attack_capacity -= 1
+        print("start attack animation")
+        game.attack = target
 
         if target.health <= 0:
             target.status = "dead"
@@ -75,9 +79,7 @@ class Troop:
                 return False
 
     def draw(self, screen):
-        troop_center_x = self.hex.x
-        troop_center_y = self.hex.y
-        image_rect = self.image.get_rect(center=(troop_center_x, troop_center_y))
+        image_rect = self.image.get_rect(center=(self.hex.x, self.hex.y))
         if self.selected:
             screen.blit(self.imageSelected, image_rect)
         screen.blit(self.image, image_rect)
@@ -102,6 +104,8 @@ class Assassin(Troop):
         self.attack_capacity = 1
         self.speed = 5
         self.default_speed = self.speed
+        self.default_attack_power = self.attack_power
+        self.default_attack_capacity = self.attack_capacity
         self.attack_range = 1
         self.player = "attacker"
         self.image = pygame.image.load("Images\\assassin.png")
@@ -118,6 +122,8 @@ class Magician(Troop):
         self.attack_capacity = 1
         self.speed = 3
         self.default_speed = self.speed
+        self.default_attack_power = self.attack_power
+        self.default_attack_capacity = self.attack_capacity
         self.color = (255, 0, 0)
         self.attack_range = 2
         self.player = "attacker"
@@ -135,6 +141,8 @@ class Turret(Troop):
         self.attack_capacity = 1
         self.speed = 1
         self.default_speed = self.speed
+        self.default_attack_power = self.attack_power
+        self.default_attack_capacity = self.attack_capacity
         self.color = (255, 0, 0)
         self.attack_range = 3
         self.player = "attacker"
@@ -152,6 +160,8 @@ class Archer(Troop):
         self.attack_capacity = 1
         self.speed = 5
         self.default_speed = self.speed
+        self.default_attack_power = self.attack_power
+        self.default_attack_capacity = self.attack_capacity
         self.color = (0, 255, 0)
         self.attack_range = 2
         self.player = "defender"
@@ -169,6 +179,8 @@ class Engineer(Troop):
         self.attack_capacity = 1
         self.speed = 3
         self.default_speed = self.speed
+        self.default_attack_power = self.attack_power
+        self.default_attack_capacity = self.attack_capacity
         self.color = (0, 255, 0)
         self.attack_range = 1
         self.player = "defender"
@@ -186,6 +198,8 @@ class Shield(Troop):
         self.attack_capacity = 1
         self.speed = 1
         self.default_speed = self.speed
+        self.default_attack_power = self.attack_power
+        self.default_attack_capacity = self.attack_capacity
         self.color = (0, 255, 0)
         self.attack_range = 1
         self.player = "defender"
