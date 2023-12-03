@@ -1,8 +1,8 @@
-from hexagon import Hexagone
+from hexagon import Hexagone, Rock
 
 
 def test___init__():
-    hexagon = Hexagone("rock", 10, 15)
+    hexagon = Rock("rock", 10, 15)
     assert hexagon.hex_type == "rock"
     assert hexagon.x == 10
     assert hexagon.y == 15

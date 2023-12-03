@@ -5,6 +5,7 @@ class Troop:
     def __init__(self, troop_type, hex):
         self.troop_type = troop_type
         self.hex = hex
+        self.hex.occupied = True
         self.health = 0
         self.attack_capacity = 0
         self.attack_power = 0
@@ -25,24 +26,25 @@ class Troop:
                 if self.speed == 0:
                     print("no speed left ; you can't move anymore")
 
+                elif self.speed == 1 and self.hex.hex_type == "swamp":
+                    print("this is a swamp ; you don't have enough speed to move")
+
                 else:
                     print("moving")
 
-                    if self.speed > 0 and self.hex.hex_type != "swamp":
-                        self.hex.occupied = False
-                        self.hex = destination_h
-                        self.hex.occupied = True
-                        self.speed -= 1
-                        print("moved to " + str(destination_h.index) + " hexagon")
-                        print("speed left: " + str(self.speed))
+                    self.hex.occupied = False
+                    self.hex = destination_h
+                    self.hex.occupied = True
 
-                    if self.speed > 1 and self.hex.hex_type == "swamp":
-                        self.hex.occupied = False
-                        self.hex = destination_h
-                        self.hex.occupied = True
+                    if self.hex.hex_type != "swamp":
+                        self.speed -= 1
+
+                    else:
                         self.speed -= 2
-                        print("moved to " + str(destination_h.index) + " hexagon")
-                        print("speed left: " + str(self.speed))
+
+                    print("moved to " + str(destination_h.index) + " hexagon")
+                    print("speed left: " + str(self.speed))
+
             self.rect = pygame.Rect(self.hex.x - 10, self.hex.y - 10, 20, 20)
         else:
             for current_player in [game.attacker, game.defender]:
@@ -50,10 +52,6 @@ class Troop:
                     if troop.hex == destination_h:
                         if self.is_troop_allowed_to_strike(troop, game):
                             self.attack(troop, game.adrenalin)
-
-    def test_move(self, destination_h, adrenaline):
-        self.move(self, destination_h, adrenaline)
-        assert self.hex == destination_h
 
     def attack(self, target, adrenaline):
         damage = self.attack_power * adrenaline
