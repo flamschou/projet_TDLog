@@ -55,10 +55,7 @@ for current_player in [test.attacker, test.defender]:
         pygame.display.flip()
 
 running = True
-players = [test.attacker, test.defender]
-i = 0
 test.apply_events()
-current_player = players[i]
 
 while running:
     for event in pygame.event.get():
@@ -66,11 +63,8 @@ while running:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             if utils.end_tour(pygame.mouse.get_pos(), SCREEN_WIDTH, SCREEN_HEIGHT):
-                i += 1
-                current_player = players[i % 2]
-                if i % 2 == 0:
-                    test.apply_events()
-            current_player.make_move(pygame.mouse.get_pos(), test)
+                test.change_player()
+            test.current_player.make_move(pygame.mouse.get_pos(), test)
 
     screen.fill(WHITE)
 

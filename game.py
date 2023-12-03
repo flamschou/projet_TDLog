@@ -11,6 +11,7 @@ class Game:
         self.board = Board()
         self.attacker = Attacker()
         self.defender = Defender()
+        self.current_player = self.attacker
         self.deck = []
         self.time = 20
         self.adrenalin = 1
@@ -69,3 +70,10 @@ class Game:
                 self.deck.append(Adrenalin())
             if choice == "expansion":
                 self.deck.append(Expansion())
+
+    def change_player(self):
+        if self.current_player == self.attacker:
+            self.current_player = self.defender
+        else:
+            self.current_player = self.attacker
+            self.apply_events()

@@ -44,6 +44,8 @@ class Troop:
                         self.hex = destination_h
                         self.hex.occupied = True
                         self.speed -= 2
+                        print("moved to " + str(destination_h.index) + " hexagon")
+                        print("speed left: " + str(self.speed))
             self.rect = pygame.Rect(self.hex.x - 10, self.hex.y - 10, 20, 20)
         else:
             for current_player in [game.attacker, game.defender]:
