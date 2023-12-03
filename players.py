@@ -1,4 +1,4 @@
-from dice import Dice
+# from dice import Dice
 from troop import Assassin, Magician, Turret, Engineer, Archer, Shield
 import utils
 
@@ -153,9 +153,9 @@ class Defender(Player):
     def __init__(self):
         super().__init__("Defender")
         self.placed = False
-        self.troops_available = [["archer", 2], ["engineer", 1], ["shield", 1]]
-        for i in range(4):
-            # creates the four dices of the attacker
-            self.dices.append(
-                Dice("magician", "assassin", "turret", "stepback", "missed")
-            )
+        self.troops_available = [["archer", 2, None], ["engineer", 1, None], ["shield", 1, None]]
+        # for i in range(4):
+        #   creates the four dices of the attacker
+        #   self.dices.append(
+        #       Dice("magician", "assassin", "turret", "stepback", "missed")
+        #   )

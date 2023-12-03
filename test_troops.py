@@ -157,6 +157,8 @@ def test___init__Shield():
 def test_move():
     game = Game(2, 2)
     game.generate()
+    game.board.list[0].accessible = True
+    game.board.list[1].accessible = True
     hex1 = game.board.list[0]
     hex2 = game.board.list[1]
     troop = Troop("None", hex1)
@@ -209,6 +211,8 @@ def test_attack():
     game.generate()
     hex1 = game.board.list[0]
     hex2 = game.board.list[1]
+    game.board.list[0].accessible = True
+    game.board.list[1].accessible = True
     troop1 = Archer(hex1)
     troop2 = Assassin(hex2)
     troop1.attack(troop2, 1)
