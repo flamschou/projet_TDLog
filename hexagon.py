@@ -13,79 +13,56 @@ class Hexagone:
         self.rect = pygame.Rect(self.x - 20, self.y - 20, 40, 40)
 
     def draw(self, screen):
-        hex_center_x = self.x
-        hex_center_y = self.y
-        hex_radius = 30
         if self.accessible:
-            pygame.draw.polygon(
-                screen,
-                self.color,
-                [
-                    (hex_center_x, hex_center_y - hex_radius),
-                    (
-                        hex_center_x + int(hex_radius * 0.866),
-                        hex_center_y - int(hex_radius / 2),
-                    ),
-                    (
-                        hex_center_x + int(hex_radius * 0.866),
-                        hex_center_y + int(hex_radius / 2),
-                    ),
-                    (hex_center_x, hex_center_y + hex_radius),
-                    (
-                        hex_center_x - int(hex_radius * 0.866),
-                        hex_center_y + int(hex_radius / 2),
-                    ),
-                    (
-                        hex_center_x - int(hex_radius * 0.866),
-                        hex_center_y - int(hex_radius / 2),
-                    ),
-                ],
-            )
-        font = pygame.font.Font(None, 20)
-        text = font.render(str(self.index), True, (0, 0, 0))
-        text_rect = text.get_rect(
-            center=[hex_center_x, hex_center_y + hex_radius * 0.6]
-        )
-        screen.blit(text, text_rect)
+            image_rect = self.image.get_rect(center=(self.x, self.y))
+            screen.blit(self.image, image_rect)
 
     def toBasic(self):
         self.hex_type = "basic"
-        self.color = (205, 133, 63)  # light brown
+        self.image = pygame.image.load("Images\\hexagon basic.png")
+        self.image = pygame.transform.scale(self.image, (60, 60))
 
-    def toSwamp(self):
-        self.hex_type = "swamp"
-        self.color = (139, 69, 19)  # dark brown
+    def toSand(self):
+        self.hex_type = "sand"
+        self.image = pygame.image.load("Images\\hexagon sand.png")
+        self.image = pygame.transform.scale(self.image, (60, 60))
 
     def toDefended(self):
         self.hex_type = "defended"
-        self.color = (255, 20, 147)  # pink
+        self.image = pygame.image.load("Images\\hexagon defended.png")
+        self.image = pygame.transform.scale(self.image, (60, 60))
 
 
 class Basic(Hexagone):
     def __init__(self, x, y):
         super().__init__("basic", x, y)
-        self.color = (205, 133, 63)  # light brown
+        self.image = pygame.image.load("Images\\hexagon basic.png")
+        self.image = pygame.transform.scale(self.image, (60, 60))
 
 
 class Defended(Hexagone):
     def __init__(self, x, y):
         super().__init__("Defended", x, y)
-        self.color = (255, 20, 147)  # pink
+        self.image = pygame.image.load("Images\\hexagon defended.png")
+        self.image = pygame.transform.scale(self.image, (60, 60))
 
 
-class Swamp(Hexagone):
+class Sand(Hexagone):
     def __init__(self, x, y):
-        super().__init__("swamp", x, y)
-        self.color = (139, 69, 19)  # dark brown
+        super().__init__("sand", x, y)
+        self.image = pygame.image.load("Images\\hexagon sand.png")
+        self.image = pygame.transform.scale(self.image, (60, 60))
 
 
 class Forest(Hexagone):
     def __init__(self, x, y):
         super().__init__("forest", x, y)
-        self.color = (0, 100, 0)  # dark green
+        self.image = pygame.image.load("Images\\hexagon forest.png")
+        self.image = pygame.transform.scale(self.image, (60, 60))
 
 
 class Rock(Hexagone):
     def __init__(self, x, y):
         super().__init__("rock", x, y)
-        self.color = (128, 128, 128)  # grey
+        self.image = pygame.image.load("Images\\hexagon rock.png")
+        self.image = pygame.transform.scale(self.image, (60, 60))

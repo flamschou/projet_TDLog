@@ -17,6 +17,7 @@ class Game:
         self.time = 35
         self.adrenalin = 1
         self.event_counter = 0
+        self.attack = None
 
     def generate(self):
         self.board.generate_board(self.num_rows, self.num_cols)
@@ -29,6 +30,16 @@ class Game:
             troop.draw(screen)
         for troop in self.defender.troops:
             troop.draw(screen)
+        if self.attack is not None:
+            hex = self.attack.hex
+            image = self.attack.attack_image
+            image_rect = image.get_rect(center=(hex.x, hex.y))
+            print("drawing attack")
+            screen.blit(image, image_rect)
+            pygame.display.flip()
+            pygame.time.delay(1000)
+            print("end attack")
+            self.attack = None
 
     def apply_events(self):
         self.deck[self.event_counter % 54].apply_effect(self)

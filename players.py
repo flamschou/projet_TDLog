@@ -35,7 +35,7 @@ class Player:
                         troop.move(hexagon, game)
                         troop.selected = False
 
-    def make_attack(self, clicked, game):
+    """def make_attack(self, clicked, game, screen):
         clicked_pos = clicked
         print("clicked at", clicked_pos)
         attacker = None
@@ -49,9 +49,9 @@ class Player:
                 defender = troop
 
         if attacker is not None and defender is not None:
-            attacker.attack(defender, game.adrenalin)
+            attacker.attack(defender, game.adrenalin, screen)
         else:
-            print("No attacker or defender selected.")
+            print("No attacker or defender selected.")"""
 
     def selected_button(self, clicked, i):
         clicked_pos = clicked
@@ -136,6 +136,8 @@ class Player:
     def regenerate_speed(self):
         for troop in self.troops:
             troop.speed = troop.default_speed
+            troop.attack_power = troop.default_attack_power
+            troop.attack_capacity = troop.default_attack_capacity
 
 
 class Attacker(Player):
