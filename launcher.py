@@ -15,8 +15,8 @@ BLACK = (0, 0, 0)
 S = scale.scale
 
 # Paramètres de la fenêtre
-SCREEN_WIDTH = 900*S
-SCREEN_HEIGHT = 600*S
+SCREEN_WIDTH = 900 * S
+SCREEN_HEIGHT = 600 * S
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Hexagonal Board Game")
 
