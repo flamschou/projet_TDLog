@@ -18,9 +18,9 @@ def test___init__Attacker():
 
     assert attacker.name == "Attacker"
     assert attacker.troops_available == [
-        ["assassin", 2],
-        ["magician", 1],
-        ["turret", 1],
+        ["assassin", 2, None],
+        ["magician", 1, None],
+        ["turret", 1, None],
     ]
 
 
@@ -28,7 +28,11 @@ def test___init__Defender():
     defender = Defender()
 
     assert defender.name == "Defender"
-    assert defender.troops_available == [["archer", 2], ["engineer", 1], ["shield", 1]]
+    assert defender.troops_available == [
+        ["archer", 2, None],
+        ["engineer", 1, None],
+        ["shield", 1, None],
+    ]
 
 
 def test_add_troop():
