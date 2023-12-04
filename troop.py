@@ -1,4 +1,7 @@
 import pygame
+import scale
+
+S = scale.scale
 
 
 class Troop:
@@ -14,10 +17,10 @@ class Troop:
         self.speed = 0
         self.color = (0, 0, 0)
         self.attack_range = 0
-        self.rect = pygame.Rect(self.hex.x - 10, self.hex.y - 10, 20, 20)
+        self.rect = pygame.Rect(self.hex.x - 10*S, self.hex.y - 10*S, 20*S, 20*S)
         self.selected = False
         self.attack_image = pygame.image.load("Images\\explosion.png")
-        self.attack_image = pygame.transform.scale(self.attack_image, (60, 60))
+        self.attack_image = pygame.transform.scale(self.attack_image, (60*S, 60*S))
 
     def move(self, destination_h, game):
         if not destination_h.occupied:
@@ -49,7 +52,7 @@ class Troop:
                     print("moved to " + str(destination_h.index) + " hexagon")
                     print("speed left: " + str(self.speed))
 
-            self.rect = pygame.Rect(self.hex.x - 10, self.hex.y - 10, 20, 20)
+            self.rect = pygame.Rect(self.hex.x - 10*S, self.hex.y - 10*S, 20*S, 20*S)
         else:
             for current_player in [game.attacker, game.defender]:
                 for troop in current_player.troops:
@@ -90,7 +93,7 @@ class Troop:
         font = pygame.font.Font(None, 25)
         text = "Health = " + str(self.health)
         health_text = font.render(text, True, (0, 0, 0))
-        text_rect = health_text.get_rect(center=(90, 30))
+        text_rect = health_text.get_rect(center=(90*S, 30*S))
         screen.blit(health_text, text_rect)
 
     def isHovered(self, mousePos):
@@ -111,9 +114,9 @@ class Assassin(Troop):
         self.attack_range = 1
         self.player = "attacker"
         self.image = pygame.image.load("Images\\assassin.png")
-        self.image = pygame.transform.scale(self.image, (30, 30))
+        self.image = pygame.transform.scale(self.image, (30*S, 30*S))
         self.imageSelected = pygame.image.load("Images\\assassinSelected.png")
-        self.imageSelected = pygame.transform.scale(self.imageSelected, (30, 30))
+        self.imageSelected = pygame.transform.scale(self.imageSelected, (30*S, 30*S))
 
 
 class Magician(Troop):
@@ -130,9 +133,9 @@ class Magician(Troop):
         self.attack_range = 2
         self.player = "attacker"
         self.image = pygame.image.load("Images\\magician.png")
-        self.image = pygame.transform.scale(self.image, (30, 30))
+        self.image = pygame.transform.scale(self.image, (30*S, 30*S))
         self.imageSelected = pygame.image.load("Images\\magicianSelected.png")
-        self.imageSelected = pygame.transform.scale(self.imageSelected, (30, 30))
+        self.imageSelected = pygame.transform.scale(self.imageSelected, (30*S, 30*S))
 
 
 class Turret(Troop):
@@ -149,9 +152,9 @@ class Turret(Troop):
         self.attack_range = 3
         self.player = "attacker"
         self.image = pygame.image.load("Images\\turret.png")
-        self.image = pygame.transform.scale(self.image, (30, 30))
+        self.image = pygame.transform.scale(self.image, (30*S, 30*S))
         self.imageSelected = pygame.image.load("Images\\turretSelected.png")
-        self.imageSelected = pygame.transform.scale(self.imageSelected, (30, 30))
+        self.imageSelected = pygame.transform.scale(self.imageSelected, (30*S, 30*S))
 
 
 class Archer(Troop):
@@ -168,9 +171,9 @@ class Archer(Troop):
         self.attack_range = 2
         self.player = "defender"
         self.image = pygame.image.load("Images\\archer.png")
-        self.image = pygame.transform.scale(self.image, (30, 30))
+        self.image = pygame.transform.scale(self.image, (30*S, 30*S))
         self.imageSelected = pygame.image.load("Images\\archerSelected.png")
-        self.imageSelected = pygame.transform.scale(self.imageSelected, (30, 30))
+        self.imageSelected = pygame.transform.scale(self.imageSelected, (30*S, 30*S))
 
 
 class Engineer(Troop):
@@ -187,9 +190,9 @@ class Engineer(Troop):
         self.attack_range = 1
         self.player = "defender"
         self.image = pygame.image.load("Images\\engineer.png")
-        self.image = pygame.transform.scale(self.image, (30, 30))
+        self.image = pygame.transform.scale(self.image, (30*S, 30*S))
         self.imageSelected = pygame.image.load("Images\\engineerSelected.png")
-        self.imageSelected = pygame.transform.scale(self.imageSelected, (30, 30))
+        self.imageSelected = pygame.transform.scale(self.imageSelected, (30*S, 30*S))
 
 
 class Shield(Troop):
@@ -206,6 +209,6 @@ class Shield(Troop):
         self.attack_range = 1
         self.player = "defender"
         self.image = pygame.image.load("Images\\shield.png")
-        self.image = pygame.transform.scale(self.image, (30, 30))
+        self.image = pygame.transform.scale(self.image, (30*S, 30*S))
         self.imageSelected = pygame.image.load("Images\\shieldSelected.png")
-        self.imageSelected = pygame.transform.scale(self.imageSelected, (30, 30))
+        self.imageSelected = pygame.transform.scale(self.imageSelected, (30*S, 30*S))

@@ -4,6 +4,9 @@ from event import Rain, Fire, Rescue, Betrayal, Adrenalin, Expansion
 from board import Board
 from players import Attacker, Defender
 from bot import DefenderBot
+import scale
+
+S = scale.scale
 
 
 class Game:
@@ -58,8 +61,8 @@ class Game:
 
         for hexagon in self.board:
             if (
-                abs(hexagon.x - hexagon1.x) < 80
-                and abs(hexagon.y - hexagon1.y) < 80
+                abs(hexagon.x - hexagon1.x) < 80*S
+                and abs(hexagon.y - hexagon1.y) < 80*S
                 and hexagon != hexagon1
             ):
                 neighbors.append(hexagon)
@@ -93,15 +96,15 @@ class Game:
     def change_player(self):
         if self.current_player == self.attacker:
             self.current_player = self.defender
-            print("defender's turn")
         else:
             self.current_player = self.attacker
+            self.apply_events()
 
     def display_info(self, screen):
         font = pygame.font.Font(None, 25)
         text = "Time left: " + str(self.time) + ", Adrenalin : " + str(self.adrenalin)
         info_text = font.render(text, True, (255, 0, 0))
-        text_rect = info_text.get_rect(center=(120, 550))
+        text_rect = info_text.get_rect(center=(120*S, 550*S))
         screen.blit(info_text, text_rect)
 
 

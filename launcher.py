@@ -7,13 +7,17 @@ import utils
 pygame.init()
 
 # Couleurs
-
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
+# Get the dimensions of the screen
+screen_info = pygame.display.Info()
+screen_width, screen_height = screen_info.current_w, screen_info.current_h
+S = 1.5
+
 # Paramètres de la fenêtre
-SCREEN_WIDTH = 900
-SCREEN_HEIGHT = 600
+SCREEN_WIDTH = 900*S
+SCREEN_HEIGHT = 600*S
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Hexagonal Board Game")
 
@@ -94,8 +98,8 @@ while running:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             if utils.end_tour(pygame.mouse.get_pos(), SCREEN_WIDTH, SCREEN_HEIGHT):
-                current_player = players[i % 2]
                 i += 1
+                current_player = players[i % 2]
                 current_player.regenerate_speed()
                 if i % 2 == 0:
                     test.adrenalin = 1

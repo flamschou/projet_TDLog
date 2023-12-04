@@ -1,5 +1,8 @@
 import random
 from hexagon import Basic, Sand, Forest, Rock
+import scale
+
+S = scale.scale
 
 
 class Board:
@@ -23,8 +26,8 @@ class Board:
                         "forest",
                     ]
                 )
-                x = col * 60 + (30 if row % 2 == 0 else 60) + 80
-                y = row * 52 + 100
+                x = col * 60*S + (30*S if row % 2 == 0 else 60*S) + 80*S
+                y = row * 52*S + 100*S
                 if hex_type == "basic":
                     hexagon = Basic(x, y)
                 if hex_type == "sand":
@@ -43,8 +46,8 @@ class Board:
 
         for hexagon in self.list:
             if (
-                abs(hexagon.x - hexagon1.x) < 80
-                and abs(hexagon.y - hexagon1.y) < 80
+                abs(hexagon.x - hexagon1.x) < 80*S
+                and abs(hexagon.y - hexagon1.y) < 80*S
                 and hexagon != hexagon1
             ):
                 neighbors.append(hexagon)
@@ -71,8 +74,8 @@ class Board:
 
         for hexagon in self.list:
             if (
-                abs(hexagon.x - hexagon1.x) < 200
-                and abs(hexagon.y - hexagon1.y) < 200
+                abs(hexagon.x - hexagon1.x) < 200*S
+                and abs(hexagon.y - hexagon1.y) < 200*S
                 and hexagon != hexagon1
             ):
                 neighbors.append(hexagon)
