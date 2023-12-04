@@ -8,3 +8,4 @@ dependencies:
   - pip
   - pip :
     - pygame == 2.5.2
+    - tkinker
