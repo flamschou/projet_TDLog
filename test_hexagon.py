@@ -1,4 +1,4 @@
-from hexagon import Hexagone, Rock
+from hexagon import Hexagone, Rock, Basic, Sand, Forest, Defended
 
 
 def test___init__():
@@ -12,8 +12,7 @@ def test___init__():
 
 
 def test___init__Basic():
-    hexagon = Hexagone("None", 10, 15)
-    hexagon.toBasic()
+    hexagon = Basic(10, 15)
 
     assert hexagon.hex_type == "basic"
     assert hexagon.x == 10
@@ -23,8 +22,7 @@ def test___init__Basic():
 
 
 def test___init__Sand():
-    hexagon = Hexagone("None", 10, 15)
-    hexagon.toSand()
+    hexagon = Sand(10, 15)
 
     assert hexagon.hex_type == "sand"
     assert hexagon.x == 10
@@ -34,8 +32,7 @@ def test___init__Sand():
 
 
 def test___init__Forest():
-    hexagon = Hexagone("None", 10, 15)
-    hexagon.toForest()
+    hexagon = Forest(10, 15)
 
     assert hexagon.hex_type == "forest"
     assert hexagon.x == 10
@@ -55,8 +52,7 @@ def test___init__Rock():
 
 
 def test___init__Defended():
-    hexagon = Hexagone("None", 10, 15)
-    hexagon.toDefended()
+    hexagon = Defended(10, 15)
 
     assert hexagon.hex_type == "defended"
     assert hexagon.x == 10
