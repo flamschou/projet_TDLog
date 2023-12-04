@@ -7,7 +7,6 @@ class Hexagone:
         self.hex_type = hex_type
         self.x = x
         self.y = y
-        self.color = None
         self.accessible = True
         self.index = None
         self.occupied = False
