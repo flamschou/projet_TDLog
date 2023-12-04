@@ -1,4 +1,4 @@
-from dice import Dice
+# from dice import Dice
 from troop import Assassin, Magician, Turret, Engineer, Archer, Shield
 import utils
 
@@ -14,7 +14,7 @@ class Player:
     def add_troop(self, troop):
         self.troops.append(troop)
 
-    def make_move(self, clicked, game, screen):
+    def make_move(self, clicked, game):
         clicked_pos = clicked
         print("clicked at", clicked_pos)
         for troop in self.troops:
@@ -35,7 +35,7 @@ class Player:
                         troop.move(hexagon, game)
                         troop.selected = False
 
-    def make_attack(self, clicked, game):
+    """def make_attack(self, clicked, game, screen):
         clicked_pos = clicked
         print("clicked at", clicked_pos)
         attacker = None
@@ -49,9 +49,9 @@ class Player:
                 defender = troop
 
         if attacker is not None and defender is not None:
-            attacker.attack(defender, game.adrenalin)
+            attacker.attack(defender, game.adrenalin, screen)
         else:
-            print("No attacker or defender selected.")
+            print("No attacker or defender selected.")"""
 
     def selected_button(self, clicked, i):
         clicked_pos = clicked
@@ -84,7 +84,6 @@ class Player:
             for hexagon in game.board.list:
                 if hexagon.rect.collidepoint(clicked_pos) and self.button_selected:
                     if not hexagon.occupied and hexagon.accessible:
-                        hexagon.occupied = True
                         if self.troops_available[i][0] == "assassin":
                             troop = Assassin(hexagon)
 
@@ -119,7 +118,9 @@ class Player:
         pos_y = height - 150  # Position verticale initiale des boutons
         i = 0
         for troop in self.troops_available:
-            utils.drawButton_troop(troop[0], screen, troop[1], width, pos_y, col, self.troops_available[i])
+            utils.drawButton_troop(
+                troop[0], screen, troop[1], width, pos_y, col, self.troops_available[i]
+            )
             i += 1
 
             pos_y -= 30  # Ajustement vertical pour chaque bouton
@@ -137,12 +138,18 @@ class Player:
     def regenerate_speed(self):
         for troop in self.troops:
             troop.speed = troop.default_speed
+            troop.attack_power = troop.default_attack_power
+            troop.attack_capacity = troop.default_attack_capacity
 
 
 class Attacker(Player):
     def __init__(self):
         super().__init__("Attacker")
-        self.troops_available = [["assassin", 2], ["magician", 1], ["turret", 1]]
+        self.troops_available = [
+            ["assassin", 2, None],
+            ["magician", 1, None],
+            ["turret", 1, None],
+        ]
         # for i in range(4):
         # creates the four dices of the attacker
         # self.dices.append(Dice("archeer", "engineer", "shield", "stepback", "missed")) later..
@@ -152,9 +159,13 @@ class Defender(Player):
     def __init__(self):
         super().__init__("Defender")
         self.placed = False
-        self.troops_available = [["archer", 2], ["engineer", 1], ["shield", 1]]
-        for i in range(4):
-            # creates the four dices of the attacker
-            self.dices.append(
-                Dice("magician", "assassin", "turret", "stepback", "missed")
-            )
+        self.troops_available = [
+            ["archer", 2, None],
+            ["engineer", 1, None],
+            ["shield", 1, None],
+        ]
+        # for i in range(4):
+        #   creates the four dices of the attacker
+        #   self.dices.append(
+        #       Dice("magician", "assassin", "turret", "stepback", "missed")
+        #   )

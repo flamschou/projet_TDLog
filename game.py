@@ -13,13 +13,14 @@ class Game:
         self.board = Board()
         self.attacker = Attacker()
         self.defender = Defender()
+        self.current_player = self.attacker
         self.deck = []
         self.time = 35
         self.adrenalin = 1
         self.event_counter = 0
+        self.attack = None
 
     def generate(self):
-        self.board = Board()
         self.board.generate_board(self.num_rows, self.num_cols)
         self.create_deck()
 
@@ -30,6 +31,16 @@ class Game:
             troop.draw(screen)
         for troop in self.defender.troops:
             troop.draw(screen)
+        if self.attack is not None:
+            hex = self.attack.hex
+            image = self.attack.attack_image
+            image_rect = image.get_rect(center=(hex.x, hex.y))
+            print("drawing attack")
+            screen.blit(image, image_rect)
+            pygame.display.flip()
+            pygame.time.delay(1000)
+            print("end attack")
+            self.attack = None
 
     def apply_events(self):
         self.deck[self.event_counter % 54].apply_effect(self)
@@ -46,7 +57,11 @@ class Game:
         neighbors = []
 
         for hexagon in self.board:
-            if abs(hexagon.x-hexagon1.x) < 80 and abs(hexagon.y-hexagon1.y) < 80 and hexagon != hexagon1:
+            if (
+                abs(hexagon.x - hexagon1.x) < 80
+                and abs(hexagon.y - hexagon1.y) < 80
+                and hexagon != hexagon1
+            ):
                 neighbors.append(hexagon)
 
         return neighbors
@@ -59,7 +74,9 @@ class Game:
 
     def create_deck(self):
         for i in range(54):
-            choice = random.choice(["rain", "fire", "rescue", "betrayal", "adrenalin", "expansion"])
+            choice = random.choice(
+                ["rain", "fire", "rescue", "betrayal", "adrenalin", "expansion"]
+            )
             if choice == "rain":
                 self.deck.append(Rain())
             if choice == "fire":
@@ -72,6 +89,13 @@ class Game:
                 self.deck.append(Adrenalin())
             if choice == "expansion":
                 self.deck.append(Expansion())
+
+    def change_player(self):
+        if self.current_player == self.attacker:
+            self.current_player = self.defender
+        else:
+            self.current_player = self.attacker
+            self.apply_events()
 
     def display_info(self, screen):
         font = pygame.font.Font(None, 25)

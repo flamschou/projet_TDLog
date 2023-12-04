@@ -31,3 +31,7 @@ jobs:
       if: always()
       run: |
         flake8 .
+    - name: Run pytest
+      if: always()
+      run: |
+        pytest
