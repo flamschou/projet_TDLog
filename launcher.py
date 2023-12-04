@@ -75,6 +75,7 @@ for current_player in [test.defender, test.attacker]:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+                sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 i = current_player.selected_button(pygame.mouse.get_pos(), i)
                 current_player.initialize_troops(pygame.mouse.get_pos(), i, test)
