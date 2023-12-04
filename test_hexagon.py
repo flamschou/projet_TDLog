@@ -18,10 +18,10 @@ def test_toBasic():
     assert hexagon.color == (205, 133, 63)
 
 
-def test_toSwamp():
+def test_toSand():
     hexagon = Hexagone("None", 10, 15)
     hexagon.toSwamp()
-    assert hexagon.hex_type == "swamp"
+    assert hexagon.hex_type == "sand"
     assert hexagon.color == (139, 69, 19)
 
 

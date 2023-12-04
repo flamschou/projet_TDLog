@@ -188,7 +188,7 @@ def test_move():
     assert not hex1.occupied
 
     troop.speed = 5
-    hex2.toSwamp()
+    hex2.toSand()
     troop.move(hex1)
 
     assert troop.hex == hex1
