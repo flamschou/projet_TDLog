@@ -2,6 +2,7 @@ import pygame
 import sys
 from game import Game
 import utils
+import scale
 
 # Initialisation de Pygame
 pygame.init()
@@ -11,9 +12,7 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
 # Get the dimensions of the screen
-screen_info = pygame.display.Info()
-screen_width, screen_height = screen_info.current_w, screen_info.current_h
-S = 1.5
+S = scale.scale
 
 # Paramètres de la fenêtre
 SCREEN_WIDTH = 900*S
