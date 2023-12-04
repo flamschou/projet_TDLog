@@ -3,6 +3,7 @@ import pygame
 from event import Rain, Fire, Rescue, Betrayal, Adrenalin, Expansion
 from board import Board
 from players import Attacker, Defender
+from bot import DefenderBot
 
 
 class Game:
@@ -102,3 +103,28 @@ class Game:
         info_text = font.render(text, True, (255, 0, 0))
         text_rect = info_text.get_rect(center=(120, 550))
         screen.blit(info_text, text_rect)
+
+
+class HumanVSBotGame(Game):
+    def __init__(self, num_rows, num_cols):
+        super().__init__(num_rows, num_cols)
+        self.attacker = Attacker()
+        self.defender = DefenderBot()
+
+    """def make_move(self, clicked, game, screen):
+        self.bot_logic.make_move(clicked, game, screen)
+
+    def make_attack(self, clicked, game):
+        self.bot_logic.make_attack(clicked, game)
+
+    def end_ini(self):
+        return self.bot_logic.end_ini()
+
+    def initialize_troops(self, clicked, i, game):
+        self.bot_logic.initialize_troops(clicked, i, game)
+
+    def draw_button(self, screen, height, width, col):
+        self.bot_logic.draw_button(screen, height, width, col)
+
+    def selected_button(self, clicked, i):
+        return self.bot_logic.selected_button(clicked, i)"""
