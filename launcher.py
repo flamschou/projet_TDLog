@@ -34,7 +34,7 @@ test.draw(screen)
 
 # Dessiner les boutons
 
-#version en commentaire pour tester les bots, provisoire
+# version en commentaire pour tester les bots, provisoire
 """for current_player in [test.defender, test.attacker]:
     i = 0
     running = True
@@ -63,7 +63,7 @@ i = 0
 current_player = players[i]"""
 
 
-#version initiale humain contre humain
+# version initiale humain contre humain
 for current_player in [test.defender, test.attacker]:
     i = 0
     running = True
@@ -84,8 +84,8 @@ for current_player in [test.defender, test.attacker]:
         pygame.display.flip()
 
 running = True
-players = [test.attacker, test.defender]
-test.apply_events()
+players = [test.defender, test.attacker]
+current_player = test.defender
 i = 0
 
 while running:
@@ -94,8 +94,8 @@ while running:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             if utils.end_tour(pygame.mouse.get_pos(), SCREEN_WIDTH, SCREEN_HEIGHT):
-                i += 1
                 current_player = players[i % 2]
+                i += 1
                 current_player.regenerate_speed()
                 if i % 2 == 0:
                     test.adrenalin = 1
