@@ -7,7 +7,7 @@ def test_generate_board():
     assert len(board.list) == 9
     for i in range(9):
         assert board.list[i].index == i
-        assert board.list[i].type in ["basic", "swamp", "forest", "rock"]
+        assert board.list[i].type in ["basic", "sand", "forest", "rock"]
         assert board.list[i].x == 110 + (i % 3) * 60 + (30 if i // 3 % 2 == 0 else 60)
         assert board.list[i].y == 100 + (i // 3) * 52
 
