@@ -14,7 +14,7 @@ jobs:
         ref: ${{ github.event.pull_request.head.sha || github.ref }}
     - uses: conda-incubator/setup-miniconda@v2
       with:
-        activate-environment: tdlog2324-tp3
+        activate-environment: tdlog2324-project_TD_log
         environment-file: environment.yml
         python-version: "3.11"
         miniconda-version: "latest"
