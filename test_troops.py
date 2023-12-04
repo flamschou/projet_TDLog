@@ -2,6 +2,7 @@ from troop import Troop, Archer, Assassin, Magician, Turret, Engineer, Shield
 from hexagon import Hexagone
 from game import Game
 import pygame
+from os import path
 
 
 def test___init__():
@@ -38,9 +39,9 @@ def test___init__Archer():
     assert troop.rect == pygame.Rect(troop.hex.x - 10, troop.hex.y - 10, 20, 20)
     assert not troop.selected
     assert troop.player == "defender"
-    assert troop.image == pygame.image.load("Images\\archer.png")
+    assert troop.image == pygame.image.load(path.join("Images", "archer.png"))
     assert troop.image == pygame.transform.scale(troop.image, (30, 30))
-    assert troop.imageSelected == pygame.image.load("Images\\archerSelected.png")
+    assert troop.imageSelected == pygame.image.load(path.join("Images", "archerSelected.png"))
     assert troop.imageSelected == pygame.transform.scale(troop.imageSelected, (30, 30))
 
 
@@ -60,9 +61,9 @@ def test___init__Assassin():
     assert troop.rect == pygame.Rect(troop.hex.x - 10, troop.hex.y - 10, 20, 20)
     assert not troop.selected
     assert troop.player == "attacker"
-    assert troop.image == pygame.image.load("Images\\assassin.png")
+    assert troop.image == pygame.image.load(path.join("Images", "assassin.png"))
     assert troop.image == pygame.transform.scale(troop.image, (30, 30))
-    assert troop.imageSelected == pygame.image.load("Images\\assassinSelected.png")
+    assert troop.imageSelected == pygame.image.load(path.join("Images", "assassinSelected.png"))
     assert troop.imageSelected == pygame.transform.scale(troop.imageSelected, (30, 30))
 
 
@@ -82,9 +83,9 @@ def test___init__Magician():
     assert troop.rect == pygame.Rect(troop.hex.x - 10, troop.hex.y - 10, 20, 20)
     assert not troop.selected
     assert troop.player == "attacker"
-    assert troop.image == pygame.image.load("Images\\magician.png")
+    assert troop.image == pygame.image.load(path.join("Images", "magician.png"))
     assert troop.image == pygame.transform.scale(troop.image, (30, 30))
-    assert troop.imageSelected == pygame.image.load("Images\\magicianSelected.png")
+    assert troop.imageSelected == pygame.image.load(path.join("Images", "magicianSelected.png"))
     assert troop.imageSelected == pygame.transform.scale(troop.imageSelected, (30, 30))
 
 
@@ -104,9 +105,9 @@ def test___init__Turret():
     assert troop.rect == pygame.Rect(troop.hex.x - 10, troop.hex.y - 10, 20, 20)
     assert not troop.selected
     assert troop.player == "attacker"
-    assert troop.image == pygame.image.load("Images\\turret.png")
+    assert troop.image == pygame.image.load(path.join("Images", "turret.png"))
     assert troop.image == pygame.transform.scale(troop.image, (30, 30))
-    assert troop.imageSelected == pygame.image.load("Images\\turretSelected.png")
+    assert troop.imageSelected == pygame.image.load(path.join("Images", "turretSelected.png"))
     assert troop.imageSelected == pygame.transform.scale(troop.imageSelected, (30, 30))
 
 
@@ -126,9 +127,9 @@ def test___init__Engineer():
     assert troop.rect == pygame.Rect(troop.hex.x - 10, troop.hex.y - 10, 20, 20)
     assert not troop.selected
     assert troop.player == "defender"
-    assert troop.image == pygame.image.load("Images\\engineer.png")
+    assert troop.image == pygame.image.load(path.join("Images", "engineer.png"))
     assert troop.image == pygame.transform.scale(troop.image, (30, 30))
-    assert troop.imageSelected == pygame.image.load("Images\\engineerSelected.png")
+    assert troop.imageSelected == pygame.image.load(path.join("Images", "engineerSelected.png"))
     assert troop.imageSelected == pygame.transform.scale(troop.imageSelected, (30, 30))
 
 
@@ -148,9 +149,9 @@ def test___init__Shield():
     assert troop.rect == pygame.Rect(troop.hex.x - 10, troop.hex.y - 10, 20, 20)
     assert not troop.selected
     assert troop.player == "defender"
-    assert troop.image == pygame.image.load("Images\\shield.png")
+    assert troop.image == pygame.image.load(path.join("Images", "shield.png"))
     assert troop.image == pygame.transform.scale(troop.image, (30, 30))
-    assert troop.imageSelected == pygame.image.load("Images\\shieldSelected.png")
+    assert troop.imageSelected == pygame.image.load(path.join("Images", "shieldSelected.png"))
     assert troop.imageSelected == pygame.transform.scale(troop.imageSelected, (30, 30))
 
 
