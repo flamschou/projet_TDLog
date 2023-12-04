@@ -34,7 +34,7 @@ test.draw(screen)
 
 # Dessiner les boutons
 
-#version en commentaire pour tester les bots, provisoire
+# version en commentaire pour tester les bots, provisoire
 """for current_player in [test.defender, test.attacker]:
     i = 0
     running = True
@@ -63,7 +63,7 @@ i = 0
 current_player = players[i]"""
 
 
-#version initiale humain contre humain
+# version initiale humain contre humain
 for current_player in [test.defender, test.attacker]:
     i = 0
     running = True
