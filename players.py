@@ -145,7 +145,11 @@ class Player:
 class Attacker(Player):
     def __init__(self):
         super().__init__("Attacker")
-        self.troops_available = [["assassin", 2], ["magician", 1], ["turret", 1]]
+        self.troops_available = [
+            ["assassin", 2, None],
+            ["magician", 1, None],
+            ["turret", 1, None],
+        ]
         # for i in range(4):
         # creates the four dices of the attacker
         # self.dices.append(Dice("archeer", "engineer", "shield", "stepback", "missed")) later..
