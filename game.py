@@ -93,9 +93,9 @@ class Game:
     def change_player(self):
         if self.current_player == self.attacker:
             self.current_player = self.defender
+            print("defender's turn")
         else:
             self.current_player = self.attacker
-            self.apply_events()
 
     def display_info(self, screen):
         font = pygame.font.Font(None, 25)

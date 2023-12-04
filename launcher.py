@@ -84,6 +84,7 @@ for current_player in [test.defender, test.attacker]:
         pygame.display.flip()
 
 running = True
+players = [test.attacker, test.defender]
 test.apply_events()
 i = 0
 
@@ -94,7 +95,7 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             if utils.end_tour(pygame.mouse.get_pos(), SCREEN_WIDTH, SCREEN_HEIGHT):
                 i += 1
-                test.change_player()
+                current_player = players[i % 2]
                 current_player.regenerate_speed()
                 if i % 2 == 0:
                     test.adrenalin = 1
