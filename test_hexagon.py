@@ -19,11 +19,11 @@ def test___init__():
 def test_toBasic():
     hexagon = Hexagone("None", 10, 15)
     hexagon.toBasic()
-    image = pygame.image.load(path.join("Images", "hexagon basic.png"))
-    image = pygame.transform.scale(image, (60, 60))
+    image1 = pygame.image.load(path.join("Images", "hexagon basic.png"))
+    image1 = pygame.transform.scale(image1, (60, 60))
 
     assert hexagon.hex_type == "basic"
-    assert hexagon.image == image
+    assert hexagon.image == image1
 
 
 def test_toSand():
