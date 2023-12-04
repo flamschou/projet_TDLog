@@ -19,7 +19,7 @@ def drawButton_end_tour(place, SCREEN_WIDTH, SCREEN_HEIGHT, col):
 def drawButton_troop(texte, place, nbre, SCREEN_WIDTH, pos_y, col, troops_available):
     button_pos = (SCREEN_WIDTH - 150, pos_y)
     button_size = (100, 20)
-    troops_available.append(pygame.Rect(button_pos, button_size))
+    troops_available[2] = pygame.Rect(button_pos, button_size)
     text_center = (SCREEN_WIDTH - 100, pos_y + 10)
     font = pygame.font.Font(None, 20)
     drawButton(
