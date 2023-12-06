@@ -27,11 +27,8 @@ num_cols = 10  # Nombre de colonnes
 
 test = Game(num_rows, num_cols)
 test.generate()
-print(test.deck[0].event_type)
 
 # Boucle principale
-
-
 screen.fill(WHITE)
 test.draw(screen)
 
@@ -92,7 +89,7 @@ players = [test.defender, test.attacker]
 current_player = test.defender
 i = 0
 
-while running:
+while running and test.time > 0 and test.winner is None:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -105,6 +102,7 @@ while running:
                     test.adrenalin = 1
                     test.apply_events()
                     test.time -= 1
+                    test.winner = test.attacker
             current_player.make_move(pygame.mouse.get_pos(), test)
 
     screen.fill(WHITE)
@@ -120,6 +118,11 @@ while running:
     utils.drawButton_end_tour(screen, SCREEN_WIDTH, SCREEN_HEIGHT, BLACK)
 
     pygame.display.flip()
+
+screen.fill(WHITE)
+if test.winner is None:
+    test.winner = test.defender
+test.display_winner(screen)
 
 pygame.quit()
 sys.exit()
