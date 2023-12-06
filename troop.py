@@ -91,10 +91,12 @@ class Troop:
         screen.blit(self.image, image_rect)
 
     def info(self, screen):
-        font = utils.font(20)
-        text = "Health = " + str(self.health)
+        font = utils.font(15)
+        text = "Health = " + str(self.health) + " | Attack power = " + str(self.attack_power) + " | Attack capacity = "
+        text = text + str(self.attack_capacity) + " | Speed = " + str(self.speed) + " | Attack range = "
+        text += str(self.attack_range)
         health_text = font.render(text, True, (0, 0, 0))
-        text_rect = health_text.get_rect(center=(90*S, 30*S))
+        text_rect = health_text.get_rect(center=(450*S, 30*S))
         screen.blit(health_text, text_rect)
 
     def isHovered(self, mousePos):
