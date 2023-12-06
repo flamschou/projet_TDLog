@@ -1,32 +1,82 @@
-from hexagon import Hexagone, Rock
+from hexagon import Hexagone, Rock, Basic, Sand, Forest, Defended
 
 
 def test___init__():
-    hexagon = Rock("rock", 10, 15)
+    hexagon = Hexagone("None", 10, 15)
+
+    assert hexagon.hex_type == "None"
+    assert hexagon.x == 10
+    assert hexagon.y == 15
+    assert not hexagon.occupied
+    assert hexagon.index is None
+
+
+def test___init__Basic():
+    hexagon = Basic(10, 15)
+
+    assert hexagon.hex_type == "basic"
+    assert hexagon.x == 10
+    assert hexagon.y == 15
+    assert not hexagon.occupied
+    assert hexagon.index is None
+
+
+def test___init__Sand():
+    hexagon = Sand(10, 15)
+
+    assert hexagon.hex_type == "sand"
+    assert hexagon.x == 10
+    assert hexagon.y == 15
+    assert not hexagon.occupied
+    assert hexagon.index is None
+
+
+def test___init__Forest():
+    hexagon = Forest(10, 15)
+
+    assert hexagon.hex_type == "forest"
+    assert hexagon.x == 10
+    assert hexagon.y == 15
+    assert not hexagon.occupied
+    assert hexagon.index is None
+
+
+def test___init__Rock():
+    hexagon = Rock(10, 15)
+
     assert hexagon.hex_type == "rock"
     assert hexagon.x == 10
     assert hexagon.y == 15
     assert not hexagon.occupied
-    assert hexagon.color == (128, 128, 128)
+    assert hexagon.index is None
+
+
+def test___init__Defended():
+    hexagon = Defended(10, 15)
+
+    assert hexagon.hex_type == "defended"
+    assert hexagon.x == 10
+    assert hexagon.y == 15
+    assert not hexagon.occupied
     assert hexagon.index is None
 
 
 def test_toBasic():
     hexagon = Hexagone("None", 10, 15)
     hexagon.toBasic()
+
     assert hexagon.hex_type == "basic"
-    assert hexagon.color == (205, 133, 63)
 
 
-def test_toSwamp():
+def test_toSand():
     hexagon = Hexagone("None", 10, 15)
-    hexagon.toSwamp()
-    assert hexagon.hex_type == "swamp"
-    assert hexagon.color == (139, 69, 19)
+    hexagon.toSand()
+
+    assert hexagon.hex_type == "sand"
 
 
 def test_toDefended():
     hexagon = Hexagone("None", 10, 15)
     hexagon.toDefended()
+
     assert hexagon.hex_type == "defended"
-    assert hexagon.color == (255, 20, 147)
