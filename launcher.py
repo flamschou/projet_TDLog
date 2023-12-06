@@ -82,7 +82,7 @@ for current_player in [test.defender, test.attacker]:
         test.display_info(screen)
         current_player.draw_button(screen, SCREEN_HEIGHT, SCREEN_WIDTH, BLACK)
 
-        pygame.display.flip()
+
 
 running = True
 players = [test.defender, test.attacker]
