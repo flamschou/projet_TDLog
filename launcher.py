@@ -1,7 +1,8 @@
 import pygame
 import sys
-from game import Game
+from game import Game  # HumanVSBotGame
 import utils
+# from bot import AttackerBot, DefenderBot
 
 # Initialisation de Pygame
 pygame.init()
@@ -22,46 +23,13 @@ pygame.display.set_caption("Hexagonal Board Game")
 num_rows = 8  # Nombre de lignes
 num_cols = 10  # Nombre de colonnes
 
+# partie humain vs humain
 test = Game(num_rows, num_cols)
 test.generate()
 print(test.deck[0].event_type)
 
-# Boucle principale
-
-
 screen.fill(WHITE)
 test.draw(screen)
-
-# Dessiner les boutons
-
-# version en commentaire pour tester les bots, provisoire
-"""for current_player in [test.defender, test.attacker]:
-    i = 0
-    running = True
-
-    while current_player.end_ini() and running:
-        if current_player == "AttackerBot" or current_player == "DefenderBot":
-            current_player.initialize_troops(test)
-        else:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
-                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                    i = current_player.selected_button(pygame.mouse.get_pos(), i)
-                    current_player.initialize_troops(pygame.mouse.get_pos(), i, test)
-
-        screen.fill(WHITE)
-        test.draw(screen)
-        test.display_info(screen)
-        current_player.draw_button(screen, SCREEN_HEIGHT, SCREEN_WIDTH, BLACK)
-
-        pygame.display.flip()
-
-running = True
-test.apply_events()
-i = 0
-current_player = players[i]"""
-
 
 # version initiale humain contre humain
 for current_player in [test.defender, test.attacker]:
@@ -119,3 +87,41 @@ while running:
 
 pygame.quit()
 sys.exit()
+
+# version alternative pour tester les bots
+
+'''
+# partie humain vs bot
+human_vs_bot_game = HumanVSBotGame(num_rows, num_cols)
+human_vs_bot_game.generate()
+
+# initialisation du bot défenseur
+bot_defender = DefenderBot()
+bot_defender.initialize_troops(human_vs_bot_game)
+
+# initialisation des joueurs
+human_attacker = human_vs_bot_game.attacker
+human_defender = human_vs_bot_game.defender
+
+# initialisation des joueurs
+for current_player in [bot_defender, human_attacker]:
+    i = 0
+    running = True
+
+    while current_player.end_ini() and running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                if isinstance(current_player, DefenderBot):
+                    i = current_player.selected_button(pygame.mouse.get_pos())
+                else:
+                    i = current_player.selected_button(pygame.mouse.get_pos(), i)
+                current_player.initialize_troops(pygame.mouse.get_pos(), i, human_vs_bot_game)
+'''
+
+"""
+running = True
+test.apply_events()
+i = 0
+current_player = players[i]"""

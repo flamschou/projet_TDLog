@@ -3,7 +3,7 @@ import random
 from players import Player
 
 
-class Bot(Player):
+'''class Bot(Player):
     def __init__(self, name, player_type):
         super().__init__(name)
         self.bot_type = player_type
@@ -32,12 +32,34 @@ class Bot(Player):
 
     def selected_button(self, clicked, i):
         return self.bot_logic.selected_button(clicked, i)
+'''
+
+class Bot(Player):
+    def __init__(self, name, player_type):
+        super().__init__(name)
+        self.bot_type = player_type
+        self.bot_logic = None
+
+    def set_bot_logic(self, bot_logic):
+        self.bot_logic = bot_logic
+
+    def selected_button(self, clicked_pos):
+        for index, troop in enumerate(self.troops_available):
+            if troop.button.collidepoint(clicked_pos):
+                self.button_selected = True
+                print("button selected")
+                return index
+
+        return None
 
 
 class AttackerBot(Bot):
     def __init__(self):
         super().__init__("AttackerBot", "Attacker")
         self.troops_available = [["assassin", 2], ["magician", 1], ["turret", 1]]
+
+    def initialize_bot_logic(self):
+        self.set_bot_logic(self)
 
     def make_move(self, game):
         # Logique pour l'attaquant bot
@@ -94,8 +116,11 @@ class AttackerBot(Bot):
 class DefenderBot(Bot):
     def __init__(self):
         super().__init__("DefenderBot", "Defender")
-        self.troops_available = [["archer", 2], ["shield", 1], ["engineer", 1]]
+        self.troops_available = [["archer", 1], ["archer", 1], ["shield", 1], ["engineer", 1]]
         self.defended_hexagon = None
+
+    def initialize_bot_logic(self):
+        self.set_bot_logic(self)
 
     def make_move(self, game):
         # Logique pour le défenseur bot
@@ -118,24 +143,82 @@ class DefenderBot(Bot):
 
         # placing the troops around the defended hexagon
         entiers = list(range(0, 18))
-        entiers_aleatoires = random.shuffle(entiers)
+        entiers_aleatoires = random.sample(entiers, len(entiers))
         d = 0
         i = 0
-        for troop in game.defender.troops_available:
+        for troop_info in self.troops_available:
+            troop_type, troop_count = troop_info
+            # Choix de l'hexagone pour placer la troupe, aléatoirement sur la carte
+            while i < 18:
+                if (
+                    not game.board.larger_list_neighbors(self.defended_hexagon)[
+                        entiers_aleatoires[i]
+                    ].occupied
+                    and game.board.larger_list_neighbors(self.defended_hexagon)[
+                        entiers_aleatoires[i]
+                    ].accessible
+                ):
+                    game.board.larger_list_neighbors(self.defended_hexagon)[
+                        entiers_aleatoires[i]
+                    ].occupied = True
+
+                    if troop_type == "archer":
+                        new_troop = Archer(game.board.larger_list_neighbors(self.defended_hexagon)[entiers_aleatoires[i]])
+
+                    elif troop_type == "engineer":
+                        new_troop = Engineer(game.board.larger_list_neighbors(self.defended_hexagon)[entiers_aleatoires[i]])
+
+                    elif troop_type == "shield":
+                        new_troop = Shield(game.board.larger_list_neighbors(self.defended_hexagon)[entiers_aleatoires[i]])
+
+                    self.add_troop(new_troop)
+                    print(f"{troop_type} placed")
+                    break
+                i += 1
+        """for troop_type, troop_count in self.troops_available:
+            # Choix de l'hexagone pour placer la troupe, aléatoirement sur la carte
+            while i < 18:
+                if (
+                    not game.board.larger_list_neighbors(self.defended_hexagon)[
+                        entiers_aleatoires[i]
+                    ].occupied
+                    and game.board.larger_list_neighbors(self.defended_hexagon)[
+                        entiers_aleatoires[i]
+                    ].accessible
+                ):
+                    game.board.larger_list_neighbors(self.defended_hexagon)[
+                        entiers_aleatoires[i]
+                    ].occupied = True
+
+                    if troop_type == "archer":
+                        new_troop = Archer(self.defended_hexagon)
+
+                    elif troop_type == "engineer":
+                        new_troop = Engineer(self.defended_hexagon)
+
+                    elif troop_type == "shield":
+                        new_troop = Shield(self.defended_hexagon)
+
+                    self.add_troop(new_troop)
+                    print(f"{troop_type} placed")
+                    break  # Sortez de la boucle une fois que la troupe a été placée
+                else:
+                    i += 1"""
+        """for troop in game.defender.troops_available:
             # choice of the hexagon to place the troop, now randomly on the map
             d = 0
             j = 0
             while d == 0 and i < 18:
                 # flake8: noqa
                 if (
-                    not self.defended_hexagon.larger_neighbors[
+                    not game.board.larger_list_neighbors(self.defended_hexagon)[
                         entiers_aleatoires[i]
                     ].occupied
-                    and self.defended_hexagon.larger_neighbors[
+                    and game.board.larger_list_neighbors(self.defended_hexagon)[
                         entiers_aleatoires[i]
                     ].accessible
                 ):
-                    self.defended_hexagon.larger_list_neighbors[
+                    game.board.larger_list_neighbors(self.defended_hexagon)[
                         entiers_aleatoires[i]
                     ].occupied = True
 
@@ -158,5 +241,5 @@ class DefenderBot(Bot):
 
                 else:
                     i += 1
-
+"""
     # Les autres méthodes spécifiques au défenseur peuvent être ajoutées ici

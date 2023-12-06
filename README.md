@@ -50,3 +50,5 @@ Events : à chaque tour se produit un évènement
 - expansion : certains hexagones deviennent accessibles
 
 Objectif : créer ensuite un joueur virtuel qui va pouvoir jouer contre l'humain de manière éaquilibrée, qu'il soit au poste d'attaquant ou de défenseur. On va déjà créer un bot, puis l'obectif serait de l'entrainer avec l'IA pour que le jeu soit relativement équilibré et que le bot soit relativement fort au jeu. 
+
+Bot implémentation : regarder les stratégies aussi sur le jeu dans l'absolu 
