@@ -32,7 +32,8 @@ test.generate()
 screen.fill(WHITE)
 test.draw(screen)
 
-# Dessiner les boutons
+frame_rate = 15
+clock = pygame.time.Clock()
 
 # version en commentaire pour tester les bots, provisoire
 """for current_player in [test.defender, test.attacker]:
@@ -83,6 +84,8 @@ for current_player in [test.defender, test.attacker]:
         current_player.draw_button(screen, SCREEN_HEIGHT, SCREEN_WIDTH, BLACK)
 
         pygame.display.flip()
+        clock.tick(frame_rate)
+
 
 running = True
 players = [test.defender, test.attacker]
@@ -118,6 +121,8 @@ while running and test.time > 0 and test.winner is None:
     utils.drawButton_end_tour(screen, SCREEN_WIDTH, SCREEN_HEIGHT, BLACK)
 
     pygame.display.flip()
+    clock.tick(frame_rate)
+
 
 screen.fill(WHITE)
 if test.winner is None:

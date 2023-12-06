@@ -1,5 +1,6 @@
 import pygame
 import scale
+import utils
 
 S = scale.scale
 
@@ -90,7 +91,7 @@ class Troop:
         screen.blit(self.image, image_rect)
 
     def info(self, screen):
-        font = pygame.font.Font(None, 25)
+        font = utils.font(20)
         text = "Health = " + str(self.health)
         health_text = font.render(text, True, (0, 0, 0))
         text_rect = health_text.get_rect(center=(90*S, 30*S))
