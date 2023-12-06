@@ -38,19 +38,6 @@ def drawButton_troop(texte, place, nbre, SCREEN_WIDTH, pos_y, col, troops_availa
     text_center = (SCREEN_WIDTH - 100*S, pos_y + 10*S)
     fontObj = font(13)
     drawButton(
-        texte + " x" + str(nbre), place, button_pos, button_size, text_center, font, col
-    )"""
-
-# version clean selon le chat :
-
-
-def drawButton_troop(texte, place, nbre, SCREEN_WIDTH, pos_y, col, troops_available):
-    button_pos = (SCREEN_WIDTH - 150, pos_y)
-    button_size = (100, 20)
-    troops_available[2] = pygame.Rect(button_pos, button_size)
-    text_center = (SCREEN_WIDTH - 100*S, pos_y + 10*S)
-    fontObj = font(13)
-    drawButton(
         texte + " x" + str(nbre), place, button_pos, button_size, text_center, fontObj, col
     )
 
