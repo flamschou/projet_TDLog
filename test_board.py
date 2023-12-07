@@ -1,4 +1,7 @@
 from board import Board
+import scale
+
+S = scale.scale
 
 
 def test_generate_board():
@@ -8,8 +11,8 @@ def test_generate_board():
     for i in range(9):
         assert board.list[i].index == i
         assert board.list[i].hex_type in ["basic", "sand", "forest", "rock"]
-        assert board.list[i].x == 110 + (i % 3) * 60 + (30 if i // 3 % 2 == 0 else 60)
-        assert board.list[i].y == 100 + (i // 3) * 52
+        assert board.list[i].x == i * 60*S + (30*S if i % 2 == 0 else 60*S) + 80*S
+        assert board.list[i].y == 100*S + (i // 3) * 52*S
 
 
 def test_list_neighbors():
