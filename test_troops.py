@@ -139,7 +139,7 @@ def test_move():
     hex2 = game.board.list[1]
     troop = Troop("None", hex1)
     troop.speed = 5
-    troop.move(hex2)
+    troop.move(hex2, game)
 
     assert troop.hex == hex2
     assert troop.speed < 5
@@ -148,7 +148,7 @@ def test_move():
 
     hex1.occupied = True
     speed_aux = troop.speed
-    troop.move(hex1)
+    troop.move(hex1, game)
 
     assert troop.hex == hex2
     assert troop.speed == speed_aux
@@ -156,7 +156,7 @@ def test_move():
 
     hex1.occupied = False
     troop.speed = 0
-    troop.move(hex1)
+    troop.move(hex1, game)
 
     assert troop.hex == hex2
     assert troop.speed == 0
@@ -165,7 +165,7 @@ def test_move():
 
     troop.speed = 5
     hex2.toSand()
-    troop.move(hex1)
+    troop.move(hex1, game)
 
     assert troop.hex == hex1
     assert troop.speed == 3
@@ -174,7 +174,7 @@ def test_move():
 
     troop.speed = 1
     hex1.toSwamp()
-    troop.move(hex2)
+    troop.move(hex2, game)
 
     assert troop.hex == hex1
     assert troop.speed == 1
@@ -191,12 +191,12 @@ def test_attack():
     game.board.list[1].accessible = True
     troop1 = Archer(hex1)
     troop2 = Assassin(hex2)
-    troop1.attack(troop2, 1)
+    troop1.attack(troop2, 1, game)
 
     assert troop2.health == 80
     assert troop1.attack_capacity == 0
 
-    troop1.attack(troop2, 4)
+    troop1.attack(troop2, 4, game)
 
     assert troop2.status == "dead"
 
@@ -206,7 +206,7 @@ def test_is_troop_allowed_to_strike():
     game.generate()
     troop2 = Archer(game.board.list[0])
     troop1 = Assassin(game.board.list[1])
-    troop3 = Magician(game.board.list[9])
+    troop3 = Magician(game.board.list[8])
 
     assert troop1.is_troop_allowed_to_strike(troop2, game)
     assert not troop1.is_troop_allowed_to_strike(troop3, game)
