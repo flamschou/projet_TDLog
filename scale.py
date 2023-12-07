@@ -17,3 +17,6 @@ def get_scale_factor():
 
 
 scale = get_scale_factor()
+
+if scale is None:
+    scale = 1
