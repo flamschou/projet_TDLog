@@ -82,6 +82,3 @@ def test_make_move():
     assert troop.selected
     assert troop.hex == game.board.list[1]
     assert troop.speed == 1
-
-
-test_make_move()

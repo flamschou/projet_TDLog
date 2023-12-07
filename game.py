@@ -63,8 +63,8 @@ class Game:
 
         for hexagon in self.board:
             if (
-                abs(hexagon.x - hexagon1.x) < 80*S
-                and abs(hexagon.y - hexagon1.y) < 80*S
+                abs(hexagon.x - hexagon1.x) < 80 * S
+                and abs(hexagon.y - hexagon1.y) < 80 * S
                 and hexagon != hexagon1
             ):
                 neighbors.append(hexagon)
@@ -106,7 +106,7 @@ class Game:
         font = utils.font(35)
         text = "Time left: " + str(self.time) + ", Adrenalin : " + str(self.adrenalin)
         info_text = font.render(text, True, (255, 0, 0))
-        text_rect = info_text.get_rect(center=(450*S, 550*S))
+        text_rect = info_text.get_rect(center=(450 * S, 550 * S))
         screen.blit(info_text, text_rect)
 
     def display_winner(self, screen):
@@ -114,7 +114,7 @@ class Game:
         text = "Winner is " + str(self.winner.name)
         print(text)
         info_text = font.render(text, True, (255, 0, 0))
-        text_rect = info_text.get_rect(center=(450*S, 300*S))
+        text_rect = info_text.get_rect(center=(450 * S, 300 * S))
         screen.blit(info_text, text_rect)
         pygame.display.flip()
         pygame.time.delay(5000)

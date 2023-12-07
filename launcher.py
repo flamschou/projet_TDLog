@@ -3,6 +3,7 @@ import sys
 from game import Game  # HumanVSBotGame
 import utils
 import scale
+
 # from bot import AttackerBot, DefenderBot
 
 # Initialisation de Pygame
@@ -111,7 +112,7 @@ sys.exit()
 
 # version alternative pour tester les bots
 
-'''
+"""
 # partie humain vs bot
 human_vs_bot_game = HumanVSBotGame(num_rows, num_cols)
 human_vs_bot_game.generate()
@@ -139,7 +140,7 @@ for current_player in [bot_defender, human_attacker]:
                 else:
                     i = current_player.selected_button(pygame.mouse.get_pos(), i)
                 current_player.initialize_troops(pygame.mouse.get_pos(), i, human_vs_bot_game)
-'''
+"""
 
 """
 running = True

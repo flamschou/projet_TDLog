@@ -3,7 +3,7 @@ import random
 from players import Player
 
 
-'''class Bot(Player):
+"""class Bot(Player):
     def __init__(self, name, player_type):
         super().__init__(name)
         self.bot_type = player_type
@@ -32,7 +32,8 @@ from players import Player
 
     def selected_button(self, clicked, i):
         return self.bot_logic.selected_button(clicked, i)
-'''
+"""
+
 
 class Bot(Player):
     def __init__(self, name, player_type):
@@ -116,7 +117,12 @@ class AttackerBot(Bot):
 class DefenderBot(Bot):
     def __init__(self):
         super().__init__("DefenderBot", "Defender")
-        self.troops_available = [["archer", 1], ["archer", 1], ["shield", 1], ["engineer", 1]]
+        self.troops_available = [
+            ["archer", 1],
+            ["archer", 1],
+            ["shield", 1],
+            ["engineer", 1],
+        ]
         self.defended_hexagon = None
 
     def initialize_bot_logic(self):
@@ -163,13 +169,25 @@ class DefenderBot(Bot):
                     ].occupied = True
 
                     if troop_type == "archer":
-                        new_troop = Archer(game.board.larger_list_neighbors(self.defended_hexagon)[entiers_aleatoires[i]])
+                        new_troop = Archer(
+                            game.board.larger_list_neighbors(self.defended_hexagon)[
+                                entiers_aleatoires[i]
+                            ]
+                        )
 
                     elif troop_type == "engineer":
-                        new_troop = Engineer(game.board.larger_list_neighbors(self.defended_hexagon)[entiers_aleatoires[i]])
+                        new_troop = Engineer(
+                            game.board.larger_list_neighbors(self.defended_hexagon)[
+                                entiers_aleatoires[i]
+                            ]
+                        )
 
                     elif troop_type == "shield":
-                        new_troop = Shield(game.board.larger_list_neighbors(self.defended_hexagon)[entiers_aleatoires[i]])
+                        new_troop = Shield(
+                            game.board.larger_list_neighbors(self.defended_hexagon)[
+                                entiers_aleatoires[i]
+                            ]
+                        )
 
                     self.add_troop(new_troop)
                     print(f"{troop_type} placed")
@@ -242,4 +260,5 @@ class DefenderBot(Bot):
                 else:
                     i += 1
 """
+
     # Les autres méthodes spécifiques au défenseur peuvent être ajoutées ici

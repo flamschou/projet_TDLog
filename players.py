@@ -126,7 +126,7 @@ class Player:
             )
             i += 1
 
-            pos_y -= 30*S  # Ajustement vertical pour chaque bouton
+            pos_y -= 30 * S  # Ajustement vertical pour chaque bouton
 
     def end_ini(self):
         S = 0
@@ -148,7 +148,11 @@ class Player:
 class Attacker(Player):
     def __init__(self):
         super().__init__("Attacker")
-        self.troops_available = [["assassin", 2, None], ["magician", 1, None], ["turret", 1, None]]
+        self.troops_available = [
+            ["assassin", 2, None],
+            ["magician", 1, None],
+            ["turret", 1, None],
+        ]
         # for i in range(4):
         # creates the four dices of the attacker
         # self.dices.append(Dice("archeer", "engineer", "shield", "stepback", "missed")) later..

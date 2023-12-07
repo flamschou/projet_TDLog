@@ -15,7 +15,9 @@ class Rain(Event):
     def apply_effect(self, game):
         for hexagon in game.board.list:
             if hexagon.hex_type == "basic":
-                test = random.choice([True, False, False, False, False, False, False, False])
+                test = random.choice(
+                    [True, False, False, False, False, False, False, False]
+                )
                 if test:
                     hexagon.toSand()
 
