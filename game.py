@@ -5,6 +5,7 @@ from board import Board
 from players import Attacker, Defender
 from bot import DefenderBot
 import scale
+import utils
 
 S = scale.scale
 
@@ -22,6 +23,7 @@ class Game:
         self.adrenalin = 1
         self.event_counter = 0
         self.attack = None
+        self.winner = None
 
     def generate(self):
         self.board.generate_board(self.num_rows, self.num_cols)
@@ -101,11 +103,22 @@ class Game:
             self.apply_events()
 
     def display_info(self, screen):
-        font = pygame.font.Font(None, 25)
+        font = utils.font(35)
         text = "Time left: " + str(self.time) + ", Adrenalin : " + str(self.adrenalin)
         info_text = font.render(text, True, (255, 0, 0))
-        text_rect = info_text.get_rect(center=(120*S, 550*S))
+        text_rect = info_text.get_rect(center=(450*S, 550*S))
         screen.blit(info_text, text_rect)
+
+    def display_winner(self, screen):
+        font = utils.font(60)
+        text = "Winner is " + str(self.winner.name)
+        print(text)
+        info_text = font.render(text, True, (255, 0, 0))
+        text_rect = info_text.get_rect(center=(450*S, 300*S))
+        screen.blit(info_text, text_rect)
+        pygame.display.flip()
+        pygame.time.delay(5000)
+        print("end game")
 
 
 class HumanVSBotGame(Game):
