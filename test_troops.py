@@ -165,7 +165,6 @@ def test_move():
 
     troop.speed = 5
     hex2.toSand()
-    print(troop.hex.hex_type)
     troop.move(hex1, game)
 
     assert troop.hex == hex1

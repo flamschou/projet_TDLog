@@ -43,15 +43,15 @@ class Troop:
                 else:
                     print("moving")
 
+                    if self.hex.hex_type == "sand":
+                        self.speed -= 2
+
+                    else:
+                        self.speed -= 1
+
                     self.hex.occupied = False
                     self.hex = destination_h
                     self.hex.occupied = True
-
-                    if self.hex.hex_type != "sand":
-                        self.speed -= 1
-
-                    else:
-                        self.speed -= 2
 
                     print("moved to " + str(destination_h.index) + " hexagon")
                     print("speed left: " + str(self.speed))
