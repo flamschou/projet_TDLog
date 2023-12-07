@@ -37,8 +37,8 @@ class Troop:
                 if self.speed == 0:
                     print("no speed left ; you can't move anymore")
 
-                elif self.speed == 1 and self.hex.hex_type == "swamp":
-                    print("this is a swamp ; you don't have enough speed to move")
+                elif self.speed == 1 and self.hex.hex_type == "sand":
+                    print("you are in sand ; you don't have enough speed to move")
 
                 else:
                     print("moving")
@@ -47,7 +47,7 @@ class Troop:
                     self.hex = destination_h
                     self.hex.occupied = True
 
-                    if self.hex.hex_type != "swamp":
+                    if self.hex.hex_type != "sand":
                         self.speed -= 1
 
                     else:
