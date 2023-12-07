@@ -11,10 +11,16 @@ def test_generate_board():
     for col in range(3):
         for row in range(3):
             assert board.list[row * 3 + col].index == row * 3 + col
-            assert board.list[row * 3 + col].hex_type in ["basic", "sand", "forest", "rock"]
-            assert board.list[row * 3 + col].x == col * 60 * S + (
-                30 * S if row % 2 == 0 else 60 * S
-            ) + 80 * S
+            assert board.list[row * 3 + col].hex_type in [
+                "basic",
+                "sand",
+                "forest",
+                "rock",
+            ]
+            assert (
+                board.list[row * 3 + col].x
+                == col * 60 * S + (30 * S if row % 2 == 0 else 60 * S) + 80 * S
+            )
             assert board.list[row * 3 + col].y == row * 52 * S + 100 * S
 
 

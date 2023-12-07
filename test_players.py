@@ -41,25 +41,28 @@ def test_add_troop():
     troop = Troop("None", hex)
     player.add_troop(troop)
 
-    assert player.troops == ["troop"]
+    assert player.troops == [troop]
 
 
 def test_make_move():
     player = Player("test")
     game = Game(2, 2)
     game.generate()
+    game.board.list[0].toBasic()
+    game.board.list[1].toBasic()
     game.board.list[0].accessible = True
     game.board.list[1].accessible = True
     troop = Troop("None", game.board.list[0])
-    player.add_troop(troop)
 
-    player.make_move((115, 105), game)
+    player.add_troop(troop)
+    player.make_move((106, 100), game)
 
     assert not troop.selected
     assert troop.hex == game.board.list[0]
 
     troop.speed = 1
-    player.make_move((115, 105), game)
+
+    player.make_move((106, 100), game)
 
     assert troop.selected
     assert troop.hex == game.board.list[0]
@@ -71,9 +74,14 @@ def test_make_move():
     assert troop.speed == 0
 
     troop.speed = 1
+    troop.selected = True
     game.board.list[0].accessible = False
-    player.make_move((115, 105), game)
+    player.make_move((106, 100), game)
 
+    assert not game.board.list[0].accessible
     assert troop.selected
     assert troop.hex == game.board.list[1]
     assert troop.speed == 1
+
+
+test_make_move()
