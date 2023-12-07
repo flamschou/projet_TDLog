@@ -4,7 +4,7 @@ import tkinter as tk
 def get_scale_factor():
     try:
         root = tk.Tk()
-        screen_width = root.winfo_screenwidth()
+        # screen_width = root.winfo_screenwidth()
         screen_height = root.winfo_screenheight()
         root.destroy()
         return screen_height / 600 * 0.8  # Adjust this calculation as needed
