@@ -1,6 +1,7 @@
 import pygame
 import scale
 import utils
+from os import path
 
 S = scale.scale
 
@@ -20,7 +21,7 @@ class Troop:
         self.attack_range = 0
         self.rect = pygame.Rect(self.hex.x - 10*S, self.hex.y - 10*S, 20*S, 20*S)
         self.selected = False
-        self.attack_image = pygame.image.load("Images\\explosion.png")
+        self.attack_image = pygame.image.load(path.join("Images", "explosion.png"))
         self.attack_image = pygame.transform.scale(self.attack_image, (60*S, 60*S))
 
     def move(self, destination_h, game):
