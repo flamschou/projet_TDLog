@@ -31,7 +31,7 @@ class Hexagone:
         self.image = pygame.transform.scale(self.image, (60*S, 60*S))
 
     def toDefended(self):
-        self.hex_type = "defended"
+        self.hex_type = "Defended"
         self.image = pygame.image.load(path.join("Images", "hexagon defended.png"))
         self.image = pygame.transform.scale(self.image, (60*S, 60*S))
 
