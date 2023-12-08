@@ -174,7 +174,7 @@ def test_initialize_troops():
     assert len(current_player.troops) == 1
     assert current_player.troops[0].hex == game.board.list[0]
     assert current_player.troops[0].troop_type == current_player.troops_available[0][0]
-    assert current_player.troops_available[0][1] == 0
+    assert current_player.troops_available[0][1] == 1
     assert current_player.troops_available[0][3]
     assert current_player.button_selected
     assert game.board.list[0].occupied
