@@ -109,6 +109,7 @@ def test_selected_button():
     assert current_player.troops_available[1][3]
     assert current_player.button_selected
 
+    current_player.troops_available[1][3] = False
     current_player.button_selected = False
     current_player.troops_available[1][1] = 0
     current_player.selected_button((SCREEN_WIDTH - 150 * S, SCREEN_HEIGHT - 180))
@@ -160,6 +161,8 @@ def test_initialize_troops():
 
     current_player.initialize_troops((106, 100), game)
 
+    assert current_player.troops[0].hex == game.board.list[0]
+    assert current_player.troops[0].troop_type == "archer"
     assert current_player.troops_available[0][1] == 0
     assert not current_player.troops_available[0][3]
     assert not current_player.selected_button
