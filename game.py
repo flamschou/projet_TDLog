@@ -58,25 +58,6 @@ class Game:
                 return hexagon
         return None
 
-    def list_neighbors(self, hexagon1):
-        neighbors = []
-
-        for hexagon in self.board:
-            if (
-                abs(hexagon.x - hexagon1.x) < 80 * S
-                and abs(hexagon.y - hexagon1.y) < 80 * S
-                and hexagon != hexagon1
-            ):
-                neighbors.append(hexagon)
-
-        return neighbors
-
-    def neighbors(self, hexagon, hexagon1):
-        if hexagon in self.list_neighbors(hexagon1):
-            return True
-        else:
-            return False
-
     def create_deck(self):
         for i in range(54):
             choice = random.choice(
