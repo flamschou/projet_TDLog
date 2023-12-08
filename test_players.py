@@ -161,7 +161,7 @@ def test_initialize_troops():
     assert current_player.troops_available[0][3]
     assert current_player.button_selected
 
-    current_player.troops_available[0][1] = 1
+    current_player.troops_available[0][1] = 2
 
     current_player.initialize_troops((106, 100), game)
 
@@ -175,9 +175,19 @@ def test_initialize_troops():
     assert current_player.troops[0].hex == game.board.list[0]
     assert current_player.troops[0].troop_type == current_player.troops_available[0][0]
     assert current_player.troops_available[0][1] == 0
-    assert not current_player.troops_available[0][3]
+    assert current_player.troops_available[0][3]
     assert current_player.button_selected
     assert game.board.list[0].occupied
+
+    current_player.initialize_troops((106, 140), game)
+
+    assert len(current_player.troops) == 2
+    assert current_player.troops[1].hex == game.board.list[3]
+    assert current_player.troops[1].troop_type == current_player.troops_available[0][0]
+    assert current_player.troops_available[0][1] == 0
+    assert not current_player.troops_available[0][3]
+    assert not current_player.button_selected
+    assert game.board.list[3].occupied
 
     current_player.button_selected = False
     current_player.initialize_troops(
