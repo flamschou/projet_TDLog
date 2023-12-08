@@ -193,3 +193,16 @@ def test_initialize_troops():
     assert game.board.list[0].occupied
     assert current_player.troops_available[0][3]
     assert current_player.selected_button
+
+
+def test_end_ini():
+    game = Game(2, 2)
+    game.generate()
+
+    assert not game.current_player.end_ini()
+
+    game.current_player.troops_available[0][1] = 0
+    game.current_player.troops_available[1][1] = 0
+    game.current_player.troops_available[2][1] = 0
+
+    assert game.current_player.end_ini()
