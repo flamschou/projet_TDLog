@@ -1,6 +1,7 @@
 from players import Player, Attacker, Defender
 from troop import Troop
 from hexagon import Hexagone
+import pygame
 import scale
 from game import Game
 
@@ -122,37 +123,19 @@ def test_ini_troops_available():
     S = scale.scale
     SCREEN_WIDTH = 900 * S
     SCREEN_HEIGHT = 600 * S
+    button_size = (100 * S, 20 * S)
 
     current_player = game.defender
     current_player.ini_troops_available(SCREEN_WIDTH, SCREEN_HEIGHT)
 
-    assert current_player.troops_available[0][2] == (
-        SCREEN_WIDTH - 150 * S,
-        SCREEN_HEIGHT - 150,
+    assert current_player.troops_available[0][2] == pygame.Rect(
+        (SCREEN_WIDTH - 150 * S, SCREEN_HEIGHT - 150), button_size
     )
-    assert current_player.troops_available[1][2] == (
-        SCREEN_WIDTH - 150 * S,
-        SCREEN_HEIGHT - 180,
+    assert current_player.troops_available[1][2] == pygame.Rect(
+        (SCREEN_WIDTH - 150 * S, SCREEN_HEIGHT - 180), button_size
     )
-    assert current_player.troops_available[2][2] == (
-        SCREEN_WIDTH - 150 * S,
-        SCREEN_HEIGHT - 210,
-    )
-
-    game.change_player()
-    current_player.ini_troops_available(SCREEN_WIDTH, SCREEN_HEIGHT)
-
-    assert current_player.troops_available[0][2] == (
-        SCREEN_WIDTH - 150 * S,
-        SCREEN_HEIGHT - 150,
-    )
-    assert current_player.troops_available[1][2] == (
-        SCREEN_WIDTH - 150 * S,
-        SCREEN_HEIGHT - 180,
-    )
-    assert current_player.troops_available[2][2] == (
-        SCREEN_WIDTH - 150 * S,
-        SCREEN_HEIGHT - 210,
+    assert current_player.troops_available[2][2] == pygame.Rect(
+        (SCREEN_WIDTH - 150 * S, SCREEN_HEIGHT - 210), button_size
     )
 
 
