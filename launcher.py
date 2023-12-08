@@ -44,7 +44,6 @@ clock = pygame.time.Clock()
 
 # version initiale humain contre humain
 for current_player in [test.defender, test.attacker]:
-    i = 0
     running = True
 
     while current_player.end_ini() and running:
@@ -53,8 +52,7 @@ for current_player in [test.defender, test.attacker]:
                 running = False
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                i = current_player.selected_button(pygame.mouse.get_pos(), i)
-                current_player.initialize_troops(pygame.mouse.get_pos(), i, test)
+                current_player.initialize_troops(pygame.mouse.get_pos(), test)
 
         screen.fill(WHITE)
         test.draw(screen)
