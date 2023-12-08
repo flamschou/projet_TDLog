@@ -108,6 +108,14 @@ def test_selected_button():
     assert current_player.troops_available[1][3]
     assert current_player.button_selected
 
+    current_player.button_selected = False
+    current_player.troops_available[1][1] = 0
+    current_player.selected_button((SCREEN_WIDTH - 150 * S, SCREEN_HEIGHT - 180))
+
+    assert not current_player.troops_available[1][3]
+    assert not current_player.button_selected
+
+
 def test_ini_troops_available():
     game = Game(2, 2)
     game.generate()
@@ -118,13 +126,78 @@ def test_ini_troops_available():
     current_player = game.defender
     current_player.ini_troops_available(SCREEN_WIDTH, SCREEN_HEIGHT)
 
-    assert current_player.troops_available[0][2] == (SCREEN_WIDTH - 150 * S, SCREEN_HEIGHT - 150)
-    assert current_player.troops_available[1][2] == (SCREEN_WIDTH - 150 * S, SCREEN_HEIGHT - 180)
-    assert current_player.troops_available[2][2] == (SCREEN_WIDTH - 150 * S, SCREEN_HEIGHT - 210)
+    assert current_player.troops_available[0][2] == (
+        SCREEN_WIDTH - 150 * S,
+        SCREEN_HEIGHT - 150,
+    )
+    assert current_player.troops_available[1][2] == (
+        SCREEN_WIDTH - 150 * S,
+        SCREEN_HEIGHT - 180,
+    )
+    assert current_player.troops_available[2][2] == (
+        SCREEN_WIDTH - 150 * S,
+        SCREEN_HEIGHT - 210,
+    )
 
     game.change_player()
     current_player.ini_troops_available(SCREEN_WIDTH, SCREEN_HEIGHT)
 
-    assert current_player.troops_available[0][2] == (SCREEN_WIDTH - 150 * S, SCREEN_HEIGHT - 150)
-    assert current_player.troops_available[1][2] == (SCREEN_WIDTH - 150 * S, SCREEN_HEIGHT - 180)
-    assert current_player.troops_available[2][2] == (SCREEN_WIDTH - 150 * S, SCREEN_HEIGHT - 210)
+    assert current_player.troops_available[0][2] == (
+        SCREEN_WIDTH - 150 * S,
+        SCREEN_HEIGHT - 150,
+    )
+    assert current_player.troops_available[1][2] == (
+        SCREEN_WIDTH - 150 * S,
+        SCREEN_HEIGHT - 180,
+    )
+    assert current_player.troops_available[2][2] == (
+        SCREEN_WIDTH - 150 * S,
+        SCREEN_HEIGHT - 210,
+    )
+
+
+def test_initialize_troops():
+    game = Game(2, 2)
+    game.generate()
+    S = scale.scale
+    SCREEN_WIDTH = 900 * S
+    SCREEN_HEIGHT = 600 * S
+
+    current_player = game.defender
+    current_player.ini_troops_available(SCREEN_WIDTH, SCREEN_HEIGHT)
+
+    current_player.initialize_troops(
+        (SCREEN_WIDTH - 150 * S, SCREEN_HEIGHT - 150), game
+    )
+
+    assert current_player.troops_available[0][3]
+    assert current_player.selected_button
+
+    current_player.troops_available[0][1] = 1
+
+    current_player.initialize_troops((106, 100), game)
+
+    assert current_player.troops_available[0][1] == 0
+    assert not current_player.troops_available[0][3]
+    assert not current_player.selected_button
+    assert game.board.list[0].occupied
+
+    current_player.initialize_troops(
+        (SCREEN_WIDTH - 150 * S, SCREEN_HEIGHT - 150), game
+    )
+    current_player.initialize_troops((173, 105), game)
+
+    assert not game.board.list[1].occupied
+    assert not current_player.troops_available[0][3]
+    assert not current_player.selected_button
+
+    current_player.troops_available[0][1] = 1
+    current_player.initialize_troops(
+        (SCREEN_WIDTH - 150 * S, SCREEN_HEIGHT - 150), game
+    )
+    current_player.initialize_troops((106, 100), game)
+
+    assert current_player.troops_available[0][1] == 1
+    assert game.board.list[0].occupied
+    assert current_player.troops_available[0][3]
+    assert current_player.selected_button

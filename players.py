@@ -61,7 +61,7 @@ class Player:
         clicked_pos = clicked
         print("clicked at", clicked_pos)
         for troop in self.troops_available:
-            if troop[2].collidepoint(clicked_pos):
+            if troop[2].collidepoint(clicked_pos) and troop[1] > 0:
                 self.button_selected = True
                 troop[3] = True
                 print("button selected")
@@ -86,12 +86,7 @@ class Player:
             for hexagon in game.board.list:
                 if hexagon.rect.collidepoint(clicked_pos) and self.button_selected:
                     for troop in self.troops_available:
-                        if (
-                            not hexagon.occupied
-                            and hexagon.accessible
-                            and troop[3]
-                            and troop[1] > 0
-                        ):
+                        if not hexagon.occupied and hexagon.accessible and troop[3]:
                             if troop[0] == "assassin":
                                 troop1 = Assassin(hexagon)
 
