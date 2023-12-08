@@ -69,9 +69,10 @@ class Player:
     def initialize_troops(self, clicked, game):
         # beginning of the game, the defender starts by placing his troops
 
+        clicked_pos = clicked
+
         self.selected_button(clicked)
 
-        clicked_pos = clicked
         print("clicked at", clicked_pos)
 
         if self.name == "Defender" and not self.placed:
