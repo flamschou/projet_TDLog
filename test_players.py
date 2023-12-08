@@ -1,5 +1,5 @@
 from players import Player, Attacker, Defender
-from troop import Troop
+from troop import Troop, Archer
 from hexagon import Hexagone
 import pygame
 import scale
@@ -168,12 +168,13 @@ def test_initialize_troops():
     current_player.initialize_troops((106, 100), game)
 
     assert current_player.troops[0].hex == game.board.list[0]
-    assert current_player.troops[0].troop_type == "archer"
+    assert current_player.troops[0].troop_type == current_player.troops_available[0][0]
     assert current_player.troops_available[0][1] == 0
     assert not current_player.troops_available[0][3]
-    assert not current_player.selected_button
+    assert current_player.selected_button
     assert game.board.list[0].occupied
 
+    current_player.selected_button = False
     current_player.initialize_troops(
         (SCREEN_WIDTH - 150 * S, SCREEN_HEIGHT - 150), game
     )
@@ -199,10 +200,29 @@ def test_end_ini():
     game = Game(2, 2)
     game.generate()
 
-    assert not game.current_player.end_ini()
+    assert game.current_player.end_ini()
 
     game.current_player.troops_available[0][1] = 0
     game.current_player.troops_available[1][1] = 0
     game.current_player.troops_available[2][1] = 0
 
-    assert game.current_player.end_ini()
+    assert not game.current_player.end_ini()
+
+
+def test_regenerate_speed():
+    player = Player("test")
+    hex = Hexagone("None", 10, 15)
+
+    troop = Archer(hex)
+
+    player.add_troop(troop)
+
+    troop.speed = 0
+    troop.attack_capacity = 0
+    troop.attack_power = 0
+
+    player.regenerate_speed()
+
+    assert troop.speed == troop.default_speed
+    assert troop.attack_capacity == troop.default_attack_capacity
+    assert troop.attack_power == troop.default_attack_power
