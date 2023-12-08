@@ -155,14 +155,14 @@ def test_initialize_troops():
     )
 
     assert current_player.troops_available[0][3]
-    assert current_player.selected_button
+    assert current_player.button_selected
 
     current_player.troops_available[0][1] = 1
 
     current_player.initialize_troops((106, 100), game)
 
     assert current_player.troops_available[0][3]
-    assert current_player.selected_button
+    assert current_player.button_selected
     assert game.board.list[0].hex_type == "Defended"
 
     current_player.initialize_troops((106, 100), game)
@@ -171,10 +171,10 @@ def test_initialize_troops():
     assert current_player.troops[0].troop_type == current_player.troops_available[0][0]
     assert current_player.troops_available[0][1] == 0
     assert not current_player.troops_available[0][3]
-    assert current_player.selected_button
+    assert current_player.button_selected
     assert game.board.list[0].occupied
 
-    current_player.selected_button = False
+    current_player.button_selected = False
     current_player.initialize_troops(
         (SCREEN_WIDTH - 150 * S, SCREEN_HEIGHT - 150), game
     )
@@ -182,7 +182,7 @@ def test_initialize_troops():
 
     assert not game.board.list[1].occupied
     assert not current_player.troops_available[0][3]
-    assert not current_player.selected_button
+    assert not current_player.button_selected
 
     current_player.troops_available[0][1] = 1
     current_player.initialize_troops(
@@ -193,8 +193,7 @@ def test_initialize_troops():
     assert current_player.troops_available[0][1] == 1
     assert game.board.list[0].occupied
     assert current_player.troops_available[0][3]
-    assert current_player.selected_button
-
+    assert current_player.button_selected
 
 def test_end_ini():
     game = Game(2, 2)
