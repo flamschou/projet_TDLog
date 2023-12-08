@@ -161,6 +161,12 @@ def test_initialize_troops():
 
     current_player.initialize_troops((106, 100), game)
 
+    assert current_player.troops_available[0][3]
+    assert current_player.selected_button
+    assert game.board.list[0].hex_type == "Defended"
+
+    current_player.initialize_troops((106, 100), game)
+
     assert current_player.troops[0].hex == game.board.list[0]
     assert current_player.troops[0].troop_type == "archer"
     assert current_player.troops_available[0][1] == 0
