@@ -146,6 +146,10 @@ def test_initialize_troops():
     S = scale.scale
     SCREEN_WIDTH = 900 * S
     SCREEN_HEIGHT = 600 * S
+    game.board.list[0].toBasic()
+    game.board.list[1].toBasic()
+    game.board.list[0].accessible = True
+    game.board.list[1].accessible = True
 
     current_player = game.defender
     current_player.ini_troops_available(SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -194,6 +198,7 @@ def test_initialize_troops():
     assert game.board.list[0].occupied
     assert current_player.troops_available[0][3]
     assert current_player.button_selected
+
 
 def test_end_ini():
     game = Game(2, 2)
