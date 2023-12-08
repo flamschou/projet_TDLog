@@ -71,7 +71,7 @@ class Player:
 
         clicked_pos = clicked
 
-        self.selected_button(clicked)
+        self.selected_button(clicked_pos)
 
         print("clicked at", clicked_pos)
 
