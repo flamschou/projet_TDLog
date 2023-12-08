@@ -2,6 +2,7 @@
 from troop import Assassin, Magician, Turret, Engineer, Archer, Shield
 import utils
 import scale
+import pygame
 
 S = scale.scale
 
@@ -85,8 +86,12 @@ class Player:
             for hexagon in game.board.list:
                 if hexagon.rect.collidepoint(clicked_pos) and self.button_selected:
                     for troop in self.troops_available:
-                        if not hexagon.occupied and hexagon.accessible and troop[3] and troop[1] > 0:
-
+                        if (
+                            not hexagon.occupied
+                            and hexagon.accessible
+                            and troop[3]
+                            and troop[1] > 0
+                        ):
                             if troop[0] == "assassin":
                                 troop1 = Assassin(hexagon)
 
@@ -112,11 +117,6 @@ class Player:
                             if troop[1] == 0:
                                 self.button_selected = False
                                 troop[3] = False
-
-                elif hexagon.occupied:
-                    print("this hexagon is already occupied")
-                else:
-                    print("this hexagon is not accessible")
 
     def draw_button(self, screen, height, width, col):
         pos_y = height - 150  # Position verticale initiale des boutons
@@ -144,6 +144,16 @@ class Player:
             troop.speed = troop.default_speed
             troop.attack_power = troop.default_attack_power
             troop.attack_capacity = troop.default_attack_capacity
+
+    def ini_troops_available(self, width, height):
+        pos_y = height - 150  # Position verticale initiale des boutons
+        button_size = (100 * S, 20 * S)
+
+        for troop in self.troops_available:
+            button_pos = (width - 150 * S, pos_y)
+            troop[2] = pygame.Rect(button_pos, button_size)
+
+            pos_y -= 30 * S  # Ajustement vertical pour chaque bouton
 
 
 class Attacker(Player):

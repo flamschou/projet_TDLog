@@ -1,6 +1,7 @@
 from players import Player, Attacker, Defender
 from troop import Troop
 from hexagon import Hexagone
+import scale
 from game import Game
 
 
@@ -18,9 +19,9 @@ def test___init__Attacker():
 
     assert attacker.name == "Attacker"
     assert attacker.troops_available == [
-        ["assassin", 2, None],
-        ["magician", 1, None],
-        ["turret", 1, None],
+        ["assassin", 2, None, False],
+        ["magician", 1, None, False],
+        ["turret", 1, None, False],
     ]
 
 
@@ -29,9 +30,9 @@ def test___init__Defender():
 
     assert defender.name == "Defender"
     assert defender.troops_available == [
-        ["archer", 2, None],
-        ["engineer", 1, None],
-        ["shield", 1, None],
+        ["archer", 2, None, False],
+        ["engineer", 1, None, False],
+        ["shield", 1, None, False],
     ]
 
 
@@ -82,3 +83,27 @@ def test_make_move():
     assert troop.selected
     assert troop.hex == game.board.list[1]
     assert troop.speed == 1
+
+
+def test_selected_button():
+    game = Game(2, 2)
+    game.generate()
+    S = scale.scale
+    SCREEN_WIDTH = 900 * S
+    SCREEN_HEIGHT = 600 * S
+
+    current_player = game.defender
+    current_player.ini_troops_available(SCREEN_WIDTH, SCREEN_HEIGHT)
+
+    current_player.selected_button((SCREEN_WIDTH - 150 * S, SCREEN_HEIGHT - 150))
+
+    assert current_player.troops_available[0][3]
+    assert current_player.button_selected
+    assert not current_player.troops_available[1][3]
+
+    game.change_player()
+    current_player.ini_troops_available(SCREEN_WIDTH, SCREEN_HEIGHT)
+    current_player.selected_button((SCREEN_WIDTH - 150 * S, SCREEN_HEIGHT - 180))
+
+    assert current_player.troops_available[1][3]
+    assert current_player.button_selected

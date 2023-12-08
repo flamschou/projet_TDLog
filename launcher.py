@@ -40,6 +40,8 @@ test.draw(screen)
 
 frame_rate = 15
 clock = pygame.time.Clock()
+test.defender.ini_troops_available(SCREEN_WIDTH, SCREEN_HEIGHT)
+test.attacker.ini_troops_available(SCREEN_WIDTH, SCREEN_HEIGHT)
 
 
 # version initiale humain contre humain

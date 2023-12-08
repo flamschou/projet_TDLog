@@ -34,7 +34,6 @@ def drawButton_troop(texte, place, nbre, SCREEN_WIDTH, pos_y, col, troops_availa
     if len(troops_available) < 3:
         troops_available.extend([None] * (3 - len(troops_available)))
 
-    troops_available[2] = pygame.Rect(button_pos, button_size)
     text_center = (SCREEN_WIDTH - 100 * S, pos_y + 10 * S)
     fontObj = font(13)
     drawButton(
