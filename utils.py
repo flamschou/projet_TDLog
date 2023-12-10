@@ -27,8 +27,6 @@ def drawButton_end_tour(place, SCREEN_WIDTH, SCREEN_HEIGHT, col):
 def drawButton_troop(texte, place, nbre, SCREEN_WIDTH, pos_y, col, troops_available):
     button_pos = (SCREEN_WIDTH - 150 * S, pos_y)
     button_size = (100 * S, 20 * S)
-    button_pos = (SCREEN_WIDTH - 150, pos_y)
-    button_size = (100, 20)
 
     # Assurez-vous que troops_available a assez d'éléments
     if len(troops_available) < 3:

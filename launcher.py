@@ -10,7 +10,7 @@ import scale
 pygame.init()
 
 # Couleurs
-WHITE = (255, 255, 255)
+WHITE = (200, 215, 200)
 BLACK = (0, 0, 0)
 
 # Get the dimensions of the screen
