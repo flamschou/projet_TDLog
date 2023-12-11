@@ -68,14 +68,15 @@ for i in range(2):
 
 
 while running and test.time > 0 and test.winner is None:
-    for event in pygame.event.get():
+    for event in pygame.event.get():  # Event handling
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             test.end_tour(pygame.mouse.get_pos(), SCREEN_WIDTH, SCREEN_HEIGHT)
             test.current_player.make_move(pygame.mouse.get_pos(), test)
+            test.eliminations()
 
-    screen.fill(WHITE)
+    screen.fill(WHITE)  # Display handling
     mousePos = pygame.mouse.get_pos()
     for troop in test.attacker.troops:
         if troop.isHovered(mousePos):
@@ -86,7 +87,6 @@ while running and test.time > 0 and test.winner is None:
     test.draw(screen)
     test.display_info(screen)
     utils.drawButton_end_tour(screen, SCREEN_WIDTH, SCREEN_HEIGHT, BLACK)
-
     pygame.display.flip()
     clock.tick(frame_rate)
 

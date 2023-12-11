@@ -1,4 +1,5 @@
 import random
+from os import path
 import pygame
 from event import Rain, Fire, Rescue, Betrayal, Adrenalin, Expansion
 from board import Board
@@ -19,11 +20,13 @@ class Game:
         self.defender = Defender()
         self.current_player = self.defender
         self.deck = []
-        self.time = 35
+        self.time = 3
         self.adrenalin = 1
         self.event_counter = 0
         self.attack = None
         self.winner = None
+        self.attack_image = pygame.image.load(path.join("Images", "explosion.png"))
+        self.attack_image = pygame.transform.scale(self.attack_image, (60 * S, 60 * S))
 
     def generate(self):
         self.board.generate_board(self.num_rows, self.num_cols)
@@ -37,8 +40,8 @@ class Game:
         for troop in self.defender.troops:
             troop.draw(screen)
         if self.attack is not None:
-            hex = self.attack.hex
-            image = self.attack.attack_image
+            hex = self.attack
+            image = self.attack_image
             image_rect = image.get_rect(center=(hex.x, hex.y))
             print("drawing attack")
             screen.blit(image, image_rect)
@@ -86,8 +89,9 @@ class Game:
             self.time -= 1
 
     def display_info(self, screen):
-        font = utils.font(35)
-        text = "Time left: " + str(self.time) + ", Adrenalin : " + str(self.adrenalin)
+        font = utils.font(28)
+        text = "Time left: " + str(self.time)
+        text += ", Event : " + str(self.deck[self.event_counter % 54].event_type)
         info_text = font.render(text, True, (255, 0, 0))
         text_rect = info_text.get_rect(center=(450 * S, 550 * S))
         screen.blit(info_text, text_rect)
@@ -111,6 +115,18 @@ class Game:
         ).collidepoint(clicked):
             self.change_player()
             self.current_player.regenerate_speed()
+
+    def eliminations(self):
+        self.attacker.troops = [
+            troop for troop in self.attacker.troops if troop.status != "dead"
+        ]
+        self.defender.troops = [
+            troop for troop in self.defender.troops if troop.status != "dead"
+        ]
+        if len(self.attacker.troops) == 0:
+            self.winner = self.defender
+        if len(self.defender.troops) == 0:
+            self.winner = self.attacker
 
 
 class HumanVSBotGame(Game):

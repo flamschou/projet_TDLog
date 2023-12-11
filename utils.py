@@ -43,14 +43,3 @@ def drawButton_troop(texte, place, nbre, SCREEN_WIDTH, pos_y, col, troops_availa
         fontObj,
         col,
     )
-
-
-def end_tour(clicked_pos, SCREEN_WIDTH, SCREEN_HEIGHT):
-    clicked = clicked_pos
-
-    if pygame.Rect(
-        (SCREEN_WIDTH - 190 * S, SCREEN_HEIGHT - 60 * S), (180 * S, 40 * S)
-    ).collidepoint(clicked):
-        return True
-
-    return False
