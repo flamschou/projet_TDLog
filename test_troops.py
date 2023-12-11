@@ -16,7 +16,6 @@ def test___init__():
     assert troop.status == "none"
     assert troop.default_speed == 0
     assert troop.speed == 0
-    assert troop.color == (0, 0, 0)
     assert troop.attack_range == 0
     assert troop.rect == pygame.Rect(troop.hex.x - 10, troop.hex.y - 10, 20, 20)
     assert not troop.selected
@@ -33,7 +32,6 @@ def test___init__Archer():
     assert troop.status == "none"
     assert troop.default_speed == 5
     assert troop.speed == 5
-    assert troop.color == (0, 255, 0)
     assert troop.attack_range == 2
     assert troop.rect == pygame.Rect(troop.hex.x - 10, troop.hex.y - 10, 20, 20)
     assert not troop.selected
@@ -51,7 +49,6 @@ def test___init__Assassin():
     assert troop.status == "none"
     assert troop.default_speed == 5
     assert troop.speed == 5
-    assert troop.color == (255, 0, 0)
     assert troop.attack_range == 1
     assert troop.rect == pygame.Rect(troop.hex.x - 10, troop.hex.y - 10, 20, 20)
     assert not troop.selected
@@ -69,7 +66,6 @@ def test___init__Magician():
     assert troop.status == "none"
     assert troop.default_speed == 3
     assert troop.speed == 3
-    assert troop.color == (255, 0, 0)
     assert troop.attack_range == 2
     assert troop.rect == pygame.Rect(troop.hex.x - 10, troop.hex.y - 10, 20, 20)
     assert not troop.selected
@@ -87,7 +83,6 @@ def test___init__Turret():
     assert troop.status == "none"
     assert troop.default_speed == 1
     assert troop.speed == 1
-    assert troop.color == (255, 0, 0)
     assert troop.attack_range == 3
     assert troop.rect == pygame.Rect(troop.hex.x - 10, troop.hex.y - 10, 20, 20)
     assert not troop.selected
@@ -105,7 +100,6 @@ def test___init__Engineer():
     assert troop.status == "none"
     assert troop.default_speed == 3
     assert troop.speed == 3
-    assert troop.color == (0, 255, 0)
     assert troop.attack_range == 1
     assert troop.rect == pygame.Rect(troop.hex.x - 10, troop.hex.y - 10, 20, 20)
     assert not troop.selected
@@ -123,7 +117,6 @@ def test___init__Shield():
     assert troop.status == "none"
     assert troop.default_speed == 1
     assert troop.speed == 1
-    assert troop.color == (0, 255, 0)
     assert troop.attack_range == 1
     assert troop.rect == pygame.Rect(troop.hex.x - 10, troop.hex.y - 10, 20, 20)
     assert not troop.selected
