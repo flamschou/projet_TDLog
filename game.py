@@ -124,6 +124,15 @@ class Game:
         if len(self.defender.troops) == 0:
             self.winner = self.attacker
 
+    def end_tour(self, clicked_pos, SCREEN_WIDTH, SCREEN_HEIGHT):
+        clicked = clicked_pos
+
+        if pygame.Rect(
+            (SCREEN_WIDTH - 190 * S, SCREEN_HEIGHT - 60 * S), (180 * S, 40 * S)
+        ).collidepoint(clicked):
+            self.change_player()
+            self.current_player.regenerate_speed()
+
 
 class HumanVSBotGame(Game):
     def __init__(self, num_rows, num_cols):
