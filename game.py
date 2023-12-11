@@ -117,8 +117,12 @@ class Game:
         print("end game")
 
     def eliminations(self):
-        self.attacker.troops = [troop for troop in self.attacker.troops if troop.status != "dead"]
-        self.defender.troops = [troop for troop in self.defender.troops if troop.status != "dead"]
+        self.attacker.troops = [
+            troop for troop in self.attacker.troops if troop.status != "dead"
+        ]
+        self.defender.troops = [
+            troop for troop in self.defender.troops if troop.status != "dead"
+        ]
         if len(self.attacker.troops) == 0:
             self.winner = self.defender
         if len(self.defender.troops) == 0:

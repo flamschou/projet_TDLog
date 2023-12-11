@@ -180,7 +180,6 @@ def test_initialize_troops():
     assert game.board.list[0].occupied
 
     current_player.initialize_troops((205, 155), game)
-    print(game.board.list[3].x, game.board.list[3].y)
 
     assert len(current_player.troops) == 2
     assert current_player.troops[1].hex == game.board.list[3]
