@@ -13,6 +13,7 @@ class Player:
         self.dices = []
         self.troops_available = []
         self.button_selected = False
+        self.playing = False
 
     def add_troop(self, troop):
         self.troops.append(troop)
