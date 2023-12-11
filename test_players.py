@@ -150,6 +150,8 @@ def test_initialize_troops():
     game.board.list[1].toBasic()
     game.board.list[0].accessible = True
     game.board.list[1].accessible = True
+    game.board.list[3].toBasic()
+    game.board.list[3].accessible = True
 
     current_player = game.defender
     current_player.ini_troops_available(SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -241,6 +243,3 @@ def test_regenerate_speed():
     assert troop.speed == troop.default_speed
     assert troop.attack_capacity == troop.default_attack_capacity
     assert troop.attack_power == troop.default_attack_power
-
-
-test_initialize_troops()
