@@ -179,7 +179,8 @@ def test_initialize_troops():
     assert current_player.button_selected
     assert game.board.list[0].occupied
 
-    current_player.initialize_troops((194, 155), game)
+    current_player.initialize_troops((205, 155), game)
+    print(game.board.list[3].x, game.board.list[3].y)
 
     assert len(current_player.troops) == 2
     assert current_player.troops[1].hex == game.board.list[3]
@@ -241,3 +242,6 @@ def test_regenerate_speed():
     assert troop.speed == troop.default_speed
     assert troop.attack_capacity == troop.default_attack_capacity
     assert troop.attack_power == troop.default_attack_power
+
+
+test_initialize_troops()
