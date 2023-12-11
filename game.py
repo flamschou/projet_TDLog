@@ -79,14 +79,13 @@ class Game:
             if choice == "expansion":
                 self.deck.append(Expansion())
 
-    def change_player(self):
-        if self.current_player.name == "Defender":
-            self.current_player = self.attacker
-        else:
+    def change_player(self, screen):
+        if self.current_player == self.attacker:
             self.current_player = self.defender
-            self.adrenalin = 1
+        else:
+            self.current_player = self.attacker
             self.apply_events()
-            self.time -= 1
+        self.display_newPlayer(screen)
 
     def display_info(self, screen):
         font = utils.font(28)
@@ -107,26 +106,33 @@ class Game:
         pygame.time.delay(5000)
         print("end game")
 
-    def end_tour(self, clicked_pos, SCREEN_WIDTH, SCREEN_HEIGHT):
+    def display_newPlayer(self, screen):
+        font = utils.font(15)
+        text = "New Player is " + str(self.current_player.name)
+        print(text)
+        info_text = font.render(text, True, (255, 0, 0))
+        text_rect = info_text.get_rect(center=(800 * S, 150 * S))
+        screen.blit(info_text, text_rect)
+        pygame.display.flip()
+        pygame.time.delay(1500)
+        print("end game")
+
+    def eliminations(self):
+        self.attacker.troops = [troop for troop in self.attacker.troops if troop.status != "dead"]
+        self.defender.troops = [troop for troop in self.defender.troops if troop.status != "dead"]
+        if len(self.attacker.troops) == 0:
+            self.winner = self.defender
+        if len(self.defender.troops) == 0:
+            self.winner = self.attacker
+
+    def end_tour(self, clicked_pos, SCREEN_WIDTH, SCREEN_HEIGHT, screen):
         clicked = clicked_pos
 
         if pygame.Rect(
             (SCREEN_WIDTH - 190 * S, SCREEN_HEIGHT - 60 * S), (180 * S, 40 * S)
         ).collidepoint(clicked):
-            self.change_player()
+            self.change_player(screen)
             self.current_player.regenerate_speed()
-
-    def eliminations(self):
-        self.attacker.troops = [
-            troop for troop in self.attacker.troops if troop.status != "dead"
-        ]
-        self.defender.troops = [
-            troop for troop in self.defender.troops if troop.status != "dead"
-        ]
-        if len(self.attacker.troops) == 0:
-            self.winner = self.defender
-        if len(self.defender.troops) == 0:
-            self.winner = self.attacker
 
 
 class HumanVSBotGame(Game):
