@@ -87,3 +87,16 @@ class Board:
             return True
         else:
             return False
+
+    # permet de trouver un hexagon accessible à partir d'un hexagon donné
+    # qui rapproche d'un deuxième hexagone (bot logic)
+    def find_destination_hex(self, hexagon1, hexagon2):
+        hexagon1_neighbors = self.list_neighbors(hexagon1)
+
+        for neighbor in hexagon1_neighbors:
+            # check if the distance between neighbor and hexagon2 is
+            # equal to the distance between hexagon1 and hexagon2 minus 1
+            if self.isdistance(neighbor, hexagon2, hexagon1.rect.width / (60 * S) - 1):
+                return neighbor
+
+        return None
