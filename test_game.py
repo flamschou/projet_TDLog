@@ -15,7 +15,7 @@ def test___init__():
     assert game.defender is not None
     assert game.current_player == game.defender
     assert game.deck == []
-    assert game.time == 35
+    assert game.time == 3
     assert game.adrenalin == 1
     assert game.event_counter == 0
     assert game.attack is None
@@ -80,7 +80,7 @@ def test_change_player():
 
     game.change_player()
     assert game.current_player == game.attacker
-    assert game.event_counter == 0
+    assert game.event_counter == 1
 
     game.change_player()
     assert game.current_player == game.defender
