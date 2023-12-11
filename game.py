@@ -17,7 +17,7 @@ class Game:
         self.board = Board()
         self.attacker = Attacker()
         self.defender = Defender()
-        self.current_player = self.attacker
+        self.current_player = self.defender
         self.deck = []
         self.time = 35
         self.adrenalin = 1
@@ -77,11 +77,13 @@ class Game:
                 self.deck.append(Expansion())
 
     def change_player(self):
-        if self.current_player == self.attacker:
-            self.current_player = self.defender
-        else:
+        if self.current_player.name == "Defender":
             self.current_player = self.attacker
+        else:
+            self.current_player = self.defender
+            self.adrenalin = 1
             self.apply_events()
+            self.time -= 1
 
     def display_info(self, screen):
         font = utils.font(35)
@@ -100,6 +102,15 @@ class Game:
         pygame.display.flip()
         pygame.time.delay(5000)
         print("end game")
+
+    def end_tour(self, clicked_pos, SCREEN_WIDTH, SCREEN_HEIGHT):
+        clicked = clicked_pos
+
+        if pygame.Rect(
+            (SCREEN_WIDTH - 190 * S, SCREEN_HEIGHT - 60 * S), (180 * S, 40 * S)
+        ).collidepoint(clicked):
+            self.change_player()
+            self.current_player.regenerate_speed()
 
 
 class HumanVSBotGame(Game):

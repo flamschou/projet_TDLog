@@ -45,46 +45,35 @@ test.attacker.ini_troops_available(SCREEN_WIDTH, SCREEN_HEIGHT)
 
 
 # version initiale humain contre humain
-for current_player in [test.defender, test.attacker]:
+for i in range(2):
     running = True
 
-    while current_player.end_ini() and running:
+    while test.current_player.end_ini() and running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                current_player.initialize_troops(pygame.mouse.get_pos(), test)
+                test.current_player.initialize_troops(pygame.mouse.get_pos(), test)
 
         screen.fill(WHITE)
         test.draw(screen)
         test.display_info(screen)
-        current_player.draw_button(screen, SCREEN_HEIGHT, SCREEN_WIDTH, BLACK)
+        test.current_player.draw_button(screen, SCREEN_HEIGHT, SCREEN_WIDTH, BLACK)
 
         pygame.display.flip()
         clock.tick(frame_rate)
 
+    test.change_player()
 
-running = True
-players = [test.defender, test.attacker]
-current_player = test.defender
-i = 0
 
 while running and test.time > 0 and test.winner is None:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-            if utils.end_tour(pygame.mouse.get_pos(), SCREEN_WIDTH, SCREEN_HEIGHT):
-                i += 1
-                current_player = players[i % 2]
-                current_player.regenerate_speed()
-                if i % 2 == 0:
-                    test.adrenalin = 1
-                    test.apply_events()
-                    test.time -= 1
-                    test.winner = test.attacker
-            current_player.make_move(pygame.mouse.get_pos(), test)
+            test.end_tour(pygame.mouse.get_pos(), SCREEN_WIDTH, SCREEN_HEIGHT)
+            test.current_player.make_move(pygame.mouse.get_pos(), test)
 
     screen.fill(WHITE)
     mousePos = pygame.mouse.get_pos()
