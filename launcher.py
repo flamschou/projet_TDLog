@@ -64,7 +64,7 @@ for i in range(2):
         pygame.display.flip()
         clock.tick(frame_rate)
 
-    test.change_player()
+    test.change_player(screen)
 
 
 while running and test.time > 0 and test.winner is None:
@@ -72,7 +72,7 @@ while running and test.time > 0 and test.winner is None:
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-            test.end_tour(pygame.mouse.get_pos(), SCREEN_WIDTH, SCREEN_HEIGHT)
+            test.end_tour(pygame.mouse.get_pos(), SCREEN_WIDTH, SCREEN_HEIGHT, screen)
             test.current_player.make_move(pygame.mouse.get_pos(), test)
             test.eliminations()
 
