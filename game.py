@@ -79,13 +79,12 @@ class Game:
             if choice == "expansion":
                 self.deck.append(Expansion())
 
-    def change_player(self, screen):
+    def change_player(self):
         if self.current_player == self.attacker:
             self.current_player = self.defender
         else:
             self.current_player = self.attacker
             self.apply_events()
-        self.display_newPlayer(screen)
 
     def display_info(self, screen):
         font = utils.font(28)
@@ -131,7 +130,8 @@ class Game:
         if pygame.Rect(
             (SCREEN_WIDTH - 190 * S, SCREEN_HEIGHT - 60 * S), (180 * S, 40 * S)
         ).collidepoint(clicked):
-            self.change_player(screen)
+            self.change_player()
+            self.display_newPlayer(screen)
             self.current_player.regenerate_speed()
 
 
