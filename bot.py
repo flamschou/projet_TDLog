@@ -139,7 +139,12 @@ class AttackerBot(Bot):
 class DefenderBot(Bot):
     def __init__(self):
         super().__init__("DefenderBot", "Defender")
-        self.troops_available = [["archer", 1], ["archer", 1], ["shield", 1], ["engineer", 1]]
+        self.troops_available = [
+            ["archer", 1],
+            ["archer", 1],
+            ["shield", 1],
+            ["engineer", 1],
+        ]
         self.defended_hexagon = None
         self.position = (0, 0)
         self.selected_troop_index = None
@@ -239,13 +244,25 @@ class DefenderBot(Bot):
                     ].occupied = True
 
                     if troop_type == "archer":
-                        new_troop = Archer(game.board.larger_list_neighbors(self.defended_hexagon)[entiers_aleatoires[i]])
+                        new_troop = Archer(
+                            game.board.larger_list_neighbors(self.defended_hexagon)[
+                                entiers_aleatoires[i]
+                            ]
+                        )
 
                     elif troop_type == "engineer":
-                        new_troop = Engineer(game.board.larger_list_neighbors(self.defended_hexagon)[entiers_aleatoires[i]])
+                        new_troop = Engineer(
+                            game.board.larger_list_neighbors(self.defended_hexagon)[
+                                entiers_aleatoires[i]
+                            ]
+                        )
 
                     elif troop_type == "shield":
-                        new_troop = Shield(game.board.larger_list_neighbors(self.defended_hexagon)[entiers_aleatoires[i]])
+                        new_troop = Shield(
+                            game.board.larger_list_neighbors(self.defended_hexagon)[
+                                entiers_aleatoires[i]
+                            ]
+                        )
 
                     self.add_troop(new_troop)
                     print(f"{troop_type} placed")

@@ -4,14 +4,12 @@ Projet long de TDLog. Corentin Caris, Wandrille Flamant, Abel Salmona.
 Jeu de plateau avec des cases hexagonales qui voit s'affronter un attaquant et un défenseur. Le défenseur doit résister jusqu'à ce que la durée du jeu expire. L'attaquant doit éliminer ou chasser le défenseur avant la fin du jeu. Le logiciel permet de jouer contre l'autre joueur (IA ou humain) et affiche le plateau, la liste d'actions et des informations supplémentaires. Il ne fonctionne que par point & click. 
 
 Fonctionnalités à ajouter/débugger : 
-- priorité : fin du jeu et test scénario
+- Adrenalin qui augmente la speed de manière exponentielle
 - attaque sur les troupes amies
-- fin de partie
-- changer la police
-- bugs initialisation des troupes
-- fenêtre dynamique ?
 - zones pour placer les troupes à l'initialisation
 - continuer IA
+- troupes joueur non actif en noir et blanc / troupes actives mises en valeur
+- affichage du joueur actif 
 
 Rôles : 
 - Clean le code et implémenter les tests
@@ -31,8 +29,8 @@ Interface :
 
 Board : Le plateau est composé d'hexagones de plusieurs types
 - basic : pas d'attributs
-- swamp : ralenti les troupes
-- forest : réduit la portée des attaques des troupes
+- sand : ralenti les troupes
+- forest : réduit la portée des attaques des troupes ennemies
 - rock : ne peut pas devenir swamp
 
 Troops : il existe plusieurs types de troupes

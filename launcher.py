@@ -3,13 +3,14 @@ import sys
 from game import Game  # HumanVSBotGame
 import utils
 import scale
+
 # from bot import AttackerBot, DefenderBot
 
 # Initialisation de Pygame
 pygame.init()
 
 # Couleurs
-WHITE = (255, 255, 255)
+WHITE = (200, 215, 200)
 BLACK = (0, 0, 0)
 
 # Get the dimensions of the screen
@@ -39,11 +40,12 @@ test.draw(screen)
 
 frame_rate = 15
 clock = pygame.time.Clock()
+test.defender.ini_troops_available(SCREEN_WIDTH, SCREEN_HEIGHT)
+test.attacker.ini_troops_available(SCREEN_WIDTH, SCREEN_HEIGHT)
 
 
 # version initiale humain contre humain
 for current_player in [test.defender, test.attacker]:
-    i = 0
     running = True
 
     while current_player.end_ini() and running:
@@ -52,8 +54,7 @@ for current_player in [test.defender, test.attacker]:
                 running = False
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                i = current_player.selected_button(pygame.mouse.get_pos(), i)
-                current_player.initialize_troops(pygame.mouse.get_pos(), i, test)
+                current_player.initialize_troops(pygame.mouse.get_pos(), test)
 
         screen.fill(WHITE)
         test.draw(screen)
@@ -111,7 +112,7 @@ sys.exit()
 
 # version alternative pour tester les bots
 
-'''
+"""
 # partie humain vs bot
 human_vs_bot_game = HumanVSBotGame(num_rows, num_cols)
 human_vs_bot_game.generate()
@@ -139,7 +140,7 @@ for current_player in [bot_defender, human_attacker]:
                 else:
                     i = current_player.selected_button(pygame.mouse.get_pos(), i)
                 current_player.initialize_troops(pygame.mouse.get_pos(), i, human_vs_bot_game)
-'''
+"""
 
 """
 running = True

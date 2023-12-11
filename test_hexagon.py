@@ -54,7 +54,7 @@ def test___init__Rock():
 def test___init__Defended():
     hexagon = Defended(10, 15)
 
-    assert hexagon.hex_type == "defended"
+    assert hexagon.hex_type == "Defended"
     assert hexagon.x == 10
     assert hexagon.y == 15
     assert not hexagon.occupied
@@ -79,4 +79,4 @@ def test_toDefended():
     hexagon = Hexagone("None", 10, 15)
     hexagon.toDefended()
 
-    assert hexagon.hex_type == "defended"
+    assert hexagon.hex_type == "Defended"

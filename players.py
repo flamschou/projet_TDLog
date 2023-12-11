@@ -2,6 +2,7 @@
 from troop import Assassin, Magician, Turret, Engineer, Archer, Shield
 import utils
 import scale
+import pygame
 
 S = scale.scale
 
@@ -57,23 +58,22 @@ class Player:
         else:
             print("No attacker or defender selected.")"""
 
-    def selected_button(self, clicked, i):
+    def selected_button(self, clicked):
         clicked_pos = clicked
-        j = 0
         print("clicked at", clicked_pos)
         for troop in self.troops_available:
-            if troop[2].collidepoint(clicked_pos):
+            if troop[2].collidepoint(clicked_pos) and troop[1] > 0:
                 self.button_selected = True
+                troop[3] = True
                 print("button selected")
-                return j
-            j += 1
 
-        return i
-
-    def initialize_troops(self, clicked, i, game):
-        # beginning of the game, the attacker starts by placing his troops
+    def initialize_troops(self, clicked, game):
+        # beginning of the game, the defender starts by placing his troops
 
         clicked_pos = clicked
+
+        self.selected_button(clicked_pos)
+
         print("clicked at", clicked_pos)
 
         if self.name == "Defender" and not self.placed:
@@ -87,36 +87,33 @@ class Player:
         else:
             for hexagon in game.board.list:
                 if hexagon.rect.collidepoint(clicked_pos) and self.button_selected:
-                    if not hexagon.occupied and hexagon.accessible:
-                        if self.troops_available[i][0] == "assassin":
-                            troop = Assassin(hexagon)
+                    for troop in self.troops_available:
+                        if not hexagon.occupied and hexagon.accessible and troop[3]:
+                            if troop[0] == "assassin":
+                                troop1 = Assassin(hexagon)
 
-                        elif self.troops_available[i][0] == "magician":
-                            troop = Magician(hexagon)
+                            elif troop[0] == "magician":
+                                troop1 = Magician(hexagon)
 
-                        elif self.troops_available[i][0] == "turret":
-                            troop = Turret(hexagon)
+                            elif troop[0] == "turret":
+                                troop1 = Turret(hexagon)
 
-                        elif self.troops_available[i][0] == "archer":
-                            troop = Archer(hexagon)
+                            elif troop[0] == "archer":
+                                troop1 = Archer(hexagon)
 
-                        elif self.troops_available[i][0] == "engineer":
-                            troop = Engineer(hexagon)
+                            elif troop[0] == "engineer":
+                                troop1 = Engineer(hexagon)
 
-                        elif self.troops_available[i][0] == "shield":
-                            troop = Shield(hexagon)
+                            elif troop[0] == "shield":
+                                troop1 = Shield(hexagon)
 
-                        self.add_troop(troop)
-                        print("troop placed")
-                        self.troops_available[i][1] -= 1
-                        print(self.troops_available[i][1])
-                        if self.troops_available[i][1] == 0:
-                            self.button_selected = False
-
-                    elif hexagon.occupied:
-                        print("this hexagon is already occupied")
-                    else:
-                        print("this hexagon is not accessible")
+                            self.add_troop(troop1)
+                            print("troop placed")
+                            troop[1] -= 1
+                            print(troop[1])
+                            if troop[1] == 0:
+                                self.button_selected = False
+                                troop[3] = False
 
     def draw_button(self, screen, height, width, col):
         pos_y = height - 150  # Position verticale initiale des boutons
@@ -127,7 +124,7 @@ class Player:
             )
             i += 1
 
-            pos_y -= 30*S  # Ajustement vertical pour chaque bouton
+            pos_y -= 30 * S  # Ajustement vertical pour chaque bouton
 
     def end_ini(self):
         S = 0
@@ -145,11 +142,25 @@ class Player:
             troop.attack_power = troop.default_attack_power
             troop.attack_capacity = troop.default_attack_capacity
 
+    def ini_troops_available(self, width, height):
+        pos_y = height - 150  # Position verticale initiale des boutons
+        button_size = (100 * S, 20 * S)
+
+        for troop in self.troops_available:
+            button_pos = (width - 150 * S, pos_y)
+            troop[2] = pygame.Rect(button_pos, button_size)
+
+            pos_y -= 30 * S  # Ajustement vertical pour chaque bouton
+
 
 class Attacker(Player):
     def __init__(self):
         super().__init__("Attacker")
-        self.troops_available = [["assassin", 2, None], ["magician", 1, None], ["turret", 1, None]]
+        self.troops_available = [
+            ["assassin", 2, None, False],
+            ["magician", 1, None, False],
+            ["turret", 1, None, False],
+        ]
         # for i in range(4):
         # creates the four dices of the attacker
         # self.dices.append(Dice("archeer", "engineer", "shield", "stepback", "missed")) later..
@@ -160,9 +171,9 @@ class Defender(Player):
         super().__init__("Defender")
         self.placed = False
         self.troops_available = [
-            ["archer", 2, None],
-            ["engineer", 1, None],
-            ["shield", 1, None],
+            ["archer", 2, None, False],
+            ["engineer", 1, None, False],
+            ["shield", 1, None, False],
         ]
         # for i in range(4):
         #   creates the four dices of the attacker
