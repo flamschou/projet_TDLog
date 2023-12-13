@@ -25,6 +25,7 @@ def test_scenario():
 
     for i in range(16):
         test.board.list[i].toBasic()
+        test.board.list[i].accessible = True
 
     test.defender.ini_troops_available(SCREEN_WIDTH, SCREEN_HEIGHT)
     test.attacker.ini_troops_available(SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -35,28 +36,25 @@ def test_scenario():
     test.current_player.initialize_troops((106, 100), test)
 
     # initialisation des troupes du défenseur
-    test.current_player.initialize_troops(
-        (SCREEN_WIDTH - 150 * S, SCREEN_HEIGHT - 150 * S), test
-    )
-    test.current_player.initialize_troops((106, 100), test)
+    while not test.current_player.troops_available[0][3]:
+        test.current_player.initialize_troops(
+            (SCREEN_WIDTH - 150 * S, SCREEN_HEIGHT - 150 * S), test
+        )
+
     test.current_player.initialize_troops((106, 100), test)
     test.current_player.initialize_troops((164, 100), test)
 
-    test.current_player.initialize_troops(
-        (SCREEN_WIDTH - 150 * S, SCREEN_HEIGHT - 180 * S), test
-    )
+    while not test.current_player.troops_available[1][3]:
+        test.current_player.initialize_troops(
+            (SCREEN_WIDTH - 150 * S, SCREEN_HEIGHT - 180 * S), test
+        )
     test.current_player.initialize_troops((136, 146), test)
 
-    for troop in test.current_player.troops_available:
-        if troop[3]:
-            print(troop[0], troop[1])
-
-    test.current_player.initialize_troops(
-        (SCREEN_WIDTH - 150 * S, SCREEN_HEIGHT - 210 * S), test
-    )
+    while not test.current_player.troops_available[2][3]:
+        test.current_player.initialize_troops(
+            (SCREEN_WIDTH - 150 * S, SCREEN_HEIGHT - 210 * S), test
+        )
     test.current_player.initialize_troops((194, 146), test)
-
-    print(test.board.list[5].x, test.board.list[5].y)
 
     for troop in test.current_player.troops:
         print(troop.hex.index, troop.troop_type)
@@ -65,20 +63,25 @@ def test_scenario():
 
     print("attacker turn")
 
-    test.current_player.initialize_troops(
-        (SCREEN_WIDTH - 150 * S, SCREEN_HEIGHT - 150), test
-    )
+    # initialisation des troupes de l'attaquant
+
+    while not test.current_player.troops_available[0][3]:
+        test.current_player.initialize_troops(
+            (SCREEN_WIDTH - 150 * S, SCREEN_HEIGHT - 150), test
+        )
     test.current_player.initialize_troops((222, 196), test)
     test.current_player.initialize_troops((280, 196), test)
 
-    test.current_player.initialize_troops(
-        (SCREEN_WIDTH - 150 * S, SCREEN_HEIGHT - 170 * S), test
-    )
+    while not test.current_player.troops_available[1][3]:
+        test.current_player.initialize_troops(
+            (SCREEN_WIDTH - 150 * S, SCREEN_HEIGHT - 180 * S), test
+        )
     test.current_player.initialize_troops((252, 246), test)
 
-    test.current_player.initialize_troops(
-        (SCREEN_WIDTH - 150 * S, SCREEN_HEIGHT - 190 * S), test
-    )
+    while not test.current_player.troops_available[2][3]:
+        test.current_player.initialize_troops(
+            (SCREEN_WIDTH - 150 * S, SCREEN_HEIGHT - 210 * S), test
+        )
     test.current_player.initialize_troops((308, 246), test)
 
     for troop in test.current_player.troops:
@@ -89,6 +92,39 @@ def test_scenario():
     test.change_player()
 
     print("defender turn")
+
+    # on fait bouger et attaquer les troupes du défenseur
+
+    test.current_player.make_move((164, 100), test)
+    test.current_player.make_move((222, 100), test)
+    test.current_player.make_move((222, 100), test)
+    test.current_player.make_move((280, 196), test)
+    test.current_player.make_move((222, 100), test)
+    test.current_player.make_move((280, 100), test)
+
+    test.current_player.make_move((106, 100), test)
+    test.current_player.make_move((164, 100), test)
+    test.current_player.make_move((222, 100), test)
+    test.current_player.make_move((222, 196), test)
+    test.current_player.make_move((252, 146), test)
+    test.current_player.make_move((308, 146), test)
+
+    test.current_player.make_move((136, 146), test)
+    test.current_player.make_move((106, 100), test)
+
+    test.current_player.make_move((194, 146), test)
+    test.current_player.make_move((222, 196), test)
+    test.current_player.make_move((194, 146), test)
+    test.current_player.make_move((164, 196), test)
+
+    # on change de joueur
+
+    test.current_player.regenerate_speed()
+    test.change_player()
+    
+
+
+
 
 
 test_scenario()

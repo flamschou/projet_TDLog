@@ -85,6 +85,7 @@ class Game:
         else:
             self.current_player = self.attacker
             self.apply_events()
+            self.time -= 1
 
     def display_info(self, screen):
         font = utils.font(28)
