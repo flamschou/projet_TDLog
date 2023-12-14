@@ -35,3 +35,7 @@ jobs:
       if: always()
       run: |
         pytest
+    - name: Run pytest with coverage
+      if: always()
+      run: |
+        pytest --cov
