@@ -35,10 +35,7 @@ jobs:
       if: always()
       run: |
         pytest
-    - name: Install pytest-cov
-      run: |
-        conda install -c conda-forge pytest-cov
     - name: Run pytest with coverage
       if: always()
       run: |
-        pytest --cov
+        pytest --cov game.py
