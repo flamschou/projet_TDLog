@@ -121,10 +121,6 @@ def test_scenario():
 
     test.current_player.regenerate_speed()
     test.change_player()
-    
-
-
-
 
 
 test_scenario()
