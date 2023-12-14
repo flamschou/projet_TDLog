@@ -38,4 +38,4 @@ jobs:
     - name: Run pytest with coverage
       if: always()
       run: |
-        pytest --cov = projet_TDLog
+        pytest --cov =.
