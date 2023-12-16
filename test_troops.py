@@ -207,3 +207,14 @@ def test_is_troop_allowed_to_strike():
     troop1.attack_capacity = 0
 
     assert not troop1.is_troop_allowed_to_strike(troop2, game)
+
+
+def test_eliminated():
+    troop = Troop("None", Hexagone("None", 10, 15))
+
+    troop.eliminated()
+
+    assert troop.hex is None
+    assert troop.rect is None
+    assert troop.status == "dead"
+    assert not troop.hex.occupied
