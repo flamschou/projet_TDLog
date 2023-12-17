@@ -114,6 +114,9 @@ def test_scenario():
 
     test.current_player.make_move((194, 146), test)
     test.current_player.make_move((222, 196), test)
+
+    test.eliminations()
+
     test.current_player.make_move((194, 146), test)
     test.current_player.make_move((164, 196), test)
 
@@ -121,6 +124,53 @@ def test_scenario():
 
     test.current_player.regenerate_speed()
     test.change_player()
+
+    test.current_player.make_move((296, 210), test)
+    test.current_player.make_move((235, 210), test)
+
+    test.current_player.make_move((235, 210), test)
+    test.current_player.make_move((174, 210), test)
+
+    test.current_player.make_move((235, 210), test)
+    test.current_player.make_move((205, 156), test)
+
+    test.current_player.make_move((205, 156), test)
+    test.current_player.make_move((266, 156), test)
+
+    test.current_player.make_move((266, 156), test)
+    test.current_player.make_move((296, 103), test)
+
+    test.current_player.make_move((266, 261), test)
+    test.current_player.make_move((174, 210), test)
+
+    test.current_player.make_move((327, 261), test)
+    test.current_player.make_move((296, 210), test)
+
+    test.current_player.make_move((296, 210), test)
+    test.current_player.make_move((174, 210), test)
+
+    if test.time > 0:
+        test.current_player.regenerate_speed()
+        test.change_player()
+
+        if test.time > 0:
+            test.current_player.regenerate_speed()
+            test.change_player()
+
+            test.current_player.make_move((296, 210), test)
+            test.current_player.make_move((174, 210), test)
+
+            test.current_player.make_move((266, 261), test)
+            test.current_player.make_move((174, 210), test)
+
+            while test.time > 0:
+                test.current_player.regenerate_speed()
+                test.change_player()
+
+    test.winner = test.defender
+
+    assert test.time == 0
+    assert test.winner == test.defender
 
 
 test_scenario()
