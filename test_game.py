@@ -100,19 +100,19 @@ def test_eliminations():
     game.defender.troops.append(Archer(game.board.list[2]))
     game.defender.troops.append(Archer(game.board.list[3]))
 
-    game.attacker.troops[0].dead = True
+    game.attacker.troops[0].status = "dead"
     game.eliminations()
 
     assert len(game.attacker.troops) == 1
     assert len(game.defender.troops) == 2
 
-    game.defender.troops[0].dead = True
+    game.defender.troops[0].status = "dead"
     game.eliminations()
 
     assert len(game.attacker.troops) == 1
     assert len(game.defender.troops) == 1
 
-    game.defender.troops[0].dead = True
+    game.defender.troops[0].status = "dead"
     game.eliminations()
 
     assert len(game.attacker.troops) == 1

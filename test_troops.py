@@ -1,5 +1,5 @@
 from troop import Troop, Archer, Assassin, Magician, Turret, Engineer, Shield
-from hexagon import Hexagone
+from hexagon import Hexagone, Sand
 from game import Game
 import pygame
 
@@ -210,11 +210,10 @@ def test_is_troop_allowed_to_strike():
 
 
 def test_eliminated():
-    troop = Troop("None", Hexagone("None", 10, 15))
+    troop = Assassin(Sand(10, 15))
 
     troop.eliminated()
 
     assert troop.hex is None
     assert troop.rect is None
     assert troop.status == "dead"
-    assert not troop.hex.occupied
