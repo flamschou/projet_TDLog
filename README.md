@@ -9,6 +9,7 @@ Fonctionnalités à ajouter/débugger :
 - attaque sur les troupes amies
 - zones pour placer les troupes à l'initialisation
 - continuer IA
+- commencer l'implémentation du son
 
 Rôles : 
 - Clean le code et implémenter les tests
