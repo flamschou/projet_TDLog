@@ -29,8 +29,8 @@ Interface :
 Board : Le plateau est composé d'hexagones de plusieurs types
 - basic : pas d'attributs
 - sand : ralenti les troupes
-- forest : réduit la portée des attaques des troupes ennemies
-- rock : ne peut pas devenir swamp
+- forest : augmente la portée des troupes
+- rock : ne peut pas devenir sand
 
 Troops : il existe plusieurs types de troupes
 - Attaque (rouge) : 
