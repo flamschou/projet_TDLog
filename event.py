@@ -1,6 +1,6 @@
 import random
 
-# event_types = ["rain", "fire", "adrenalin", "rescue", "betrayal", "expansion"]
+# event_types = ["sandstorm", "fire", "adrenalin", "rescue", "betrayal", "expansion"]
 
 
 class Event:
@@ -8,9 +8,9 @@ class Event:
         self.event_type = event_type
 
 
-class Rain(Event):
+class Sandstorm(Event):
     def __init__(self):
-        super().__init__("rain")
+        super().__init__("sandstorm")
 
     def apply_effect(self, game):
         for hexagon in game.board.list:

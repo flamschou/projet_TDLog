@@ -1,7 +1,7 @@
 import random
 from os import path
 import pygame
-from event import Rain, Fire, Rescue, Betrayal, Adrenalin, Expansion
+from event import Sandstorm, Fire, Rescue, Betrayal, Adrenalin, Expansion
 from board import Board
 from players import Attacker, Defender
 from bot import DefenderBot
@@ -50,10 +50,11 @@ class Game:
             print("end attack")
             self.attack = None
 
-    def apply_events(self):
+    def apply_events(self, screen):
         self.deck[self.event_counter % 54].apply_effect(self)
         self.event_counter += 1
         print(self.deck[self.event_counter % 54].event_type)
+        self.display_newEvent(screen)
 
     def get_hexagon_at(self, x, y):
         for hexagon in self.board.list:
@@ -64,10 +65,10 @@ class Game:
     def create_deck(self):
         for i in range(54):
             choice = random.choice(
-                ["rain", "fire", "rescue", "betrayal", "adrenalin", "expansion"]
+                ["sandstorm", "fire", "rescue", "betrayal", "adrenalin", "expansion"]
             )
             if choice == "rain":
-                self.deck.append(Rain())
+                self.deck.append(Sandstorm())
             if choice == "fire":
                 self.deck.append(Fire())
             if choice == "rescue":
@@ -84,15 +85,13 @@ class Game:
             self.current_player = self.defender
         else:
             self.current_player = self.attacker
-            self.apply_events()
-        self.display_newPlayer(screen)
 
     def display_info(self, screen):
-        font = utils.font(28)
+        font = utils.font(20)
         text = "Time left: " + str(self.time)
-        text += ", Event : " + str(self.deck[self.event_counter % 54].event_type)
+        text += ", Current player: " + str(self.current_player.name)
         info_text = font.render(text, True, (255, 0, 0))
-        text_rect = info_text.get_rect(center=(450 * S, 550 * S))
+        text_rect = info_text.get_rect(center=(400 * S, 550 * S))
         screen.blit(info_text, text_rect)
 
     def display_winner(self, screen):
@@ -106,16 +105,15 @@ class Game:
         pygame.time.delay(5000)
         print("end game")
 
-    def display_newPlayer(self, screen):
+    def display_newEvent(self, screen):
         font = utils.font(15)
-        text = "New Player is " + str(self.current_player.name)
+        text = "New Event is " + str(self.deck[(self.event_counter-1) % 54].event_type)
         print(text)
         info_text = font.render(text, True, (255, 0, 0))
         text_rect = info_text.get_rect(center=(800 * S, 150 * S))
         screen.blit(info_text, text_rect)
         pygame.display.flip()
         pygame.time.delay(1500)
-        print("end game")
 
     def eliminations(self):
         self.attacker.troops = [troop for troop in self.attacker.troops if troop.status != "dead"]
@@ -133,6 +131,7 @@ class Game:
         ).collidepoint(clicked):
             self.change_player(screen)
             self.current_player.regenerate_speed()
+            self.apply_events(screen)
 
 
 class HumanVSBotGame(Game):
