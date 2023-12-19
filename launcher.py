@@ -64,7 +64,7 @@ for i in range(2):
         pygame.display.flip()
         clock.tick(frame_rate)
 
-    test.change_player(screen)
+    test.change_player()
 
 
 while running and test.time > 0 and test.winner is None:

@@ -50,11 +50,10 @@ class Game:
             print("end attack")
             self.attack = None
 
-    def apply_events(self, screen):
+    def apply_events(self):
         self.deck[self.event_counter % 54].apply_effect(self)
         self.event_counter += 1
         print(self.deck[self.event_counter % 54].event_type)
-        self.display_newEvent(screen)
 
     def get_hexagon_at(self, x, y):
         for hexagon in self.board.list:
@@ -136,9 +135,8 @@ class Game:
             (SCREEN_WIDTH - 190 * S, SCREEN_HEIGHT - 60 * S), (180 * S, 40 * S)
         ).collidepoint(clicked):
             self.change_player()
-            self.display_newPlayer(screen)
             self.current_player.regenerate_speed()
-            self.apply_events(screen)
+            self.display_newEvent(screen)
 
 
 class HumanVSBotGame(Game):
