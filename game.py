@@ -20,7 +20,7 @@ class Game:
         self.defender = Defender()
         self.current_player = self.defender
         self.deck = []
-        self.time = 3
+        self.time = 7
         self.adrenalin = 1
         self.event_counter = 0
         self.attack = None

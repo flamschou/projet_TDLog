@@ -5,11 +5,10 @@ Jeu de plateau avec des cases hexagonales qui voit s'affronter un attaquant et u
 
 Fonctionnalités à ajouter/débugger : 
 - Adrenalin qui augmente la speed de manière exponentielle
+- les event se déclenchent à chaque changement de joueur
 - attaque sur les troupes amies
 - zones pour placer les troupes à l'initialisation
 - continuer IA
-- troupes joueur non actif en noir et blanc / troupes actives mises en valeur
-- affichage du joueur actif 
 
 Rôles : 
 - Clean le code et implémenter les tests
