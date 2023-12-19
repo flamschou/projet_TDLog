@@ -150,6 +150,8 @@ def test_initialize_troops():
     game.board.list[1].toBasic()
     game.board.list[0].accessible = True
     game.board.list[1].accessible = True
+    game.board.list[3].toBasic()
+    game.board.list[3].accessible = True
 
     current_player = game.defender
     current_player.ini_troops_available(SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -179,7 +181,7 @@ def test_initialize_troops():
     assert current_player.button_selected
     assert game.board.list[0].occupied
 
-    current_player.initialize_troops((194, 155), game)
+    current_player.initialize_troops((205, 155), game)
 
     assert len(current_player.troops) == 2
     assert current_player.troops[1].hex == game.board.list[3]

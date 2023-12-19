@@ -1,4 +1,5 @@
 from game import Game
+from troop import Assassin, Archer
 import scale
 
 S = scale.scale
@@ -13,9 +14,9 @@ def test___init__():
     assert game.board is not None
     assert game.attacker is not None
     assert game.defender is not None
-    assert game.current_player == game.attacker
+    assert game.current_player == game.defender
     assert game.deck == []
-    assert game.time == 35
+    assert game.time == 3
     assert game.adrenalin == 1
     assert game.event_counter == 0
     assert game.attack is None
@@ -79,9 +80,41 @@ def test_change_player():
     game.create_deck()
 
     game.change_player()
-    assert game.current_player == game.defender
-    assert game.event_counter == 0
-
-    game.change_player()
     assert game.current_player == game.attacker
     assert game.event_counter == 1
+
+    game.change_player()
+    assert game.current_player == game.defender
+    assert game.event_counter == 1
+
+
+def test_eliminations():
+    num_rows = 4
+    num_cols = 4
+    game = Game(num_rows, num_cols)
+    game.generate()
+
+    game.attacker.troops.append(Assassin(game.board.list[0]))
+    game.attacker.troops.append(Assassin(game.board.list[1]))
+
+    game.defender.troops.append(Archer(game.board.list[2]))
+    game.defender.troops.append(Archer(game.board.list[3]))
+
+    game.attacker.troops[0].status = "dead"
+    game.eliminations()
+
+    assert len(game.attacker.troops) == 1
+    assert len(game.defender.troops) == 2
+
+    game.defender.troops[0].status = "dead"
+    game.eliminations()
+
+    assert len(game.attacker.troops) == 1
+    assert len(game.defender.troops) == 1
+
+    game.defender.troops[0].status = "dead"
+    game.eliminations()
+
+    assert len(game.attacker.troops) == 1
+    assert len(game.defender.troops) == 0
+    assert game.winner == game.attacker

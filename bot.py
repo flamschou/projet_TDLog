@@ -13,7 +13,9 @@ class Bot(Player):
 
     def simuler_clic(self):
         # créé un évènement de clic à la position du bot
-        pygame.event.post(pygame.event.Event(pygame.MOUSEBUTTONDOWN, {'pos': self.position}))
+        pygame.event.post(
+            pygame.event.Event(pygame.MOUSEBUTTONDOWN, {"pos": self.position})
+        )
 
     def set_bot_logic(self, bot_logic):
         self.bot_logic = bot_logic
@@ -28,13 +30,17 @@ class Bot(Player):
         return None
 
 
-
 # ATTAQUANT BOT
 # notons ici que on a privilégié le dévelopmment du défenseur, donc dabord tester le défenseur bot
 class AttackerBot(Bot):
     def __init__(self):
         super().__init__("AttackerBot", "Attacker")
-        self.troops_available = [["assassin", 1], ["assassin", 1], ["magician", 1], ["turret", 1]]
+        self.troops_available = [
+            ["assassin", 1],
+            ["assassin", 1],
+            ["magician", 1],
+            ["turret", 1],
+        ]
         self.position = (0, 0)
 
     def initialize_bot_logic(self):
@@ -56,19 +62,28 @@ class AttackerBot(Bot):
     # sélectionne une troupe aléatoire
     def select_random_troop(self, game):
         self.selected_troop_index = self.troops.index(random.choice(self.troops))
-        self.position = (self.troops[self.selected_troop_index].hex.x, self.troops[self.selected_troop_index].hex.y)
+        self.position = (
+            self.troops[self.selected_troop_index].hex.x,
+            self.troops[self.selected_troop_index].hex.y,
+        )
         self.simuler_clic()
-        print("clic simule et troupe selectionnee" + str(self.troops[self.selected_troop_index]))
-        
+        print(
+            "clic simule et troupe selectionnee"
+            + str(self.troops[self.selected_troop_index])
+        )
 
     # si une troupe est sélectionnée, l'utiliser
     def use_selected_troop(self, selected_troop, game):
-    # vérifier si la troupe a une capacité d'attaque non nulle
+        # vérifier si la troupe a une capacité d'attaque non nulle
         if selected_troop.attack_capacity > 0:
             # vérifier si la troupe peut attaquer une troupe ennemie
-            attackable_troops = [troop for troop in game.attacker.troops if
-                                    game.board.isdistance(selected_troop.hex, troop.hex,
-                                                        selected_troop.attack_range)]
+            attackable_troops = [
+                troop
+                for troop in game.attacker.troops
+                if game.board.isdistance(
+                    selected_troop.hex, troop.hex, selected_troop.attack_range
+                )
+            ]
 
             if attackable_troops:
                 # attaquer une troupe ennemie si il y en a une à portée
@@ -79,13 +94,29 @@ class AttackerBot(Bot):
             else:
                 # trouver la troupe ennemie la plus proche et se déplacer vers elle si il reste de la vitesse
                 if selected_troop.speed != 0:
-                    target_troop = min(game.attacker.troops,
-                    key=lambda troop: game.board.get_distance(selected_troop.hex, troop.hex))
+                    target_troop = min(
+                        game.attacker.troops,
+                        key=lambda troop: game.board.get_distance(
+                            selected_troop.hex, troop.hex
+                        ),
+                    )
                     # flake8: noqa
-                    if game.board.isdistance(selected_troop.hex, target_troop.hex, selected_troop.speed + selected_troop.attack_range):
+                    if game.board.isdistance(
+                        selected_troop.hex,
+                        target_troop.hex,
+                        selected_troop.speed + selected_troop.attack_range,
+                    ):
                         # sé déplacer et attaquer si la troupe est à porté suffisante après le déplacement considérant la vitesse restante
-                        while selected_troop.speed > 0 and selected_troop.speed  + selected_troop.attack_range > game.board.get_distance(selected_troop.hex, target_troop.hex):
-                            destination_hex = game.board.find_destination_hex(selected_troop.hex, target_troop.hex)
+                        while (
+                            selected_troop.speed > 0
+                            and selected_troop.speed + selected_troop.attack_range
+                            > game.board.get_distance(
+                                selected_troop.hex, target_troop.hex
+                            )
+                        ):
+                            destination_hex = game.board.find_destination_hex(
+                                selected_troop.hex, target_troop.hex
+                            )
                             self.position = (destination_hex.x, destination_hex.y)
                             self.simuler_clic()
                             print("cic simulé et troupe déplacée" + str(selected_troop))
@@ -94,7 +125,9 @@ class AttackerBot(Bot):
                         print("cic simulé et troupe attaquée" + str(target_troop))
                     else:
                         # se rapprocher de la troupe ennemie et s'arreter là
-                        destination_hex = game.board.find_destination_hex(selected_troop.hex, target_troop.hex)
+                        destination_hex = game.board.find_destination_hex(
+                            selected_troop.hex, target_troop.hex
+                        )
                         self.position = (destination_hex.x, destination_hex.y)
                         self.simuler_clic()
                         print("cic simulé et troupe déplacée" + str(selected_troop))
@@ -135,6 +168,7 @@ class AttackerBot(Bot):
                     break
                 i += 1
 
+
 # DEFENSEUR BOT
 class DefenderBot(Bot):
     def __init__(self):
@@ -169,19 +203,28 @@ class DefenderBot(Bot):
     # sélectionne une troupe aléatoire
     def select_random_troop(self, game):
         self.selected_troop_index = self.troops.index(random.choice(self.troops))
-        self.position = (self.troops[self.selected_troop_index].hex.x, self.troops[self.selected_troop_index].hex.y)
+        self.position = (
+            self.troops[self.selected_troop_index].hex.x,
+            self.troops[self.selected_troop_index].hex.y,
+        )
         self.simuler_clic()
-        print("clic simule et troupe selectionnee" + str(self.troops[self.selected_troop_index]))
-        
+        print(
+            "clic simule et troupe selectionnee"
+            + str(self.troops[self.selected_troop_index])
+        )
 
     # si une troupe est sélectionnée, l'utiliser
     def use_selected_troop(self, selected_troop, game):
-    # vérifier si la troupe a une capacité d'attaque non nulle
+        # vérifier si la troupe a une capacité d'attaque non nulle
         if selected_troop.attack_capacity > 0:
             # vérifier si la troupe peut attaquer une troupe ennemie
-            attackable_troops = [troop for troop in game.attacker.troops if
-                                    game.board.isdistance(selected_troop.hex, troop.hex,
-                                                        selected_troop.attack_range)]
+            attackable_troops = [
+                troop
+                for troop in game.attacker.troops
+                if game.board.isdistance(
+                    selected_troop.hex, troop.hex, selected_troop.attack_range
+                )
+            ]
 
             if attackable_troops:
                 # attaquer une troupe ennemie si il y en a une à portée
@@ -192,13 +235,29 @@ class DefenderBot(Bot):
             else:
                 # trouver la troupe ennemie la plus proche et se déplacer vers elle si il reste de la vitesse
                 if selected_troop.speed != 0:
-                    target_troop = min(game.attacker.troops,
-                    key=lambda troop: game.board.get_distance(selected_troop.hex, troop.hex))
+                    target_troop = min(
+                        game.attacker.troops,
+                        key=lambda troop: game.board.get_distance(
+                            selected_troop.hex, troop.hex
+                        ),
+                    )
                     # flake8: noqa
-                    if game.board.isdistance(selected_troop.hex, target_troop.hex, selected_troop.speed + selected_troop.attack_range):
+                    if game.board.isdistance(
+                        selected_troop.hex,
+                        target_troop.hex,
+                        selected_troop.speed + selected_troop.attack_range,
+                    ):
                         # sé déplacer et attaquer si la troupe est à porté suffisante après le déplacement considérant la vitesse restante
-                        while selected_troop.speed > 0 and selected_troop.speed  + selected_troop.attack_range > game.board.get_distance(selected_troop.hex, target_troop.hex):
-                            destination_hex = game.board.find_destination_hex(selected_troop.hex, target_troop.hex)
+                        while (
+                            selected_troop.speed > 0
+                            and selected_troop.speed + selected_troop.attack_range
+                            > game.board.get_distance(
+                                selected_troop.hex, target_troop.hex
+                            )
+                        ):
+                            destination_hex = game.board.find_destination_hex(
+                                selected_troop.hex, target_troop.hex
+                            )
                             self.position = (destination_hex.x, destination_hex.y)
                             self.simuler_clic()
                             print("cic simulé et troupe déplacée" + str(selected_troop))
@@ -207,7 +266,9 @@ class DefenderBot(Bot):
                         print("cic simulé et troupe attaquée" + str(target_troop))
                     else:
                         # se rapprocher de la troupe ennemie et s'arreter là
-                        destination_hex = game.board.find_destination_hex(selected_troop.hex, target_troop.hex)
+                        destination_hex = game.board.find_destination_hex(
+                            selected_troop.hex, target_troop.hex
+                        )
                         self.position = (destination_hex.x, destination_hex.y)
                         self.simuler_clic()
                         print("cic simulé et troupe déplacée" + str(selected_troop))
