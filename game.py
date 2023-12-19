@@ -128,6 +128,10 @@ class Game:
         if len(self.defender.troops) == 0:
             self.winner = self.attacker
 
+        for troop in self.attacker.troops:
+            if troop.hex.hex_type == "Defended":
+                self.winner = self.attacker
+
     def end_tour(self, clicked_pos, SCREEN_WIDTH, SCREEN_HEIGHT, screen):
         clicked = clicked_pos
 
