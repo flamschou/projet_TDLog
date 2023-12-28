@@ -5,10 +5,12 @@ Jeu de plateau avec des cases hexagonales qui voit s'affronter un attaquant et u
 
 Fonctionnalités à ajouter/débugger : 
 - Adrenalin qui augmente la speed de manière exponentielle
+- Time qui prend des valeurs anormales
 - les event se déclenchent à chaque changement de joueur
-- attaque sur les troupes amies
+- attaque sur les troupes amies : healing implemented
 - zones pour placer les troupes à l'initialisation
 - continuer IA
+- bouton pour désélectionner une troupe ?
 - commencer l'implémentation du son
 
 Rôles : 
@@ -17,14 +19,13 @@ Rôles :
 - Implémenter un bot (IA + Glouton)
 
 Initialisation : 
-- le défenseur clique sur l'hexagone qu'il veut défendre (hors de la périphérie du plateau)
-- l'attaquant place ses 3 troupes en périphérie du plateau
-- le défenseur place ses 3 troupes autour de l'hexagone à défendre
+- le défenseur clique sur l'hexagone qu'il veut défendre 
+- le défenseur place ses troupes
+- l'attaquant place ses troupes à une certaine distance de l'hexagone cible
 
 Interface : 
 - le joueur clique sur la troupe qu'il veut déplacer
-- les hexagones accessibles changent de couleur
-- les troupes adverses accessibles changent de couleur 
+- les hexagones accessibles changent de couleur 
 - le joueur clique sur l'hexagone où il déplace la troupe ou l'adversaire qu'il veut attaquer
 
 Board : Le plateau est composé d'hexagones de plusieurs types
@@ -34,17 +35,17 @@ Board : Le plateau est composé d'hexagones de plusieurs types
 - rock : ne peut pas devenir sand
 
 Troops : il existe plusieurs types de troupes
-- Attaque (rouge) : 
-    - assassin : rapide et léger : représenté par un 
-    - magician : capacités spéciales : représenté par un disque
-    - turret : défensif et lent : représenté par un rectangle
+- Attaque (bleu) : 
+    - assassin : rapide et léger, représenté par des épées
+    - magician : empoisonne l'ennemi qui perd de la vie pendant 2 tours et peut soigner les troupes amies, représenté par un chapeau
+    - turret : grande portée et lent, représenté par une tourelle
 - Défense (bleu) : 
-    - archer : rapide et léger : représenté par un triangle
-    - engineer : capacités spéciales : représenté par un disque
-    - shield : défensif et lent représenté par un rectangle
+    - archer : rapide et grande portée, représenté par des flèches
+    - engineer : peut déplacer l'hexagone à défendre sur sa position en se suicidant, représenté par un marteau
+    - shield : défensif et lent, représenté par un bouclier
 
 Events : à chaque tour se produit un évènement
-- rain : augmentation des swamps
+- sandstorm : augmentation des sands
 - fire : réduction des forêts
 - rescue : la durée de fin du jeu se rapproche
 - betrayal : la durée de fin du jeu s'éloigne

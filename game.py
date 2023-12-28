@@ -24,9 +24,12 @@ class Game:
         self.adrenalin = 1
         self.event_counter = 0
         self.attack = None
+        self.heal = None
         self.winner = None
         self.attack_image = pygame.image.load(path.join("Images", "explosion.png"))
         self.attack_image = pygame.transform.scale(self.attack_image, (60 * S, 60 * S))
+        self.healing_image = pygame.image.load(path.join("Images", "healing.png"))
+        self.healing_image = pygame.transform.scale(self.healing_image, (60 * S, 60 * S))
 
     def generate(self):
         self.board.generate_board(self.num_rows, self.num_cols)
@@ -49,6 +52,16 @@ class Game:
             pygame.time.delay(1000)
             print("end attack")
             self.attack = None
+        if self.heal is not None:
+            hex = self.heal
+            image = self.healing_image
+            image_rect = image.get_rect(center=(hex.x, hex.y))
+            print("drawing heal")
+            screen.blit(image, image_rect)
+            pygame.display.flip()
+            pygame.time.delay(1000)
+            print("end heal")
+            self.heal = None
 
     def apply_events(self):
         self.deck[self.event_counter % 54].apply_effect(self)

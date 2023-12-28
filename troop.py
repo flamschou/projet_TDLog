@@ -14,6 +14,7 @@ class Troop:
         self.health = 0
         self.attack_capacity = 0
         self.attack_power = 0
+        self.healing_power = 0
         self.status = "none"
         self.default_speed = 0
         self.speed = 0
@@ -64,12 +65,20 @@ class Troop:
                             self.attack(troop, game.adrenalin, game)
 
     def attack(self, target, adrenaline, game):
-        damage = self.attack_power * adrenaline
-        target.health -= damage
-        print("attacked " + target.troop_type + " for " + str(damage) + " damage")
-        self.attack_capacity -= 1
-        print("start attack animation")
-        game.attack = target.hex
+        if self.player != target.player:
+            damage = self.attack_power * adrenaline
+            target.health -= damage
+            print("attacked " + target.troop_type + " for " + str(damage) + " damage")
+            self.attack_capacity -= 1
+            print("start attack animation")
+            game.attack = target.hex
+        else:
+            damage = self.healing_power * adrenaline
+            target.health = min(target.health + damage, target.default_health)
+            print("healed " + target.troop_type + " for " + str(damage) + " health")
+            self.attack_capacity -= 1
+            print("start heal animation")
+            game.heal = target.hex
 
         if target.health <= 0:
             target.eliminated()
@@ -97,25 +106,24 @@ class Troop:
             screen.blit(self.image, image_rect)
 
     def info(self, screen):
-        font = utils.font(15)
+        font = utils.font(13)
         text = (
             "Health = "
             + str(self.health)
             + " | Attack power = "
             + str(self.attack_power)
+            + " | Healing power = "
+            + str(self.healing_power)
             + " | Attack capacity = "
-        )
-        text = (
-            text
             + str(self.attack_capacity)
             + " | Speed = "
             + str(self.speed)
             + " | Attack range = "
+            + str(self.attack_range)
         )
-        text += str(self.attack_range)
-        health_text = font.render(text, True, (0, 0, 0))
-        text_rect = health_text.get_rect(center=(450 * S, 30 * S))
-        screen.blit(health_text, text_rect)
+        info_text = font.render(text, True, (0, 0, 0))
+        text_rect = info_text.get_rect(center=(450 * S, 30 * S))
+        screen.blit(info_text, text_rect)
 
     def isHovered(self, mousePos):
         if self.status != "dead":
@@ -134,11 +142,14 @@ class Assassin(Troop):
         self.color = (255, 0, 0)
         self.health = 100
         self.attack_power = 20
+        self.healing_power = 10
         self.attack_capacity = 1
         self.speed = 5
         self.default_speed = self.speed
         self.default_attack_power = self.attack_power
         self.default_attack_capacity = self.attack_capacity
+        self.default_healing_power = self.healing_power
+        self.default_health = self.health
         self.attack_range = 1
         self.player = "attacker"
         self.image = pygame.image.load(path.join("Images", "assassin.png"))
@@ -155,12 +166,15 @@ class Magician(Troop):
     def __init__(self, hex):
         super().__init__("magician", hex)
         self.health = 200
+        self.default_health = self.health
         self.attack_power = 50
+        self.healing_power = 50
         self.attack_capacity = 1
         self.speed = 3
         self.default_speed = self.speed
         self.default_attack_power = self.attack_power
         self.default_attack_capacity = self.attack_capacity
+        self.default_healing_power = self.healing_power
         self.color = (255, 0, 0)
         self.attack_range = 2
         self.player = "attacker"
@@ -178,12 +192,15 @@ class Turret(Troop):
     def __init__(self, hex):
         super().__init__("turret", hex)
         self.health = 500
+        self.default_health = self.health
         self.attack_power = 100
         self.attack_capacity = 1
+        self.healing_power = 20
         self.speed = 1
         self.default_speed = self.speed
         self.default_attack_power = self.attack_power
         self.default_attack_capacity = self.attack_capacity
+        self.default_healing_power = self.healing_power
         self.color = (255, 0, 0)
         self.attack_range = 3
         self.player = "attacker"
@@ -201,12 +218,15 @@ class Archer(Troop):
     def __init__(self, hex):
         super().__init__("archer", hex)
         self.health = 100
+        self.default_health = self.health
         self.attack_power = 20
         self.attack_capacity = 1
+        self.healing_power = 10
         self.speed = 5
         self.default_speed = self.speed
         self.default_attack_power = self.attack_power
         self.default_attack_capacity = self.attack_capacity
+        self.default_healing_power = self.healing_power
         self.color = (0, 255, 0)
         self.attack_range = 2
         self.player = "defender"
@@ -224,8 +244,10 @@ class Engineer(Troop):
     def __init__(self, hex):
         super().__init__("engineer", hex)
         self.health = 200
+        self.default_health = self.health
         self.attack_power = 50
         self.attack_capacity = 1
+        self.healing_power = 20
         self.speed = 3
         self.default_speed = self.speed
         self.default_attack_power = self.attack_power
@@ -247,8 +269,10 @@ class Shield(Troop):
     def __init__(self, hex):
         super().__init__("shield", hex)
         self.health = 500
+        self.default_health = self.health
         self.attack_power = 100
         self.attack_capacity = 1
+        self.healing_power = 20
         self.speed = 1
         self.default_speed = self.speed
         self.default_attack_power = self.attack_power

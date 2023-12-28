@@ -36,7 +36,7 @@ class Board:
                     hexagon = Forest(x, y)
                 if hex_type == "rock":
                     hexagon = Rock(x, y)
-                if random.randint(1, 7) == 1:
+                if random.randint(1, 6) == 1:
                     hexagon.accessible = False
                 self.list.append(hexagon)
                 hexagon.index = len(self.list) - 1
