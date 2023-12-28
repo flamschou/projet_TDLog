@@ -26,6 +26,7 @@ class Game:
         self.attack = None
         self.heal = None
         self.winner = None
+        # Flake8 noqa
         self.attack_image = pygame.image.load(path.join("Images", "explosion.png"))
         self.attack_image = pygame.transform.scale(self.attack_image, (60 * S, 60 * S))
         self.healing_image = pygame.image.load(path.join("Images", "healing.png"))
@@ -161,21 +162,16 @@ class HumanVSBotGame(Game):
         super().__init__(num_rows, num_cols)
         self.attacker = Attacker()
         self.defender = DefenderBot()
-
-    """def make_move(self, clicked, game, screen):
-        self.bot_logic.make_move(clicked, game, screen)
-
-    def make_attack(self, clicked, game):
-        self.bot_logic.make_attack(clicked, game)
-
-    def end_ini(self):
-        return self.bot_logic.end_ini()
-
-    def initialize_troops(self, clicked, i, game):
-        self.bot_logic.initialize_troops(clicked, i, game)
-
-    def draw_button(self, screen, height, width, col):
-        self.bot_logic.draw_button(screen, height, width, col)
-
-    def selected_button(self, clicked, i):
-        return self.bot_logic.selected_button(clicked, i)"""
+        self.current_player = self.defender
+        self.deck = []
+        self.time = 7
+        self.adrenalin = 1
+        self.event_counter = 0
+        self.attack = None
+        self.heal = None
+        self.winner = None
+        # Flake8 noqa
+        self.attack_image = pygame.image.load(path.join("Images", "explosion.png"))
+        self.attack_image = pygame.transform.scale(self.attack_image, (60 * S, 60 * S))
+        self.healing_image = pygame.image.load(path.join("Images", "healing.png"))
+        self.healing_image = pygame.transform.scale(self.healing_image, (60 * S, 60 * S))

@@ -40,24 +40,6 @@ class Player:
                         troop.move(hexagon, game)
                         troop.selected = False
 
-    """def make_attack(self, clicked, game, screen):
-        clicked_pos = clicked
-        print("clicked at", clicked_pos)
-        attacker = None
-        defender = None
-
-        for troop in self.troops:
-            if troop.selected:
-                attacker = troop
-
-            if troop.rect.collidepoint(clicked_pos) and not troop.selected:
-                defender = troop
-
-        if attacker is not None and defender is not None:
-            attacker.attack(defender, game.adrenalin, screen)
-        else:
-            print("No attacker or defender selected.")"""
-
     def selected_button(self, clicked):
         clicked_pos = clicked
         print("clicked at", clicked_pos)

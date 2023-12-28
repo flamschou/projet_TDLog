@@ -2,13 +2,15 @@ from troop import Assassin, Magician, Turret, Engineer, Archer, Shield
 import random
 from players import Player
 import pygame
+import time
+import scale
 
+S = scale.scale
 
 class Bot(Player):
     def __init__(self, name, player_type):
         super().__init__(name)
         self.bot_type = player_type
-        self.bot_logic = None
         self.position = (0, 0)
 
     def simuler_clic(self):
@@ -36,15 +38,11 @@ class AttackerBot(Bot):
     def __init__(self):
         super().__init__("AttackerBot", "Attacker")
         self.troops_available = [
-            ["assassin", 1],
-            ["assassin", 1],
+            ["assassin", 2],
             ["magician", 1],
             ["turret", 1],
         ]
         self.position = (0, 0)
-
-    def initialize_bot_logic(self):
-        self.set_bot_logic(self)
 
     # implémentation de la logique du bot attaquant, en utilisant la génération de clicks...
     def make_move(self, game):
@@ -135,6 +133,7 @@ class AttackerBot(Bot):
             # La troupe n'a pas de capacité d'attaque, ne rien faire
             pass
 
+    # bie nimplémentée pour le défenseur mais faire de même pour l'attaquant
     def initialize_troops(self, game):
         # placing the troops a bit far from the defended hexagon
         entiers = list(range(0, 18))
@@ -174,21 +173,16 @@ class DefenderBot(Bot):
     def __init__(self):
         super().__init__("DefenderBot", "Defender")
         self.troops_available = [
-            ["archer", 1],
-            ["archer", 1],
-            ["shield", 1],
-            ["engineer", 1],
+            ["archer", 2, None, False],
+            ["shield", 1, None, False],
+            ["engineer", 1, None, False],
         ]
         self.defended_hexagon = None
         self.position = (0, 0)
         self.selected_troop_index = None
 
-    # inutile ?
-    def initialize_bot_logic(self):
-        self.set_bot_logic(self)
-
     # implémentation de la logique du bot défenseur, en utilisant la génération de clicks...
-    def make_move(self, game):
+    def make_move_bot(self, game):
         # logique pour le défenseur bot
         if self.playing:
             # vérifier si une troupe est sélectionnée
@@ -208,10 +202,12 @@ class DefenderBot(Bot):
             self.troops[self.selected_troop_index].hex.y,
         )
         self.simuler_clic()
+        time.sleep(1)
         print(
             "clic simule et troupe selectionnee"
             + str(self.troops[self.selected_troop_index])
         )
+        time.sleep(1)
 
     # si une troupe est sélectionnée, l'utiliser
     def use_selected_troop(self, selected_troop, game):
@@ -231,7 +227,9 @@ class DefenderBot(Bot):
                 target_troop = random.choice(attackable_troops)
                 self.position = (target_troop.hex.x, target_troop.hex.y)
                 self.simuler_clic()
+                time.sleep(1)
                 print("cic simulé et troupe attaquée" + str(target_troop))
+                time.sleep(1)
             else:
                 # trouver la troupe ennemie la plus proche et se déplacer vers elle si il reste de la vitesse
                 if selected_troop.speed != 0:
@@ -259,11 +257,15 @@ class DefenderBot(Bot):
                                 selected_troop.hex, target_troop.hex
                             )
                             self.position = (destination_hex.x, destination_hex.y)
+                            time.sleep(1)
                             self.simuler_clic()
+                            time.sleep(1)
                             print("cic simulé et troupe déplacée" + str(selected_troop))
                         self.position = (target_troop.hex.x, target_troop.hex.y)
                         self.simuler_clic()
+                        time.sleep(1)  
                         print("cic simulé et troupe attaquée" + str(target_troop))
+                        time.sleep(1)
                     else:
                         # se rapprocher de la troupe ennemie et s'arreter là
                         destination_hex = game.board.find_destination_hex(
@@ -271,12 +273,14 @@ class DefenderBot(Bot):
                         )
                         self.position = (destination_hex.x, destination_hex.y)
                         self.simuler_clic()
+                        time.sleep(1)
                         print("cic simulé et troupe déplacée" + str(selected_troop))
+                        time.sleep(1)
         else:
             # La troupe n'a pas de capacité d'attaque, ne rien faire
             pass
 
-    def initialize_troops(self, game):
+    '''def initialize_troops(self, game):
         # choice of the hexagon to defend, now randomly on the map
         i = random.randint(0, len(game.board.list))
         self.defended_hexagon = game.board.list[i]
@@ -291,7 +295,7 @@ class DefenderBot(Bot):
         for troop_info in self.troops_available:
             troop_type, troop_count = troop_info
             # Choix de l'hexagone pour placer la troupe, aléatoirement sur la carte
-            while i < 18:
+            while i < 18 and troop_count > 0:
                 if (
                     not game.board.larger_list_neighbors(self.defended_hexagon)[
                         entiers_aleatoires[i]
@@ -327,5 +331,43 @@ class DefenderBot(Bot):
 
                     self.add_troop(new_troop)
                     print(f"{troop_type} placed")
+                    troop_count -= 1
                     break
-                i += 1
+                i += 1''' # provisoirement normalement inutile, on utilise clicks_for_ini
+                          # et l'initalisation globale de players
+
+    def clicks_for_ini(self, game):
+        # select a random hexagon to defend
+        i = random.randint(0, len(game.board.list))
+        self.defended_hexagon = game.board.list[i]  
+        game.board.list[i].toDefended()
+        time.sleep(1)
+        print("hexagon defended chosen")
+        time.sleep(1)
+
+        # now generate clicks to place the troops around the defended hexagon
+        j = 0
+        k = 0
+        height = 600 * S
+        width = 900 * S
+        pos_y = height - 150  # position verticale initiale des boutons
+        while j < 18 and k < 3:
+            if not game.board.larger_list_neighbors(self.defended_hexagon)[j].occupied and game.board.larger_list_neighbors(self.defended_hexagon)[j].accessible:
+                self.position = (width - 150 * S, pos_y)
+                self.simuler_clic()
+                time.sleep(1)
+                print("clic simule et bouton troupe selectionne")
+                time.sleep(1)
+
+                self.position = (game.board.larger_list_neighbors(self.defended_hexagon)[j].x,
+                    game.board.larger_list_neighbors(self.defended_hexagon)[j].y,)
+                self.simuler_clic()
+                time.sleep(1)
+                print("clic simule et" + str(self.troops_available[k][0]) + "placee")
+                time.sleep(2)
+                game.board.larger_list_neighbors(self.defended_hexagon)[j].occupied = True
+                j += 1
+                self.troops_available[k][1] -= 1
+                if self.troops_available[k][1] == 0:
+                    k += 1
+                    pos_y -= 30 * S  # ajustement vertical pour chaque bouton
