@@ -7,7 +7,6 @@ Fonctionnalités à ajouter/débugger :
 - Adrenalin qui augmente la speed de manière exponentielle
 - Time qui prend des valeurs anormales
 - les event se déclenchent à chaque changement de joueur
-- attaque sur les troupes amies : healing implemented
 - zones pour placer les troupes à l'initialisation
 - continuer IA
 - bouton pour désélectionner une troupe ?
