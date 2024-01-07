@@ -1,10 +1,10 @@
 import pygame
 import sys
-from game import Game  # HumanVSBotGame
+from game import Game
+# from game import HumanVSBotGame
 import utils
 import scale
-
-# from bot import AttackerBot, DefenderBot
+# import time
 
 # Initialisation de Pygame
 pygame.init()
@@ -29,6 +29,10 @@ num_cols = 10  # Nombre de colonnes
 
 # partie humain vs humain
 test = Game(num_rows, num_cols)
+
+# ou partie humain vs bot
+# test = HumanVSBotGame(num_rows, num_cols)
+
 test.generate()
 print(test.deck[0].event_type)
 
@@ -43,13 +47,20 @@ clock = pygame.time.Clock()
 test.defender.ini_troops_available(SCREEN_WIDTH, SCREEN_HEIGHT)
 test.attacker.ini_troops_available(SCREEN_WIDTH, SCREEN_HEIGHT)
 
+# time.sleep(5)
 
 # version initiale humain contre humain
 for i in range(2):
     running = True
 
+    # time.sleep(5)
+    if test.current_player.name == "AttackerBot" or test.current_player.name == "DefenderBot":
+        test.current_player.clicks_for_ini(test)
+
     while test.current_player.end_ini() and running:
         for event in pygame.event.get():
+            if test.current_player.name == "AttackerBot" or test.current_player.name == "DefenderBot":
+                test.current_player.clicks_for_ini(test)
             if event.type == pygame.QUIT:
                 running = False
                 sys.exit()
