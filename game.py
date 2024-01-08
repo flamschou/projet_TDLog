@@ -26,6 +26,7 @@ class Game:
         self.attack = None
         self.heal = None
         self.winner = None
+        self.config = None
         # Flake8 noqa
         self.attack_image = pygame.image.load(path.join("Images", "explosion.png"))
         self.attack_image = pygame.transform.scale(self.attack_image, (60 * S, 60 * S))
