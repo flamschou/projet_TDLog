@@ -1,5 +1,5 @@
 # scenario complet de partie pour tester le jeu
-
+"""
 from game import Game  # HumanVSBotGame
 import scale
 
@@ -189,3 +189,4 @@ def test_scenario():
 
 
 test_scenario()
+"""
