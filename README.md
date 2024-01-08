@@ -4,13 +4,11 @@ Projet long de TDLog. Corentin Caris, Wandrille Flamant, Abel Salmona.
 Jeu de plateau avec des cases hexagonales qui voit s'affronter un attaquant et un défenseur. Le défenseur doit résister jusqu'à ce que la durée du jeu expire. L'attaquant doit éliminer ou chasser le défenseur avant la fin du jeu. Le logiciel permet de jouer contre l'autre joueur (IA ou humain) et affiche le plateau, la liste d'actions et des informations supplémentaires. Il ne fonctionne que par point & click. 
 
 Fonctionnalités à ajouter/débugger : 
-- Adrenalin qui augmente la speed de manière exponentielle
-- Time qui prend des valeurs anormales
-- les event se déclenchent à chaque changement de joueur
-- zones pour placer les troupes à l'initialisation
-- continuer IA
+- avoir un bot fonctionnel
+- adrenalin qui augmente la speed de manière exponentielle
+- zones pour placer les troupes à l'initialisation ?
 - bouton pour désélectionner une troupe ?
-- commencer l'implémentation du son
+- implémentation du son ?
 
 Rôles : 
 - Clean le code et implémenter les tests
