@@ -82,7 +82,7 @@ class Game:
             choice = random.choice(
                 ["sandstorm", "fire", "rescue", "betrayal", "adrenalin", "expansion"]
             )
-            if choice == "rain":
+            if choice == "sandstorm":
                 self.deck.append(Sandstorm())
             if choice == "fire":
                 self.deck.append(Fire())
