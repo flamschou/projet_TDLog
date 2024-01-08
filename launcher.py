@@ -45,7 +45,7 @@ font = utils.font(40)
 screen.fill(WHITE)
 text = "Choose bot configuration"
 info_text = font.render(text, True, (255, 0, 0))
-text_rect = info_text.get_rect(center=(SCREEN_WIDTH/2, 130 * S))
+text_rect = info_text.get_rect(center=(SCREEN_WIDTH / 2, 130 * S))
 screen.blit(info_text, text_rect)
 while test.config is None:
     for event in pygame.event.get():
@@ -53,7 +53,9 @@ while test.config is None:
             sys.exit()
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             clicked = pygame.mouse.get_pos()
-            if pygame.Rect((SCREEN_WIDTH/2 - 90 * S, SCREEN_HEIGHT/3), (180 * S, 40 * S)).collidepoint(clicked):
+            if pygame.Rect(
+                (SCREEN_WIDTH / 2 - 90 * S, SCREEN_HEIGHT / 3), (180 * S, 40 * S)
+            ).collidepoint(clicked):
                 test.config = "no bot"
 
     utils.drawButton_config(screen, SCREEN_WIDTH, SCREEN_HEIGHT, BLACK)
@@ -101,7 +103,7 @@ for i in range(2):
         pygame.display.flip()
         clock.tick(frame_rate)
 
-    test.current_player = players[(i+1) % 2]
+    test.current_player = players[(i + 1) % 2]
 
 
 while running and test.time > 0 and test.winner is None:
