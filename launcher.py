@@ -37,19 +37,40 @@ test = Game(num_rows, num_cols)
 
 test.generate()
 print(test.deck[0].event_type)
+frame_rate = 15
+clock = pygame.time.Clock()
+
+# Initial Menu to choose bot configuration
+font = utils.font(40)
+screen.fill(WHITE)
+text = "Choose bot configuration"
+info_text = font.render(text, True, (255, 0, 0))
+text_rect = info_text.get_rect(center=(SCREEN_WIDTH/2, 130 * S))
+screen.blit(info_text, text_rect)
+while test.config is None:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            sys.exit()
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            clicked = pygame.mouse.get_pos()
+            if pygame.Rect((SCREEN_WIDTH/2 - 90 * S, SCREEN_HEIGHT/3), (180 * S, 40 * S)).collidepoint(clicked):
+                test.config = "no bot"
+
+    utils.drawButton_config(screen, SCREEN_WIDTH, SCREEN_HEIGHT, BLACK)
+    pygame.display.flip()
+    clock.tick(frame_rate)
 
 # Boucle principale
 screen.fill(WHITE)
 test.draw(screen)
 
-frame_rate = 15
-clock = pygame.time.Clock()
 test.defender.ini_troops_available(SCREEN_WIDTH, SCREEN_HEIGHT)
 test.attacker.ini_troops_available(SCREEN_WIDTH, SCREEN_HEIGHT)
 
 # time.sleep(5)
 
 # version initiale humain contre humain
+players = [test.defender, test.attacker]
 for i in range(2):
     running = True
 
@@ -81,7 +102,7 @@ for i in range(2):
         pygame.display.flip()
         clock.tick(frame_rate)
 
-    test.change_player()
+    test.current_player = players[(i+1) % 2]
 
 
 while running and test.time > 0 and test.winner is None:

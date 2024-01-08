@@ -16,6 +16,22 @@ def drawButton(texte, place, button_pos, button_size, text_center, font, col):
     place.blit(text, text_rect)
 
 
+def drawButton_config(place, SCREEN_WIDTH, SCREEN_HEIGHT, col):
+    button_pos = (SCREEN_WIDTH/2 - 90 * S, SCREEN_HEIGHT/3 - 20 * S)
+    button_size = (180 * S, 40 * S)
+    text_center = (SCREEN_WIDTH/2, SCREEN_HEIGHT/3)
+    fontObj = font(30)
+    drawButton("no bot", place, button_pos, button_size, text_center, fontObj, col)
+
+    button_pos = (SCREEN_WIDTH/2 - 90 * S, SCREEN_HEIGHT/3 - 20 * S + 60 * S)
+    text_center = (SCREEN_WIDTH/2, SCREEN_HEIGHT/3 + 60 * S)
+    drawButton("defender bot", place, button_pos, button_size, text_center, fontObj, col)
+
+    button_pos = (SCREEN_WIDTH/2 - 90 * S, SCREEN_HEIGHT/3 - 20 * S + 120 * S)
+    text_center = (SCREEN_WIDTH/2, SCREEN_HEIGHT/3 + 120 * S)
+    drawButton("attacker bot", place, button_pos, button_size, text_center, fontObj, col)
+
+
 def drawButton_end_tour(place, SCREEN_WIDTH, SCREEN_HEIGHT, col):
     button_pos = (SCREEN_WIDTH - 190 * S, SCREEN_HEIGHT - 60 * S)
     button_size = (180 * S, 40 * S)
