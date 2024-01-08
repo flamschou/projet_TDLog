@@ -20,7 +20,7 @@ class Game:
         self.defender = Defender()
         self.current_player = self.defender
         self.deck = []
-        self.time = 7
+        self.time = 15
         self.adrenalin = 1
         self.event_counter = 0
         self.attack = None
@@ -122,9 +122,9 @@ class Game:
         pygame.time.delay(5000)
         print("end game")
 
-    def display_newEvent(self, screen):
-        font = utils.font(15)
-        text = "New Event is " + str(
+    def display_Event(self, screen):
+        font = utils.font(20)
+        text = "Event is " + str(
             self.deck[(self.event_counter - 1) % 54].event_type
         )
         print(text)
@@ -158,7 +158,8 @@ class Game:
         ).collidepoint(clicked):
             self.change_player()
             self.current_player.regenerate_speed()
-            self.display_newEvent(screen)
+            if self.current_player.name == "Attacker":
+                self.display_Event(screen)
 
 
 class HumanVSBotGame(Game):
