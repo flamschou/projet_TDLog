@@ -1,11 +1,12 @@
 # projet_TDLog
 Projet long de TDLog. Corentin Caris, Wandrille Flamant, Abel Salmona.
 
-Jeu de plateau avec des cases hexagonales qui voit s'affronter un attaquant et un défenseur. Le défenseur doit résister jusqu'à ce que la durée du jeu expire. L'attaquant doit éliminer ou chasser le défenseur avant la fin du jeu. Le logiciel permet de jouer contre l'autre joueur (IA ou humain) et affiche le plateau, la liste d'actions et des informations supplémentaires. Il ne fonctionne que par point & click. 
+Jeu de plateau avec des cases hexagonales qui voit s'affronter un attaquant et un défenseur. Le défenseur doit résister jusqu'à ce que la durée du jeu expire. L'attaquant doit éliminer ou envahir le défenseur avant la fin du jeu. Le logiciel permet de jouer contre l'autre joueur (IA ou humain) et affiche le plateau, la liste d'actions et des informations supplémentaires. Il ne fonctionne que par point & click. 
 
 Fonctionnalités à ajouter/débugger : 
 - avoir un bot fonctionnel
 - adrenalin qui augmente la speed de manière exponentielle
+- clean le code
 - zones pour placer les troupes à l'initialisation ?
 - bouton pour désélectionner une troupe ?
 - implémentation du son ?
@@ -36,7 +37,7 @@ Troops : il existe plusieurs types de troupes
     - assassin : rapide et léger, représenté par des épées
     - magician : empoisonne l'ennemi qui perd de la vie pendant 2 tours et peut soigner les troupes amies, représenté par un chapeau
     - turret : grande portée et lent, représenté par une tourelle
-- Défense (bleu) : 
+- Défense (rouge) : 
     - archer : rapide et grande portée, représenté par des flèches
     - engineer : peut déplacer l'hexagone à défendre sur sa position en se suicidant, représenté par un marteau
     - shield : défensif et lent, représenté par un bouclier
