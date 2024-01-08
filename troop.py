@@ -90,7 +90,7 @@ class Troop:
             return False
         else:
             if self.hex.hex_type == "forest":
-                if game.board.isdistance(self.hex, target.hex, self.attack_range+1):
+                if game.board.isdistance(self.hex, target.hex, self.attack_range + 1):
                     return True
             elif game.board.isdistance(self.hex, target.hex, self.attack_range):
                 return True

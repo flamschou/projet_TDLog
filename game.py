@@ -30,7 +30,9 @@ class Game:
         self.attack_image = pygame.image.load(path.join("Images", "explosion.png"))
         self.attack_image = pygame.transform.scale(self.attack_image, (60 * S, 60 * S))
         self.healing_image = pygame.image.load(path.join("Images", "healing.png"))
-        self.healing_image = pygame.transform.scale(self.healing_image, (60 * S, 60 * S))
+        self.healing_image = pygame.transform.scale(
+            self.healing_image, (60 * S, 60 * S)
+        )
 
     def generate(self):
         self.board.generate_board(self.num_rows, self.num_cols)
@@ -122,7 +124,9 @@ class Game:
 
     def display_newEvent(self, screen):
         font = utils.font(15)
-        text = "New Event is " + str(self.deck[(self.event_counter-1) % 54].event_type)
+        text = "New Event is " + str(
+            self.deck[(self.event_counter - 1) % 54].event_type
+        )
         print(text)
         info_text = font.render(text, True, (255, 0, 0))
         text_rect = info_text.get_rect(center=(800 * S, 150 * S))
@@ -174,4 +178,6 @@ class HumanVSBotGame(Game):
         self.attack_image = pygame.image.load(path.join("Images", "explosion.png"))
         self.attack_image = pygame.transform.scale(self.attack_image, (60 * S, 60 * S))
         self.healing_image = pygame.image.load(path.join("Images", "healing.png"))
-        self.healing_image = pygame.transform.scale(self.healing_image, (60 * S, 60 * S))
+        self.healing_image = pygame.transform.scale(
+            self.healing_image, (60 * S, 60 * S)
+        )
