@@ -7,6 +7,7 @@ import scale
 
 S = scale.scale
 
+
 class Bot(Player):
     def __init__(self, name, player_type):
         super().__init__(name)
@@ -263,7 +264,7 @@ class DefenderBot(Bot):
                             print("cic simulé et troupe déplacée" + str(selected_troop))
                         self.position = (target_troop.hex.x, target_troop.hex.y)
                         self.simuler_clic()
-                        time.sleep(1)  
+                        time.sleep(1)
                         print("cic simulé et troupe attaquée" + str(target_troop))
                         time.sleep(1)
                     else:
@@ -280,7 +281,7 @@ class DefenderBot(Bot):
             # La troupe n'a pas de capacité d'attaque, ne rien faire
             pass
 
-    '''def initialize_troops(self, game):
+    """def initialize_troops(self, game):
         # choice of the hexagon to defend, now randomly on the map
         i = random.randint(0, len(game.board.list))
         self.defended_hexagon = game.board.list[i]
@@ -333,13 +334,13 @@ class DefenderBot(Bot):
                     print(f"{troop_type} placed")
                     troop_count -= 1
                     break
-                i += 1''' # provisoirement normalement inutile, on utilise clicks_for_ini
-                          # et l'initalisation globale de players
+                i += 1"""  # provisoirement normalement inutile, on utilise clicks_for_ini
+    # et l'initalisation globale de players
 
     def clicks_for_ini(self, game):
         # select a random hexagon to defend
         i = random.randint(0, len(game.board.list))
-        self.defended_hexagon = game.board.list[i]  
+        self.defended_hexagon = game.board.list[i]
         game.board.list[i].toDefended()
         time.sleep(1)
         print("hexagon defended chosen")
@@ -352,20 +353,29 @@ class DefenderBot(Bot):
         width = 900 * S
         pos_y = height - 150  # position verticale initiale des boutons
         while j < 18 and k < 3:
-            if not game.board.larger_list_neighbors(self.defended_hexagon)[j].occupied and game.board.larger_list_neighbors(self.defended_hexagon)[j].accessible:
+            if (
+                not game.board.larger_list_neighbors(self.defended_hexagon)[j].occupied
+                and game.board.larger_list_neighbors(self.defended_hexagon)[
+                    j
+                ].accessible
+            ):
                 self.position = (width - 150 * S, pos_y)
                 self.simuler_clic()
                 time.sleep(1)
                 print("clic simule et bouton troupe selectionne")
                 time.sleep(1)
 
-                self.position = (game.board.larger_list_neighbors(self.defended_hexagon)[j].x,
-                    game.board.larger_list_neighbors(self.defended_hexagon)[j].y,)
+                self.position = (
+                    game.board.larger_list_neighbors(self.defended_hexagon)[j].x,
+                    game.board.larger_list_neighbors(self.defended_hexagon)[j].y,
+                )
                 self.simuler_clic()
                 time.sleep(1)
                 print("clic simule et" + str(self.troops_available[k][0]) + "placee")
                 time.sleep(2)
-                game.board.larger_list_neighbors(self.defended_hexagon)[j].occupied = True
+                game.board.larger_list_neighbors(self.defended_hexagon)[
+                    j
+                ].occupied = True
                 j += 1
                 self.troops_available[k][1] -= 1
                 if self.troops_available[k][1] == 0:

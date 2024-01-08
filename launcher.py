@@ -1,9 +1,11 @@
 import pygame
 import sys
 from game import Game
+
 # from game import HumanVSBotGame
 import utils
 import scale
+
 # import time
 
 # Initialisation de Pygame
@@ -54,12 +56,18 @@ for i in range(2):
     running = True
 
     # time.sleep(5)
-    if test.current_player.name == "AttackerBot" or test.current_player.name == "DefenderBot":
+    if (
+        test.current_player.name == "AttackerBot"
+        or test.current_player.name == "DefenderBot"
+    ):
         test.current_player.clicks_for_ini(test)
 
     while test.current_player.end_ini() and running:
         for event in pygame.event.get():
-            if test.current_player.name == "AttackerBot" or test.current_player.name == "DefenderBot":
+            if (
+                test.current_player.name == "AttackerBot"
+                or test.current_player.name == "DefenderBot"
+            ):
                 test.current_player.clicks_for_ini(test)
             if event.type == pygame.QUIT:
                 running = False
