@@ -39,8 +39,6 @@ test.generate()
 print(test.deck[0].event_type)
 
 # Boucle principale
-
-
 screen.fill(WHITE)
 test.draw(screen)
 
