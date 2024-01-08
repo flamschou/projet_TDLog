@@ -66,7 +66,7 @@ def test_change_player():
 
     game.change_player()
     assert game.current_player == game.attacker
-    assert game.event_counter == 1
+    assert game.event_counter == 0
 
     game.change_player()
     assert game.current_player == game.defender
