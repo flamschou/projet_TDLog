@@ -32,28 +32,13 @@ def test_create_deck():
     assert len(game.deck) == 54
     for i in range(54):
         assert game.deck[i].event_type in [
-            "rain",
+            "sandstorm",
             "fire",
             "rescue",
             "betrayal",
             "adrenalin",
             "expansion",
         ]
-
-
-"""
-def test_get_hexagon_at():
-    num_rows = 2
-    num_cols = 2
-    game = Game(num_rows, num_cols)
-    game.generate()
-
-    assert game.get_hexagon_at(110, 100) == game.board.list[0]
-    assert game.get_hexagon_at(170, 100) == game.board.list[1]
-    assert game.get_hexagon_at(110, 152) == game.board.list[2]
-    assert game.get_hexagon_at(170, 152) == game.board.list[3]
-    assert game.get_hexagon_at(100, 100) is None
-"""
 
 
 def test_apply_events():
