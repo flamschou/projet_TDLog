@@ -63,7 +63,6 @@ while test.config is None:
 # Boucle principale
 screen.fill(WHITE)
 test.draw(screen)
-
 test.defender.ini_troops_available(SCREEN_WIDTH, SCREEN_HEIGHT)
 test.attacker.ini_troops_available(SCREEN_WIDTH, SCREEN_HEIGHT)
 
