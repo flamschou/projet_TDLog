@@ -124,9 +124,7 @@ class Game:
 
     def display_Event(self, screen):
         font = utils.font(20)
-        text = "Event is " + str(
-            self.deck[(self.event_counter - 1) % 54].event_type
-        )
+        text = "Event is " + str(self.deck[(self.event_counter - 1) % 54].event_type)
         print(text)
         info_text = font.render(text, True, (255, 0, 0))
         text_rect = info_text.get_rect(center=(800 * S, 150 * S))
@@ -169,7 +167,7 @@ class HumanVSBotGame(Game):
         self.defender = DefenderBot()
         self.current_player = self.defender
         self.deck = []
-        self.time = 7
+        self.time = 15
         self.adrenalin = 1
         self.event_counter = 0
         self.attack = None
