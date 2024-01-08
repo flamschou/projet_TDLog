@@ -157,7 +157,7 @@ class Game:
         ).collidepoint(clicked):
             self.change_player()
             self.current_player.regenerate_speed()
-            if self.current_player.name == "Attacker":
+            if self.current_player.name == "Defender":
                 self.display_Event(screen)
 
 
