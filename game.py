@@ -96,10 +96,10 @@ class Game:
                 self.deck.append(Expansion())
 
     def change_player(self):
-        if self.current_player == self.attacker:
-            self.current_player = self.defender
-        else:
+        if self.current_player == self.defender:
             self.current_player = self.attacker
+        else:
+            self.current_player = self.defender
             self.apply_events()
             self.time -= 1
 

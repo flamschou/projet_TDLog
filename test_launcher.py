@@ -1,5 +1,5 @@
 # scenario complet de partie pour tester le jeu
-"""
+
 from game import Game  # HumanVSBotGame
 import scale
 
@@ -56,13 +56,7 @@ def test_scenario():
         )
     test.current_player.initialize_troops((194, 146), test)
 
-    for troop in test.current_player.troops:
-        print(troop.hex.index, troop.troop_type)
-
     test.change_player()
-
-    if test.deck[test.event_counter - 1].event_type == "Rescue":
-        test.time += 1
 
     print("attacker turn")
 
@@ -94,8 +88,11 @@ def test_scenario():
 
     test.change_player()
 
-    if test.deck[test.event_counter - 1].event_type == "Rescue":
+    if test.deck[test.event_counter - 1].event_type == "rescue":
         test.time += 1
+
+    elif test.deck[test.event_counter - 1].event_type == "betrayal":
+        test.time -= 1
 
     print("defender turn")
 
@@ -131,9 +128,6 @@ def test_scenario():
     test.current_player.regenerate_speed()
     test.change_player()
 
-    if test.deck[test.event_counter - 1].event_type == "Rescue":
-        test.time += 1
-
     test.current_player.make_move((296, 210), test)
     test.current_player.make_move((235, 210), test)
 
@@ -161,14 +155,14 @@ def test_scenario():
     test.current_player.regenerate_speed()
     test.change_player()
 
-    if test.deck[test.event_counter - 1].event_type == "Rescue":
+    if test.deck[test.event_counter - 1].event_type == "rescue":
         test.time += 1
+
+    elif test.deck[test.event_counter - 1].event_type == "betrayal":
+        test.time -= 1
 
     test.current_player.regenerate_speed()
     test.change_player()
-
-    if test.deck[test.event_counter - 1].event_type == "Rescue":
-        test.time += 1
 
     test.current_player.make_move((296, 210), test)
     test.current_player.make_move((174, 210), test)
@@ -179,8 +173,11 @@ def test_scenario():
     test.current_player.regenerate_speed()
     test.change_player()
 
-    if test.deck[test.event_counter - 1].event_type == "Rescue":
+    if test.deck[test.event_counter - 1].event_type == "rescue":
         test.time += 1
+
+    elif test.deck[test.event_counter - 1].event_type == "betrayal":
+        test.time -= 1
 
     test.winner = test.defender
 
@@ -189,4 +186,3 @@ def test_scenario():
 
 
 test_scenario()
-"""
