@@ -61,6 +61,9 @@ def test_scenario():
 
     test.change_player()
 
+    if test.deck[test.event_counter - 1].event_type == "Rescue":
+        test.time += 1
+
     print("attacker turn")
 
     # initialisation des troupes de l'attaquant
@@ -90,6 +93,9 @@ def test_scenario():
     print("fin init")
 
     test.change_player()
+
+    if test.deck[test.event_counter - 1].event_type == "Rescue":
+        test.time += 1
 
     print("defender turn")
 
@@ -125,6 +131,9 @@ def test_scenario():
     test.current_player.regenerate_speed()
     test.change_player()
 
+    if test.deck[test.event_counter - 1].event_type == "Rescue":
+        test.time += 1
+
     test.current_player.make_move((296, 210), test)
     test.current_player.make_move((235, 210), test)
 
@@ -149,23 +158,29 @@ def test_scenario():
     test.current_player.make_move((296, 210), test)
     test.current_player.make_move((174, 210), test)
 
-    if test.time > 0:
-        test.current_player.regenerate_speed()
-        test.change_player()
+    test.current_player.regenerate_speed()
+    test.change_player()
 
-        if test.time > 0:
-            test.current_player.regenerate_speed()
-            test.change_player()
+    if test.deck[test.event_counter - 1].event_type == "Rescue":
+        test.time += 1
 
-            test.current_player.make_move((296, 210), test)
-            test.current_player.make_move((174, 210), test)
+    test.current_player.regenerate_speed()
+    test.change_player()
 
-            test.current_player.make_move((266, 261), test)
-            test.current_player.make_move((174, 210), test)
+    if test.deck[test.event_counter - 1].event_type == "Rescue":
+        test.time += 1
 
-            while test.time > 0:
-                test.current_player.regenerate_speed()
-                test.change_player()
+    test.current_player.make_move((296, 210), test)
+    test.current_player.make_move((174, 210), test)
+
+    test.current_player.make_move((266, 261), test)
+    test.current_player.make_move((174, 210), test)
+
+    test.current_player.regenerate_speed()
+    test.change_player()
+
+    if test.deck[test.event_counter - 1].event_type == "Rescue":
+        test.time += 1
 
     test.winner = test.defender
 
