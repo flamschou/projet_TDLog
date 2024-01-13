@@ -18,11 +18,11 @@ class Board:
                         "basic",
                         "basic",
                         "basic",
-                        "basic",
                         "sand",
                         "forest",
                         "forest",
                         "rock",
+                        "rock"
                         "forest",
                     ]
                 )
