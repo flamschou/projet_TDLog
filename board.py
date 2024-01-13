@@ -21,9 +21,9 @@ class Board:
                         "sand",
                         "forest",
                         "forest",
-                        "rock",
-                        "rock"
                         "forest",
+                        "rock",
+                        "rock",
                     ]
                 )
                 x = col * 60 * S + (30 * S if row % 2 == 0 else 60 * S) + 80 * S

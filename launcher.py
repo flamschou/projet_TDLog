@@ -129,7 +129,7 @@ while running and test.time > 0 and test.winner is None:
     pygame.display.flip()
     clock.tick(frame_rate)
 
-
+pygame.time.delay(1500)
 screen.fill(WHITE)
 if test.winner is None:
     test.winner = test.defender
