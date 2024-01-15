@@ -1,3 +1,8 @@
+# This file contains the class Hexagone and its subclasses
+# It also contains the images of the hexagons
+
+
+# Imports
 import pygame
 from os import path
 import scale
