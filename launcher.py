@@ -158,12 +158,12 @@ while running and test.time > 0 and test.winner is None:
     clock.tick(frame_rate)
 
 # End of the game
-pygame.time.delay(1500)
+pygame.time.delay(2000)
 screen.fill(WHITE)
 if test.winner is None:
     test.winner = test.defender
 test.display_winner(screen)
 
-# Wait for the user to close the window
+# Close the window
 pygame.quit()
 sys.exit()
