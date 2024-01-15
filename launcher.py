@@ -42,18 +42,25 @@ while test.config is None:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
-        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # Left click on one of the
             clicked = pygame.mouse.get_pos()
             if pygame.Rect(
                 (SCREEN_WIDTH / 2 - 90 * S, SCREEN_HEIGHT / 3), (180 * S, 40 * S)
             ).collidepoint(clicked):
                 test.config = "no bot"
+                print("no bot")
             if pygame.Rect(
                 (SCREEN_WIDTH / 2 - 90 * S, SCREEN_HEIGHT / 3 + 60 * S),
                 (180 * S, 40 * S),
             ).collidepoint(clicked):
                 test.config = "defender bot"
                 print("defender bot")
+            if pygame.Rect(
+                (SCREEN_WIDTH / 2 - 90 * S, SCREEN_HEIGHT / 3 + 120 * S),
+                (180 * S, 40 * S),
+            ).collidepoint(clicked):
+                test.config = "attacker bot"
+                print("attacker bot")
 
     utils.drawButton_config(screen, SCREEN_WIDTH, SCREEN_HEIGHT, BLACK)
     pygame.display.flip()
@@ -151,12 +158,12 @@ while running and test.time > 0 and test.winner is None:
     clock.tick(frame_rate)
 
 # End of the game
-pygame.time.delay(1500)
+pygame.time.delay(2000)
 screen.fill(WHITE)
 if test.winner is None:
     test.winner = test.defender
 test.display_winner(screen)
 
-# Wait for the user to close the window
+# Close the window
 pygame.quit()
 sys.exit()
