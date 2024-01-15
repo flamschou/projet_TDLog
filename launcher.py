@@ -90,10 +90,12 @@ for i in range(2):
         test.current_player.clicks_for_ini(test)
 
     while test.current_player.end_ini() and running:
-
         test.draw(screen)
 
-        if test.current_player.name == "AttackerBot" or test.current_player.name == "DefenderBot":
+        if (
+            test.current_player.name == "AttackerBot"
+            or test.current_player.name == "DefenderBot"
+        ):
             test.current_player.initialize_bot(test, screen)
 
         for event in pygame.event.get():
@@ -119,8 +121,10 @@ for i in range(2):
 
 # Game phase
 while running and test.time > 0 and test.winner is None:
-
-    if test.current_player.name == "AttackerBot" or test.current_player.name == "DefenderBot":
+    if (
+        test.current_player.name == "AttackerBot"
+        or test.current_player.name == "DefenderBot"
+    ):
         test.current_player.make_move_bot(test, screen)
 
     for event in pygame.event.get():  # Event handling
