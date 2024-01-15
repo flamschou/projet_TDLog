@@ -27,14 +27,9 @@ clock = pygame.time.Clock()
 num_rows = 8
 num_cols = 10
 
-# Game initialization
+# Game initialization and genration
 test = Game(num_rows, num_cols)
-
-# ou partie humain vs bot
-# test = HumanVSBotGame(num_rows, num_cols)
-
 test.generate()
-print(test.deck[0].event_type)
 
 # Initial Menu to choose bot configuration
 font = utils.font(40)
@@ -165,5 +160,3 @@ test.display_winner(screen)
 # Wait for the user to close the window
 pygame.quit()
 sys.exit()
-
-# version alternative pour tester les bots
