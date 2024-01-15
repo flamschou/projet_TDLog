@@ -76,7 +76,7 @@ test.draw(screen)
 test.defender.ini_troops_available(SCREEN_WIDTH, SCREEN_HEIGHT)
 test.attacker.ini_troops_available(SCREEN_WIDTH, SCREEN_HEIGHT)
 
-# Boucle principale
+# Initialisation phase
 for i in range(2):
     running = True
 
@@ -109,17 +109,20 @@ for i in range(2):
 
     test.current_player = players[(i + 1) % 2]
 
-
+# Game phase
 while running and test.time > 0 and test.winner is None:
-    for event in pygame.event.get():  # Event handling
+    for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-            test.end_tour(pygame.mouse.get_pos(), SCREEN_WIDTH, SCREEN_HEIGHT, screen)
-            test.current_player.make_move(pygame.mouse.get_pos(), test)
-            test.eliminations()
+            test.end_tour(pygame.mouse.get_pos(), SCREEN_WIDTH, SCREEN_HEIGHT, screen)  # end tour button
+            test.current_player.make_move(pygame.mouse.get_pos(), test)  # player action (move or attack/heal)
+            test.eliminations()  # check if there are troops to eliminate
 
-    screen.fill(WHITE)  # Display handling
+    # Clear the display to avoid remanent images
+    screen.fill(WHITE)
+
+    # Hovered troop info
     mousePos = pygame.mouse.get_pos()
     for troop in test.attacker.troops:
         if troop.isHovered(mousePos):
@@ -127,18 +130,22 @@ while running and test.time > 0 and test.winner is None:
     for troop in test.defender.troops:
         if troop.isHovered(mousePos):
             troop.info(screen)
+
+    # Display the board and buttons
     test.draw(screen)
     test.display_info(screen)
     utils.drawButton_end_tour(screen, SCREEN_WIDTH, SCREEN_HEIGHT, BLACK)
     pygame.display.flip()
     clock.tick(frame_rate)
 
+# End of the game
 pygame.time.delay(1500)
 screen.fill(WHITE)
 if test.winner is None:
     test.winner = test.defender
 test.display_winner(screen)
 
+# Wait for the user to close the window
 pygame.quit()
 sys.exit()
 
