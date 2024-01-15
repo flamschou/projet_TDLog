@@ -41,7 +41,7 @@ def drawButton_end_tour(place, SCREEN_WIDTH, SCREEN_HEIGHT, col):
     button_size = (180 * S, 40 * S)
     text_center = (SCREEN_WIDTH - 100 * S, SCREEN_HEIGHT - 40 * S)
     fontObj = font(30)
-    drawButton("fin du tour", place, button_pos, button_size, text_center, fontObj, col)
+    drawButton("end turn", place, button_pos, button_size, text_center, fontObj, col)
 
 
 def drawButton_troop(texte, place, nbre, SCREEN_WIDTH, pos_y, col, troops_available):
