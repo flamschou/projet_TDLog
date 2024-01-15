@@ -101,8 +101,8 @@ class Board:
 
         for hexagon in self.list:
             if (
-                abs(hexagon.x - hexagon1.x) < 250 * S
-                and abs(hexagon.y - hexagon1.y) < 250 * S
+                abs(hexagon.x - hexagon1.x) < 150 * S
+                and abs(hexagon.y - hexagon1.y) < 150 * S
                 and hexagon != hexagon1
             ):
                 neighbors.append(hexagon)
@@ -120,13 +120,13 @@ class Board:
         j = 0
         entiers = list(range(0, len(self.list)))
         entiers_aleatoires = random.sample(entiers, len(entiers))
-        provided_list = self.larger_list_neighbors(defended_hex)
+        provided_list = self.quite_larger_list_neighbors(defended_hex)
         while j == 0:
             if self.list[entiers_aleatoires[i]] not in provided_list:
                 far_hex = self.list[entiers_aleatoires[i]]
-                i = 1
-            else:
                 j += 1
+            else:
+                i += 1
         return far_hex
 
     # permet de trouver un hexagon accessible à partir d'un hexagon donné

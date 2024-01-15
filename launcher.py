@@ -30,9 +30,6 @@ num_cols = 10
 # Game initialization
 test = Game(num_rows, num_cols)
 
-# ou partie humain vs bot
-# test = HumanVSBotGame(num_rows, num_cols)
-
 test.generate()
 print(test.deck[0].event_type)
 
@@ -59,58 +56,53 @@ while test.config is None:
             ).collidepoint(clicked):
                 test.config = "defender bot"
                 print("defender bot")
+            if pygame.Rect(
+                (SCREEN_WIDTH / 2 - 90 * S, SCREEN_HEIGHT / 3 + 120 * S),
+                (180 * S, 40 * S),
+            ).collidepoint(clicked):
+                test.config = "attacker bot"
+                print("attacker bot")
 
     utils.drawButton_config(screen, SCREEN_WIDTH, SCREEN_HEIGHT, BLACK)
     pygame.display.flip()
     clock.tick(frame_rate)
 
 # Create players in function of the configuration
-players = [test.defender, test.attacker]
 if test.config == "defender bot":
-    players = [test.defender, test.attacker]
-    test.defender.name = "DefenderBot"
+    test.switch_to_defenderbot()
 if test.config == "attacker bot":
-    players = [test.attacker, test.defender]
-    test.attacker.name = "AttackerBot"
+    test.switch_to_attackerbot()
+players = [test.defender, test.attacker]
+
 
 # Display board and initialize troops
 screen.fill(WHITE)
 test.draw(screen)
-test.defender.ini_troops_available(SCREEN_WIDTH, SCREEN_HEIGHT)
 test.attacker.ini_troops_available(SCREEN_WIDTH, SCREEN_HEIGHT)
+test.defender.ini_troops_available(SCREEN_WIDTH, SCREEN_HEIGHT)
 
 # Initialisation phase
 for i in range(2):
     running = True
-
-    if (
-        test.current_player.name == "AttackerBot"
-        or test.current_player.name == "DefenderBot"
-    ):
-        test.current_player.clicks_for_ini(test)
-
+    print(test.current_player.name)
     while test.current_player.end_ini() and running:
 
         test.draw(screen)
-
-        if test.current_player.name == "AttackerBot" or test.current_player.name == "DefenderBot":
+        if (test.current_player.name == "AttackerBot" or test.current_player.name == "DefenderBot"):
             test.current_player.initialize_bot(test, screen)
+            print("ini essayée bot")
 
-        for event in pygame.event.get():
-            if (
-                test.current_player.name == "AttackerBot"
-                or test.current_player.name == "DefenderBot"
-            ):
-                test.current_player.clicks_for_ini(test)
-            if event.type == pygame.QUIT:
-                running = False
-                sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                test.current_player.initialize_troops(pygame.mouse.get_pos(), test)
-        screen.fill(WHITE)
-        test.draw(screen)
-        test.display_info(screen)
-        test.current_player.draw_button(screen, SCREEN_HEIGHT, SCREEN_WIDTH, BLACK)
+        else:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+                    sys.exit()
+                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                    test.current_player.initialize_troops(pygame.mouse.get_pos(), test)
+            screen.fill(WHITE)
+            test.draw(screen)
+            test.display_info(screen)
+            test.current_player.draw_button(screen, SCREEN_HEIGHT, SCREEN_WIDTH, BLACK)
 
         pygame.display.flip()
         clock.tick(frame_rate)
@@ -122,6 +114,7 @@ while running and test.time > 0 and test.winner is None:
 
     if test.current_player.name == "AttackerBot" or test.current_player.name == "DefenderBot":
         test.current_player.make_move_bot(test, screen)
+        print("bot essayé")
 
     for event in pygame.event.get():  # Event handling
         if event.type == pygame.QUIT:

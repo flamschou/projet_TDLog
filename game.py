@@ -8,7 +8,7 @@ import pygame
 from event import Sandstorm, Fire, Rescue, Betrayal, Adrenalin, Expansion
 from board import Board
 from players import Attacker, Defender
-from bot import DefenderBot
+from bot import DefenderBot, AttackerBot
 import scale
 import utils
 
@@ -192,6 +192,13 @@ class Game:
         self.display_info(screen)
         self.current_player.draw_button(screen, SCREEN_HEIGHT, SCREEN_WIDTH, BLACK)
         pygame.display.flip()
+
+    def switch_to_defenderbot(self):
+        self.defender = DefenderBot()
+        self.current_player = self.defender
+
+    def switch_to_attackerbot(self):
+        self.attacker = AttackerBot()
 
 
 class HumanVSBotGame(Game):

@@ -54,9 +54,9 @@ class AttackerBot(Bot):
     def __init__(self):
         super().__init__("AttackerBot", "Attacker")
         self.troops_available = [
-            ["assassin", 2],
-            ["magician", 1],
-            ["turret", 1],
+            ["assassin", 2, None, False],
+            ["magician", 1, None, False],
+            ["turret", 1, None, False],
         ]
         self.position = (0, 0)
 
@@ -133,36 +133,41 @@ class AttackerBot(Bot):
         pass
 '''
     # bie nimplémentée pour le défenseur mais faire de même pour l'attaquant
-    def initialize_troops(self, game):
+    def initialize_bot(self, game, screen):
         # placing the troops a bit far from the defended hexagon
-        entiers = list(range(0, 18))
-        entiers_aleatoires = random.sample(entiers, len(entiers))
-        i = 0
+        pygame.time.delay(1000)
+        game.screen_update_bot(screen)
+        print(game.defended_hex)
         central_hex = game.board.select_far_hex(game.defended_hex)
         possibilities = game.board.larger_list_neighbors(central_hex)
-        for troop_info in self.troops_available:
-            troop_type, troop_count = troop_info
+        entiers = list(range(0, len(possibilities)))
+        entiers_aleatoires = random.sample(entiers, len(entiers))
+        i = 0
+        print(possibilities)
+        for troop in self.troops_available:
             # Choix de l'hexagone pour placer la troupe, aléatoirement sur la carte
-            while i < 18:
+            while i < len(possibilities) and troop[1] != 0:
                 if (
                     not possibilities[entiers_aleatoires[i]].occupied
-                    and possibilities[entiers_aleatoires[i]].accessible
-                    and possibilities[entiers_aleatoires[i]]
-                ):
-                    possibilities[entiers_aleatoires[i]].occupied = True
+                    and possibilities[entiers_aleatoires[i]].accessible):
 
-                    if troop_type == "assassin":
+                    possibilities[entiers_aleatoires[i]].occupied = True
+                    if troop[0] == "assassin":
                         new_troop = Assassin(possibilities[entiers_aleatoires[i]])
 
-                    elif troop_type == "magician":
+                    elif troop[0]  == "magician":
                         new_troop = Magician(possibilities[entiers_aleatoires[i]])
 
-                    elif troop_type == "turret":
+                    elif troop[0]  == "turret":
                         new_troop = Turret(possibilities[entiers_aleatoires[i]])
 
                     self.add_troop(new_troop)
-                    print(f"{troop_type} placed")
-                    break
+                    pygame.time.delay(1000)
+                    game.screen_update_bot(screen)
+                    print(str(troop[0]) + " place")
+                    pygame.time.delay(1000)
+                    possibilities[entiers_aleatoires[i]].occupied = True
+                    troop[1] -= 1
                 i += 1
 
 
@@ -183,11 +188,15 @@ class DefenderBot(Bot):
     def make_move_bot(self, game, screen):
         # logique pour le défenseur bot
         player = game.attacker
-        for selected_troop in self.troops:
+        '''for selected_troop in self.troops:
                 print(self.distance_with_opponants(game, selected_troop, player))
                 self.use_selected_troop(selected_troop, game, player)
                 game.screen_update_bot(screen)
-                pygame.time.delay(1500)
+                pygame.time.delay(1500)'''
+        game.change_player()
+        game.current_player.regenerate_speed()
+        if game.current_player.name == "Defender":
+            game.display_Event(screen)
 
     # si une troupe est sélectionnée, l'utiliser
     def use_selected_troop(self, selected_troop, game, player):

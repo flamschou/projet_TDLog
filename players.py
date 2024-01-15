@@ -63,6 +63,7 @@ class Player:
                 if hexagon.rect.collidepoint(clicked_pos):
                     if not hexagon.occupied:
                         hexagon.toDefended()
+                        game.defended_hex = hexagon
                         print("hexagon defended")
                         self.placed = True
         for troops in self.troops_available:
