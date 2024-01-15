@@ -44,7 +44,7 @@ class Board:
                 self.list.append(hexagon)
                 hexagon.index = len(self.list) - 1
 
-    def list_neighbors(self, hexagon1):
+    def list_neighbors(self, hexagon1):  # gives list of the neighbors of an hexagon
         neighbors = []
 
         for hexagon in self.list:
@@ -57,13 +57,13 @@ class Board:
 
         return neighbors
 
-    def neighbors(self, hexagon, hexagon1):
+    def neighbors(self, hexagon, hexagon1):  # check if hexagons are neighbors
         if hexagon in self.list_neighbors(hexagon1):
             return True
         else:
             return False
 
-    def isdistance(self, hexagon, hexagon1, k):
+    def isdistance(self, hexagon, hexagon1, k):  # check if hexagons are at distance k or lower
         if k == 0:
             return hexagon == hexagon1
         else:
@@ -72,7 +72,7 @@ class Board:
                     return True
             return False
 
-    def distance_on_board(self, hex1, hex2):
+    def distance_on_board(self, hex1, hex2):  # gives the distance between two hexagons
         k = 15
         s = 0
         for i in range(1, 16):
@@ -82,7 +82,7 @@ class Board:
                     s = 1
         return k
 
-    def larger_list_neighbors(self, hexagon1):
+    def larger_list_neighbors(self, hexagon1):  
         neighbors = []
 
         for hexagon in self.list:
@@ -115,7 +115,7 @@ class Board:
         else:
             return False
 
-    def select_far_hex(self, defended_hex):
+    def select_far_hex(self, defended_hex):  # select a hexagon far from the defended hexagon
         i = 0
         j = 0
         entiers = list(range(0, len(self.list)))
@@ -131,7 +131,7 @@ class Board:
 
     # permet de trouver un hexagon accessible à partir d'un hexagon donné
     # qui rapproche d'un deuxième hexagone (bot logic)
-    def find_destination_hex(self, hexagon1, hexagon2):
+    def find_destination_hex(self, hexagon1, hexagon2):  
         hexagon1_neighbors = self.list_neighbors(hexagon1)
 
         for neighbor in hexagon1_neighbors:
