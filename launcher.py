@@ -42,7 +42,9 @@ while test.config is None:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
-        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # Left click on one of the
+        if (
+            event.type == pygame.MOUSEBUTTONDOWN and event.button == 1
+        ):  # Left click on one of the
             clicked = pygame.mouse.get_pos()
             if pygame.Rect(
                 (SCREEN_WIDTH / 2 - 90 * S, SCREEN_HEIGHT / 3), (180 * S, 40 * S)
