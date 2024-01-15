@@ -25,18 +25,21 @@ class Game:
         self.defender = Defender()
         self.current_player = self.defender
         self.deck = []
-        self.time = 7
+        self.time = 15
         self.defended_hex = None
         self.adrenalin = 1
         self.event_counter = 0
         self.attack = None
         self.heal = None
         self.winner = None
+        self.config = None
         # Flake8 noqa
         self.attack_image = pygame.image.load(path.join("Images", "explosion.png"))
         self.attack_image = pygame.transform.scale(self.attack_image, (60 * S, 60 * S))
         self.healing_image = pygame.image.load(path.join("Images", "healing.png"))
-        self.healing_image = pygame.transform.scale(self.healing_image, (60 * S, 60 * S))
+        self.healing_image = pygame.transform.scale(
+            self.healing_image, (60 * S, 60 * S)
+        )
 
     def generate(self):
         self.board.generate_board(self.num_rows, self.num_cols)
@@ -86,7 +89,7 @@ class Game:
             choice = random.choice(
                 ["sandstorm", "fire", "rescue", "betrayal", "adrenalin", "expansion"]
             )
-            if choice == "rain":
+            if choice == "sandstorm":
                 self.deck.append(Sandstorm())
             if choice == "fire":
                 self.deck.append(Fire())
@@ -100,10 +103,10 @@ class Game:
                 self.deck.append(Expansion())
 
     def change_player(self):
-        if self.current_player == self.attacker:
-            self.current_player = self.defender
-        else:
+        if self.current_player == self.defender:
             self.current_player = self.attacker
+        else:
+            self.current_player = self.defender
             self.apply_events()
             self.time -= 1
 
@@ -126,9 +129,9 @@ class Game:
         pygame.time.delay(5000)
         print("end game")
 
-    def display_newEvent(self, screen):
-        font = utils.font(15)
-        text = "New Event is " + str(self.deck[(self.event_counter-1) % 54].event_type)
+    def display_Event(self, screen):
+        font = utils.font(20)
+        text = "Event is " + str(self.deck[(self.event_counter - 1) % 54].event_type)
         print(text)
         info_text = font.render(text, True, (255, 0, 0))
         text_rect = info_text.get_rect(center=(800 * S, 150 * S))
@@ -160,7 +163,15 @@ class Game:
         ).collidepoint(clicked):
             self.change_player()
             self.current_player.regenerate_speed()
-            self.display_newEvent(screen)
+            if self.current_player.name == "Defender":
+                self.display_Event(screen)
+
+    def screen_update_bot(self, screen):
+        screen.fill(WHITE)
+        self.draw(screen)
+        self.display_info(screen)
+        self.current_player.draw_button(screen, SCREEN_HEIGHT, SCREEN_WIDTH, BLACK)
+        pygame.display.flip()
 
     def screen_update_bot(self, screen):
         screen.fill(WHITE)
@@ -177,7 +188,7 @@ class HumanVSBotGame(Game):
         self.defender = DefenderBot()
         self.current_player = self.attacker
         self.deck = []
-        self.time = 7
+        self.time = 15
         self.adrenalin = 1
         self.event_counter = 0
         self.attack = None
@@ -187,4 +198,6 @@ class HumanVSBotGame(Game):
         self.attack_image = pygame.image.load(path.join("Images", "explosion.png"))
         self.attack_image = pygame.transform.scale(self.attack_image, (60 * S, 60 * S))
         self.healing_image = pygame.image.load(path.join("Images", "healing.png"))
-        self.healing_image = pygame.transform.scale(self.healing_image, (60 * S, 60 * S))
+        self.healing_image = pygame.transform.scale(
+            self.healing_image, (60 * S, 60 * S)
+        )

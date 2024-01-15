@@ -39,7 +39,7 @@ class Rescue(Event):
         super().__init__("rescue")
 
     def apply_effect(self, game):
-        game.time -= random.randint(1, 3)
+        game.time -= 1
 
 
 class Betrayal(Event):
@@ -47,7 +47,7 @@ class Betrayal(Event):
         super().__init__("betrayal")
 
     def apply_effect(self, game):
-        game.time += random.randint(1, 3)
+        game.time += 1
 
 
 class Adrenalin(Event):

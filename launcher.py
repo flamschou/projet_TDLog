@@ -1,59 +1,88 @@
+# Imports
 import pygame
 import sys
 # from game import Game
 from game import HumanVSBotGame
 import utils
 import scale
-# import time
 
-# Initialisation de Pygame
+# Pygame initialization
 pygame.init()
 
-# Couleurs
+# Colors
 WHITE = (200, 215, 200)
 BLACK = (0, 0, 0)
 
-# Get the dimensions of the screen
+# Scale Parameter
 S = scale.scale
 
-# Paramètres de la fenêtre
+# Window Parameters
 SCREEN_WIDTH = 900 * S
 SCREEN_HEIGHT = 600 * S
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Hexagonal Board Game")
+frame_rate = 15
+clock = pygame.time.Clock()
 
+# Board Parameters
+num_rows = 8
+num_cols = 10
 
-# Générer un plateau aléatoire
-num_rows = 8  # Nombre de lignes
-num_cols = 10  # Nombre de colonnes
-
-# partie humain vs humain
-# test = Game(num_rows, num_cols)
+# Game initialization
+test = Game(num_rows, num_cols)
 
 # ou partie humain vs bot
-test = HumanVSBotGame(num_rows, num_cols)
+# test = HumanVSBotGame(num_rows, num_cols)
 
 test.generate()
 print(test.deck[0].event_type)
 
-# Boucle principale
+# Initial Menu to choose bot configuration
+font = utils.font(40)
+screen.fill(WHITE)
+text = "Choose bot configuration"
+info_text = font.render(text, True, (255, 0, 0))
+text_rect = info_text.get_rect(center=(SCREEN_WIDTH / 2, 130 * S))
+screen.blit(info_text, text_rect)
+while test.config is None:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            sys.exit()
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            clicked = pygame.mouse.get_pos()
+            if pygame.Rect(
+                (SCREEN_WIDTH / 2 - 90 * S, SCREEN_HEIGHT / 3), (180 * S, 40 * S)
+            ).collidepoint(clicked):
+                test.config = "no bot"
 
+    utils.drawButton_config(screen, SCREEN_WIDTH, SCREEN_HEIGHT, BLACK)
+    pygame.display.flip()
+    clock.tick(frame_rate)
 
+# Create players in function of the configuration
+players = [test.defender, test.attacker]
+if test.config == "defender bot":
+    players = [test.defender, test.attacker]
+    test.defender.name = "DefenderBot"
+if test.config == "attacker bot":
+    players = [test.attacker, test.defender]
+    test.attacker.name = "AttackerBot"
+
+# Display board and initialize troops
 screen.fill(WHITE)
 test.draw(screen)
-
-frame_rate = 15
-clock = pygame.time.Clock()
 test.defender.ini_troops_available(SCREEN_WIDTH, SCREEN_HEIGHT)
 test.attacker.ini_troops_available(SCREEN_WIDTH, SCREEN_HEIGHT)
 
-# time.sleep(5)
-
-# version initiale humain contre humain
+# Boucle principale
 for i in range(2):
     running = True
 
-    # time.sleep(5)
+    if (
+        test.current_player.name == "AttackerBot"
+        or test.current_player.name == "DefenderBot"
+    ):
+        test.current_player.clicks_for_ini(test)
 
     while test.current_player.end_ini() and running:
 
@@ -63,6 +92,11 @@ for i in range(2):
             test.current_player.initialize_bot(test, screen)
 
         for event in pygame.event.get():
+            if (
+                test.current_player.name == "AttackerBot"
+                or test.current_player.name == "DefenderBot"
+            ):
+                test.current_player.clicks_for_ini(test)
             if event.type == pygame.QUIT:
                 running = False
                 sys.exit()
@@ -76,7 +110,7 @@ for i in range(2):
         pygame.display.flip()
         clock.tick(frame_rate)
 
-    test.change_player()
+    test.current_player = players[(i + 1) % 2]
 
 
 while running and test.time > 0 and test.winner is None:
@@ -106,7 +140,7 @@ while running and test.time > 0 and test.winner is None:
     pygame.display.flip()
     clock.tick(frame_rate)
 
-
+pygame.time.delay(1500)
 screen.fill(WHITE)
 if test.winner is None:
     test.winner = test.defender

@@ -7,6 +7,7 @@ import scale
 
 S = scale.scale
 
+
 class Bot(Player):
     def __init__(self, name, player_type):
         super().__init__(name)
@@ -238,7 +239,7 @@ class DefenderBot(Bot):
     def initialize_bot(self, game, screen):
         # select a random hexagon to defend
         i = random.randint(0, len(game.board.list))
-        self.defended_hexagon = game.board.list[i]  
+        self.defended_hexagon = game.board.list[i]
         game.board.list[i].toDefended()
         pygame.time.delay(1000)
         print("hexagon defended chosen")
