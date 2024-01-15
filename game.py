@@ -173,13 +173,6 @@ class Game:
         self.current_player.draw_button(screen, SCREEN_HEIGHT, SCREEN_WIDTH, BLACK)
         pygame.display.flip()
 
-    def screen_update_bot(self, screen):
-        screen.fill(WHITE)
-        self.draw(screen)
-        self.display_info(screen)
-        self.current_player.draw_button(screen, SCREEN_HEIGHT, SCREEN_WIDTH, BLACK)
-        pygame.display.flip()
-
 
 class HumanVSBotGame(Game):
     def __init__(self, num_rows, num_cols):

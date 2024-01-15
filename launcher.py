@@ -1,8 +1,7 @@
 # Imports
 import pygame
 import sys
-# from game import Game
-from game import HumanVSBotGame
+from game import Game
 import utils
 import scale
 
