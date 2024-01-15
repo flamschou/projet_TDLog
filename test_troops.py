@@ -197,6 +197,10 @@ def test_attack():
 def test_is_troop_allowed_to_strike():
     game = Game(3, 3)
     game.generate()
+
+    for hex in game.board.list:
+        hex.toBasic()
+
     troop2 = Archer(game.board.list[0])
     troop1 = Assassin(game.board.list[1])
     troop3 = Magician(game.board.list[8])

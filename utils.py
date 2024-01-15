@@ -1,3 +1,5 @@
+# This file contains useful functions for the GUI.
+
 import pygame
 from os import path
 import scale
@@ -36,7 +38,7 @@ def drawButton_config(place, SCREEN_WIDTH, SCREEN_HEIGHT, col):
     )
 
 
-def drawButton_end_tour(place, SCREEN_WIDTH, SCREEN_HEIGHT, col):
+def drawButton_end_turn(place, SCREEN_WIDTH, SCREEN_HEIGHT, col):
     button_pos = (SCREEN_WIDTH - 190 * S, SCREEN_HEIGHT - 60 * S)
     button_size = (180 * S, 40 * S)
     text_center = (SCREEN_WIDTH - 100 * S, SCREEN_HEIGHT - 40 * S)
@@ -48,7 +50,6 @@ def drawButton_troop(texte, place, nbre, SCREEN_WIDTH, pos_y, col, troops_availa
     button_pos = (SCREEN_WIDTH - 150 * S, pos_y)
     button_size = (100 * S, 20 * S)
 
-    # Assurez-vous que troops_available a assez d'éléments
     if len(troops_available) < 3:
         troops_available.extend([None] * (3 - len(troops_available)))
 
