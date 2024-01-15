@@ -54,7 +54,8 @@ while test.config is None:
             ).collidepoint(clicked):
                 test.config = "no bot"
             if pygame.Rect(
-                (SCREEN_WIDTH / 2 - 90 * S, SCREEN_HEIGHT / 3 + 60*S), (180 * S, 40 * S)
+                (SCREEN_WIDTH / 2 - 90 * S, SCREEN_HEIGHT / 3 + 60 * S),
+                (180 * S, 40 * S),
             ).collidepoint(clicked):
                 test.config = "defender bot"
                 print("defender bot")
