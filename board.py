@@ -39,8 +39,8 @@ class Board:
                     hexagon = Forest(x, y)
                 if hex_type == "rock":
                     hexagon = Rock(x, y)
-                if random.randint(1, 6) == 1:
-                    hexagon.accessible = False
+                '''if random.randint(1, 6) == 1:
+                    hexagon.accessible = False'''
                 self.list.append(hexagon)
                 hexagon.index = len(self.list) - 1
 
@@ -72,17 +72,41 @@ class Board:
                     return True
             return False
 
+    def distance_on_board(self, hex1, hex2):
+        k = 15
+        s = 0
+        for i in range(1, 16):
+            while s == 0 and i < 16:
+                if self.isdistance(hex1, hex2, i):
+                    k = i
+                    s = 1
+        return k
+
     def larger_list_neighbors(self, hexagon1):
         neighbors = []
 
         for hexagon in self.list:
             if (
-                abs(hexagon.x - hexagon1.x) < 200 * S
-                and abs(hexagon.y - hexagon1.y) < 200 * S
+                abs(hexagon.x - hexagon1.x) < 100 * S
+                and abs(hexagon.y - hexagon1.y) < 100 * S
                 and hexagon != hexagon1
             ):
                 neighbors.append(hexagon)
+        random.shuffle(neighbors)
 
+        return neighbors
+
+    def quite_larger_list_neighbors(self, hexagon1):
+        neighbors = []
+
+        for hexagon in self.list:
+            if (
+                abs(hexagon.x - hexagon1.x) < 250 * S
+                and abs(hexagon.y - hexagon1.y) < 250 * S
+                and hexagon != hexagon1
+            ):
+                neighbors.append(hexagon)
+        random.shuffle(neighbors)
         return neighbors
 
     def larger_neighbors(self, hexagon, hexagon1):
@@ -90,6 +114,20 @@ class Board:
             return True
         else:
             return False
+
+    def select_far_hex(self, defended_hex):
+        i = 0
+        j = 0
+        entiers = list(range(0, len(self.list)))
+        entiers_aleatoires = random.sample(entiers, len(entiers))
+        provided_list = self.larger_list_neighbors(defended_hex)
+        while j == 0:
+            if self.list[entiers_aleatoires[i]] not in provided_list:
+                far_hex = self.list[entiers_aleatoires[i]]
+                i = 1
+            else:
+                j += 1
+        return far_hex
 
     # permet de trouver un hexagon accessible à partir d'un hexagon donné
     # qui rapproche d'un deuxième hexagone (bot logic)

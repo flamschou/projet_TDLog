@@ -14,6 +14,11 @@ import utils
 
 S = scale.scale
 
+WHITE = (200, 215, 200)
+BLACK = (0, 0, 0)
+SCREEN_WIDTH = 900 * S
+SCREEN_HEIGHT = 600 * S
+
 
 class Game:
     def __init__(self, num_rows, num_cols):
@@ -25,6 +30,7 @@ class Game:
         self.current_player = self.defender
         self.deck = []
         self.time = 15
+        self.defended_hex = None
         self.adrenalin = 1
         self.event_counter = 0
         self.attack = None
@@ -180,13 +186,20 @@ class Game:
             if self.current_player.name == "Defender":
                 self.display_Event(screen)
 
+    def screen_update_bot(self, screen):
+        screen.fill(WHITE)
+        self.draw(screen)
+        self.display_info(screen)
+        self.current_player.draw_button(screen, SCREEN_HEIGHT, SCREEN_WIDTH, BLACK)
+        pygame.display.flip()
+
 
 class HumanVSBotGame(Game):
     def __init__(self, num_rows, num_cols):
         super().__init__(num_rows, num_cols)
         self.attacker = Attacker()
         self.defender = DefenderBot()
-        self.current_player = self.defender
+        self.current_player = self.attacker
         self.deck = []
         self.time = 15
         self.adrenalin = 1

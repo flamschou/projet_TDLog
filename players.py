@@ -65,7 +65,9 @@ class Player:
                         hexagon.toDefended()
                         print("hexagon defended")
                         self.placed = True
-
+        for troops in self.troops_available:
+            if troops[3]:
+                print("troop selected")
         else:
             for hexagon in game.board.list:
                 if hexagon.rect.collidepoint(clicked_pos) and self.button_selected:
