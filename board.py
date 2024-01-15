@@ -1,7 +1,9 @@
+# This file contains the Board class, which is used to generate the hexagonal board
+
+# Imports
 import random
 from hexagon import Basic, Sand, Forest, Rock
 import scale
-
 S = scale.scale
 
 
@@ -25,7 +27,7 @@ class Board:
                         "rock",
                         "rock",
                     ]
-                )
+                )  # 40% basic, 10% sand, 30% forest and 20% rock
                 x = col * 60 * S + (30 * S if row % 2 == 0 else 60 * S) + 80 * S
                 y = row * 52 * S + 100 * S
                 if hex_type == "basic":

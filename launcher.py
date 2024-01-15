@@ -51,6 +51,11 @@ while test.config is None:
                 (SCREEN_WIDTH / 2 - 90 * S, SCREEN_HEIGHT / 3), (180 * S, 40 * S)
             ).collidepoint(clicked):
                 test.config = "no bot"
+            if pygame.Rect(
+                (SCREEN_WIDTH / 2 - 90 * S, SCREEN_HEIGHT / 3 + 60*S), (180 * S, 40 * S)
+            ).collidepoint(clicked):
+                test.config = "defender bot"
+                print("defender bot")
 
     utils.drawButton_config(screen, SCREEN_WIDTH, SCREEN_HEIGHT, BLACK)
     pygame.display.flip()
