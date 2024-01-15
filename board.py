@@ -64,7 +64,9 @@ class Board:
         else:
             return False
 
-    def isdistance(self, hexagon, hexagon1, k):  # check if hexagons are at distance k or lower
+    def isdistance(
+        self, hexagon, hexagon1, k
+    ):  # check if hexagons are at distance k or lower
         if k == 0:
             return hexagon == hexagon1
         else:
@@ -83,7 +85,7 @@ class Board:
                     s = 1
         return k
 
-    def larger_list_neighbors(self, hexagon1):  
+    def larger_list_neighbors(self, hexagon1):
         neighbors = []
 
         for hexagon in self.list:
@@ -116,7 +118,9 @@ class Board:
         else:
             return False
 
-    def select_far_hex(self, defended_hex):  # select a hexagon far from the defended hexagon
+    def select_far_hex(
+        self, defended_hex
+    ):  # select a hexagon far from the defended hexagon
         i = 0
         j = 0
         entiers = list(range(0, len(self.list)))
@@ -132,7 +136,7 @@ class Board:
 
     # permet de trouver un hexagon accessible à partir d'un hexagon donné
     # qui rapproche d'un deuxième hexagone (bot logic)
-    def find_destination_hex(self, hexagon1, hexagon2):  
+    def find_destination_hex(self, hexagon1, hexagon2):
         hexagon1_neighbors = self.list_neighbors(hexagon1)
 
         for neighbor in hexagon1_neighbors:
