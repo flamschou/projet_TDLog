@@ -45,7 +45,8 @@ class Board:
                 self.list.append(hexagon)
                 hexagon.index = len(self.list) - 1
 
-    def list_neighbors(self, hexagon1):  # gives list of the neighbors of an hexagon
+    # gives list of the neighbors of an hexagon
+    def list_neighbors(self, hexagon1):
         neighbors = []
 
         for hexagon in self.list:
@@ -58,15 +59,15 @@ class Board:
 
         return neighbors
 
-    def neighbors(self, hexagon, hexagon1):  # check if hexagons are neighbors
+    # check if hexagons are neighbors
+    def neighbors(self, hexagon, hexagon1):
         if hexagon in self.list_neighbors(hexagon1):
             return True
         else:
             return False
 
-    def isdistance(
-        self, hexagon, hexagon1, k
-    ):  # check if hexagons are at distance k or lower
+    # check if hexagons are at distance k or lower
+    def isdistance(self, hexagon, hexagon1, k):
         if k == 0:
             return hexagon == hexagon1
         else:
@@ -75,7 +76,8 @@ class Board:
                     return True
             return False
 
-    def distance_on_board(self, hex1, hex2):  # gives the distance between two hexagons
+    # gives the distance between two hexagons
+    def distance_on_board(self, hex1, hex2):
         k = 15
         s = 0
         for i in range(1, 16):
@@ -118,9 +120,8 @@ class Board:
         else:
             return False
 
-    def select_far_hex(
-        self, defended_hex
-    ):  # select a hexagon far from the defended hexagon
+    # select a hexagon far from the defended hexagon
+    def select_far_hex(self, defended_hex):
         i = 0
         j = 0
         entiers = list(range(0, len(self.list)))

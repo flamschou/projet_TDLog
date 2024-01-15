@@ -1,3 +1,5 @@
+# this file defines the class Troop and its subclasses Assassin, Magician, Turret, Archer, Engineer and Shield
+# the class Troop contains important methods such as the movement of the troops, the attack and the healing
 import pygame
 import scale
 import utils
@@ -24,66 +26,7 @@ class Troop:
         )
         self.selected = False
 
-    def move(self, destination_h, game):
-        if not destination_h.occupied:
-            self.speed = self.speed * game.adrenalin
-
-            if (
-                game.board.neighbors(self.hex, destination_h)
-                and destination_h.accessible
-            ):
-                if self.speed == 0:
-                    print("no speed left ; you can't move anymore")
-
-                elif self.speed == 1 and self.hex.hex_type == "sand":
-                    print("you are in sand ; you don't have enough speed to move")
-
-                else:
-                    print("moving")
-
-                    if self.hex.hex_type == "sand":
-                        self.speed -= 2
-
-                    else:
-                        self.speed -= 1
-
-                    self.hex.occupied = False
-                    self.hex = destination_h
-                    self.hex.occupied = True
-
-                    print("moved to " + str(destination_h.index) + " hexagon")
-                    print("speed left: " + str(self.speed))
-
-            self.rect = pygame.Rect(
-                self.hex.x - 10 * S, self.hex.y - 10 * S, 20 * S, 20 * S
-            )
-        else:
-            for current_player in [game.attacker, game.defender]:
-                for troop in current_player.troops:
-                    if troop.hex == destination_h:
-                        if self.is_troop_allowed_to_strike(troop, game):
-                            self.attack(troop, game.adrenalin, game)
-
-    def attack(self, target, adrenaline, game):
-        if self.player != target.player:
-            damage = self.attack_power * adrenaline
-            target.health -= damage
-            print("attacked " + target.troop_type + " for " + str(damage) + " damage")
-            self.attack_capacity -= 1
-            print("start attack animation")
-            game.attack = target.hex
-        else:
-            damage = self.healing_power * adrenaline
-            target.health = min(target.health + damage, target.default_health)
-            print("healed " + target.troop_type + " for " + str(damage) + " health")
-            self.attack_capacity -= 1
-            print("start heal animation")
-            game.heal = target.hex
-
-        if target.health <= 0:
-            target.eliminated()
-            print(target.troop_type + " is dead")
-
+    # check if the troop can touch the target
     def is_troop_allowed_to_strike(self, target, game):
         if self.attack_capacity == 0:
             print(self.troop_type + " has no attack power")
@@ -98,6 +41,77 @@ class Troop:
                 print(self.troop_type + " has not enough attack range")
                 return False
 
+    # attack the target
+    def attack(self, target, adrenaline, game):
+        damage = self.attack_power * adrenaline
+        target.health -= damage
+        print("attacked " + target.troop_type + " for " + str(damage) + " damage")
+        self.attack_capacity -= 1
+        print("start attack animation")
+        game.attack = target.hex
+
+        if target.health <= 0:
+            target.eliminated()
+            print(target.troop_type + " is dead")
+
+    # heal the target
+    def healing(self, target, adrenaline, game):
+        damage = self.healing_power * adrenaline
+        target.health = min(target.health + damage, target.default_health)
+        print("healed " + target.troop_type + " for " + str(damage) + " health")
+        self.attack_capacity -= 1
+        print("start heal animation")
+        game.heal = target.hex
+
+    # attack or heal the target
+    def attack_or_healing(self, destination_h, game):
+        for current_player in [game.attacker, game.defender]:
+            for troop in current_player.troops:
+                if troop.hex == destination_h:
+                    if self.is_troop_allowed_to_strike(troop, game):
+                        if self.player != troop.player:
+                            self.attack(troop, game.adrenalin, game)
+                        else:
+                            self.healing(troop, game.adrenalin, game)
+
+    # move the troop to the destination hexagon
+    def move(self, destination_h, game):
+        self.speed = self.speed * game.adrenalin
+        if game.board.neighbors(self.hex, destination_h) and destination_h.accessible:
+            if self.speed == 0:
+                print("no speed left ; you can't move anymore")
+
+            elif self.speed == 1 and self.hex.hex_type == "sand":
+                print("you are in sand ; you don't have enough speed to move")
+
+            else:
+                print("moving")
+
+                if self.hex.hex_type == "sand":
+                    self.speed -= 2
+
+                else:
+                    self.speed -= 1
+
+                self.hex.occupied = False
+                self.hex = destination_h
+                self.hex.occupied = True
+
+                print("moved to " + str(destination_h.index) + " hexagon")
+                print("speed left: " + str(self.speed))
+
+        self.rect = pygame.Rect(
+            self.hex.x - 10 * S, self.hex.y - 10 * S, 20 * S, 20 * S
+        )
+
+    # the troop makes an action to the destination hexagon
+    def action(self, destination_h, game):
+        if not destination_h.occupied:
+            self.move(destination_h, game)
+        else:
+            self.attack_or_healing(destination_h, game)
+
+    # draw the troop on the screen
     def draw(self, screen):
         if self.status != "dead":
             image_rect = self.image.get_rect(center=(self.hex.x, self.hex.y))
@@ -105,6 +119,7 @@ class Troop:
                 screen.blit(self.imageSelected, image_rect)
             screen.blit(self.image, image_rect)
 
+    # draw the info of the troop on the screen
     def info(self, screen):
         font = utils.font(13)
         text = (
@@ -125,10 +140,12 @@ class Troop:
         text_rect = info_text.get_rect(center=(450 * S, 30 * S))
         screen.blit(info_text, text_rect)
 
+    # check if the troop is hovered by the mouse
     def isHovered(self, mousePos):
         if self.status != "dead":
             return self.rect.collidepoint(mousePos)
 
+    # suppress a dead troop
     def eliminated(self):
         self.hex.occupied = False
         self.hex = None
