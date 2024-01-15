@@ -1,4 +1,5 @@
 # This file contains the Board class, which is used to generate the hexagonal board
+# It also contains various functions to find neighbors of hexagons, to check if hexagons are neighbors, etc.
 
 # Imports
 import random
