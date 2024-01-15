@@ -99,6 +99,7 @@ def test_eliminations():
 
     game.defender.troops[0].status = "dead"
     game.eliminations()
+    game.end_game()
 
     assert len(game.attacker.troops) == 1
     assert len(game.defender.troops) == 0
