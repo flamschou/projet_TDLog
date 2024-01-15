@@ -27,11 +27,9 @@ clock = pygame.time.Clock()
 num_rows = 8
 num_cols = 10
 
-# Game initialization
+# Game initialization and genration
 test = Game(num_rows, num_cols)
-
 test.generate()
-print(test.deck[0].event_type)
 
 # Initial Menu to choose bot configuration
 font = utils.font(40)
@@ -44,18 +42,27 @@ while test.config is None:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
-        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+        if (
+            event.type == pygame.MOUSEBUTTONDOWN and event.button == 1
+        ):  # Left click on one of the
             clicked = pygame.mouse.get_pos()
             if pygame.Rect(
                 (SCREEN_WIDTH / 2 - 90 * S, SCREEN_HEIGHT / 3), (180 * S, 40 * S)
             ).collidepoint(clicked):
                 test.config = "no bot"
+                print("no bot")
             if pygame.Rect(
                 (SCREEN_WIDTH / 2 - 90 * S, SCREEN_HEIGHT / 3 + 60 * S),
                 (180 * S, 40 * S),
             ).collidepoint(clicked):
                 test.config = "defender bot"
                 print("defender bot")
+            if pygame.Rect(
+                (SCREEN_WIDTH / 2 - 90 * S, SCREEN_HEIGHT / 3 + 120 * S),
+                (180 * S, 40 * S),
+            ).collidepoint(clicked):
+                test.config = "attacker bot"
+                print("attacker bot")
             if pygame.Rect(
                 (SCREEN_WIDTH / 2 - 90 * S, SCREEN_HEIGHT / 3 + 120 * S),
                 (180 * S, 40 * S),
@@ -86,7 +93,6 @@ for i in range(2):
     running = True
     print(test.current_player.name)
     while test.current_player.end_ini() and running:
-
         test.draw(screen)
         if (test.current_player.name == "AttackerBot" or test.current_player.name == "DefenderBot"):
             test.current_player.initialize_bot(test, screen)
@@ -111,8 +117,10 @@ for i in range(2):
 
 # Game phase
 while running and test.time > 0 and test.winner is None:
-
-    if test.current_player.name == "AttackerBot" or test.current_player.name == "DefenderBot":
+    if (
+        test.current_player.name == "AttackerBot"
+        or test.current_player.name == "DefenderBot"
+    ):
         test.current_player.make_move_bot(test, screen)
         print("bot essayé")
 
@@ -145,14 +153,12 @@ while running and test.time > 0 and test.winner is None:
     clock.tick(frame_rate)
 
 # End of the game
-pygame.time.delay(1500)
+pygame.time.delay(2000)
 screen.fill(WHITE)
 if test.winner is None:
     test.winner = test.defender
 test.display_winner(screen)
 
-# Wait for the user to close the window
+# Close the window
 pygame.quit()
 sys.exit()
-
-# version alternative pour tester les bots

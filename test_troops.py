@@ -132,7 +132,7 @@ def test_move():
     hex2 = game.board.list[1]
     troop = Troop("None", hex1)
     troop.speed = 5
-    troop.move(hex2, game)
+    troop.action(hex2, game)
 
     assert troop.hex == hex2
     assert troop.speed < 5
@@ -141,7 +141,7 @@ def test_move():
 
     hex1.occupied = True
     speed_aux = troop.speed
-    troop.move(hex1, game)
+    troop.action(hex1, game)
 
     assert troop.hex == hex2
     assert troop.speed == speed_aux
@@ -149,7 +149,7 @@ def test_move():
 
     hex1.occupied = False
     troop.speed = 0
-    troop.move(hex1, game)
+    troop.action(hex1, game)
 
     assert troop.hex == hex2
     assert troop.speed == 0
@@ -158,7 +158,7 @@ def test_move():
 
     troop.speed = 5
     hex2.toSand()
-    troop.move(hex1, game)
+    troop.action(hex1, game)
 
     assert troop.hex == hex1
     assert troop.speed == 3
@@ -167,7 +167,7 @@ def test_move():
 
     troop.speed = 1
     hex1.toSand()
-    troop.move(hex2, game)
+    troop.action(hex2, game)
 
     assert troop.hex == hex1
     assert troop.speed == 1

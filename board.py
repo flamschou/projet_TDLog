@@ -1,4 +1,5 @@
 # This file contains the Board class, which is used to generate the hexagonal board
+# It also contains various functions to find neighbors of hexagons, to check if hexagons are neighbors, etc.
 
 # Imports
 import random
@@ -39,11 +40,12 @@ class Board:
                     hexagon = Forest(x, y)
                 if hex_type == "rock":
                     hexagon = Rock(x, y)
-                '''if random.randint(1, 6) == 1:
-                    hexagon.accessible = False'''
+                """if random.randint(1, 6) == 1:
+                    hexagon.accessible = False"""
                 self.list.append(hexagon)
                 hexagon.index = len(self.list) - 1
 
+    # gives list of the neighbors of an hexagon
     def list_neighbors(self, hexagon1):
         neighbors = []
 
@@ -57,12 +59,14 @@ class Board:
 
         return neighbors
 
+    # check if hexagons are neighbors
     def neighbors(self, hexagon, hexagon1):
         if hexagon in self.list_neighbors(hexagon1):
             return True
         else:
             return False
 
+    # check if hexagons are at distance k or lower
     def isdistance(self, hexagon, hexagon1, k):
         if k == 0:
             return hexagon == hexagon1
@@ -72,6 +76,7 @@ class Board:
                     return True
             return False
 
+    # gives the distance between two hexagons
     def distance_on_board(self, hex1, hex2):
         k = 15
         s = 0
@@ -115,6 +120,7 @@ class Board:
         else:
             return False
 
+    # select a hexagon far from the defended hexagon
     def select_far_hex(self, defended_hex):
         i = 0
         j = 0

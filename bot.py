@@ -36,16 +36,19 @@ class Bot(Player):
         L = []
         I = []
         for i in range(4):
-            L.append([player.troops[i], game.board.distance_on_board(troop.hex, player.troops[i].hex)])
+            L.append(
+                [
+                    player.troops[i],
+                    game.board.distance_on_board(troop.hex, player.troops[i].hex),
+                ]
+            )
             I.append(game.board.distance_on_board(troop.hex, player.troops[i].hex))
         return L, I
-    
+
     def find_attackable_troop(self, game, troop, player):
         List, Index = self.distance_with_opponants(game, troop, player)
         i = Index.index(min(Index))
         return List[i]
-   
-
 
 
 # ATTAQUANT BOT
@@ -61,7 +64,7 @@ class AttackerBot(Bot):
         self.position = (0, 0)
 
     # implémentation de la logique du bot attaquant, en utilisant la génération de clicks...
-    '''def make_move(self, game):
+    """def make_move(self, game):
         # logique pour l'attaquant bot (pour l'instant identique au défenseur)
         for selected_troop in self.troops:
             self.use_selected_troop(selected_troop, game)
@@ -131,7 +134,8 @@ class AttackerBot(Bot):
     
     def win_for_attack(self, game):
         pass
-'''
+"""
+
     # bie nimplémentée pour le défenseur mais faire de même pour l'attaquant
     def initialize_bot(self, game, screen):
         # placing the troops a bit far from the defended hexagon
@@ -210,7 +214,7 @@ class DefenderBot(Bot):
                 # attaquer une troupe ennemie si il y en a une à portée
                 selected_troop.move(target_troop.hex, game)
                 pygame.time.delay(500)
-                
+
             else:
                 # trouver la troupe ennemie la plus proche et se déplacer vers elle si il reste de la vitesse
                 if selected_troop.speed != 0:
@@ -242,7 +246,7 @@ class DefenderBot(Bot):
             # La troupe n'a pas de capacité d'attaque, ne rien faire
             pass
 
-    def step_back(self, troop, board) :
+    def step_back(self, troop, board):
         pass
 
     def initialize_bot(self, game, screen):
@@ -269,30 +273,23 @@ class DefenderBot(Bot):
                 troop[3] = True
                 j = 0
                 while troop[1] != 0 and j < len(defense):
-                    if (
-                        not defense[j].occupied
-                        and defense[j].accessible
-                    ):
+                    if not defense[j].occupied and defense[j].accessible:
                         if troop[0] == "shield":
-                            troop1 = Shield(
-                                defense[j]
-                            )
+                            troop1 = Shield(defense[j])
 
                         elif troop[0] == "engineer":
-                            troop1 = Engineer(
-                                defense[j]
-                            )
+                            troop1 = Engineer(defense[j])
 
                         elif troop[0] == "archer":
-                            troop1 = Archer(
-                                defense[j]
-                            )
+                            troop1 = Archer(defense[j])
                         self.add_troop(troop1)
                         pygame.time.delay(1000)
                         game.screen_update_bot(screen)
                         print(str(troop[0]) + " place")
                         pygame.time.delay(1000)
-                        game.board.larger_list_neighbors(self.defended_hexagon)[j].occupied = True
+                        game.board.larger_list_neighbors(self.defended_hexagon)[
+                            j
+                        ].occupied = True
                         troop[1] -= 1
                     j += 1
                 troop[3] = False
