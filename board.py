@@ -4,6 +4,7 @@
 import random
 from hexagon import Basic, Sand, Forest, Rock
 import scale
+
 S = scale.scale
 
 
