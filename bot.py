@@ -6,19 +6,13 @@ import time
 import scale
 
 S = scale.scale
-
+num_cols = 10
 
 class Bot(Player):
     def __init__(self, name, player_type):
         super().__init__(name)
         self.bot_type = player_type
         self.position = (0, 0)
-
-    def simuler_clic(self):
-        # créé un évènement de clic à la position du bot
-        pygame.event.post(
-            pygame.event.Event(pygame.MOUSEBUTTONDOWN, {"pos": self.position})
-        )
 
     def set_bot_logic(self, bot_logic):
         self.bot_logic = bot_logic
@@ -39,10 +33,10 @@ class Bot(Player):
             L.append(
                 [
                     player.troops[i],
-                    game.board.distance_on_board(troop.hex, player.troops[i].hex),
+                    game.board.distance_between_hexagons(troop.hex.index, player.troops[i].hex.index, num_cols),
                 ]
             )
-            I.append(game.board.distance_on_board(troop.hex, player.troops[i].hex))
+            I.append(game.board.distance_between_hexagons(troop.hex.index, player.troops[i].hex.index, num_cols))
         return L, I
 
     def find_attackable_troop(self, game, troop, player):
@@ -192,27 +186,33 @@ class DefenderBot(Bot):
     def make_move_bot(self, game, screen):
         # logique pour le défenseur bot
         player = game.attacker
-        '''for selected_troop in self.troops:
+        for selected_troop in self.troops:
                 print(self.distance_with_opponants(game, selected_troop, player))
-                self.use_selected_troop(selected_troop, game, player)
+                self.use_selected_troop(selected_troop, game, player, screen)
                 game.screen_update_bot(screen)
-                pygame.time.delay(1500)'''
+                pygame.time.delay(1500)
+        print("action terminée du bot !")
         game.change_player()
         game.current_player.regenerate_speed()
         if game.current_player.name == "Defender":
             game.display_Event(screen)
 
     # si une troupe est sélectionnée, l'utiliser
-    def use_selected_troop(self, selected_troop, game, player):
+    def use_selected_troop(self, selected_troop, game, player, screen):
+
+        # start with searching attackable troops
         print(self.find_attackable_troop(game, selected_troop, player))
         target_troop = self.find_attackable_troop(game, selected_troop, player)[0]
         d_target = self.find_attackable_troop(game, selected_troop, player)[1]
+        print("target troop : " + str(target_troop))
         # vérifier si la troupe a une capacité d'attaque non nulle
         if selected_troop.attack_capacity > 0:
             # vérifier si la troupe peut attaquer une troupe ennemie
+            print ("attacke chosen")
+            pygame.time.delay(50)
             if d_target <= selected_troop.attack_range:
                 # attaquer une troupe ennemie si il y en a une à portée
-                selected_troop.move(target_troop.hex, game)
+                selected_troop.action(target_troop.hex, game)
                 pygame.time.delay(500)
 
             else:
@@ -220,31 +220,36 @@ class DefenderBot(Bot):
                 if selected_troop.speed != 0:
                     # flake8: noqa
                     if d_target <= selected_troop.attack_range + selected_troop.speed:
+                        print
                         # sé déplacer et attaquer si la troupe est à porté suffisante après le déplacement considérant la vitesse restante
-                        while (
-                            selected_troop.speed > 0
-                            and selected_troop.speed + selected_troop.attack_range
-                            > d_target
-                        ):
+                        while (selected_troop.speed > 0 and selected_troop.attack_range < d_target):
                             destination_hex = game.board.find_destination_hex(
-                                selected_troop.hex, target_troop.hex
-                            )
-                            selected_troop.move(destination_hex, game)
-                            pygame.time.delay(500)
-                            print("troupe déplacée : " + str(selected_troop))
-                            pygame.time.delay(500)
+                                selected_troop.hex, target_troop.hex)
+                            pygame.time.delay(50)
+                            self.action_towards_attacker(game, destination_hex, selected_troop, screen)
+                            d_target -= 1
+                        # attack after moving
+                        selected_troop.action(target_troop.hex, game)
+                        
                     else:
                         # se rapprocher de la troupe ennemie et s'arreter là
                         destination_hex = game.board.find_destination_hex(
                             selected_troop.hex, target_troop.hex
                         )
-                        selected_troop.move(destination_hex, game)
-                        pygame.time.delay(500)
-                        print("troupe déplacée : " + str(selected_troop))
-                        pygame.time.delay(500)
+                        pygame.time.delay(50)
+                        self.action_towards_attacker(game, destination_hex, selected_troop, screen)
         else:
             # La troupe n'a pas de capacité d'attaque, ne rien faire
             pass
+
+    # makes the move for a troop
+    def action_towards_attacker(self, game, destination_hex, troop, screen):
+        if destination_hex != None:
+                                troop.action(destination_hex, game)
+                                pygame.time.delay(500)
+                                game.screen_update_bot(screen)
+                                pygame.time.delay(500)
+                                print("troupe déplacée : " + str(troop))
 
     def step_back(self, troop, board):
         pass

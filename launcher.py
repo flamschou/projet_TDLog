@@ -88,6 +88,7 @@ test.draw(screen)
 test.attacker.ini_troops_available(SCREEN_WIDTH, SCREEN_HEIGHT)
 test.defender.ini_troops_available(SCREEN_WIDTH, SCREEN_HEIGHT)
 
+
 # Initialisation phase
 for i in range(2):
     running = True
@@ -117,10 +118,17 @@ for i in range(2):
 
 # Game phase
 while running and test.time > 0 and test.winner is None:
+
     if (
         test.current_player.name == "AttackerBot"
         or test.current_player.name == "DefenderBot"
     ):
+        screen.fill(WHITE)
+        test.draw(screen)
+        test.display_info(screen)
+        utils.drawButton_end_turn(screen, SCREEN_WIDTH, SCREEN_HEIGHT, BLACK)
+        pygame.display.flip()
+        pygame.time.delay(500)
         test.current_player.make_move_bot(test, screen)
         print("bot essayé")
 

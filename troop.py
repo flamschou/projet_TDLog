@@ -110,6 +110,7 @@ class Troop:
             self.move(destination_h, game)
         else:
             self.attack_or_healing(destination_h, game)
+        pygame.time.wait(50)
 
     # draw the troop on the screen
     def draw(self, screen):

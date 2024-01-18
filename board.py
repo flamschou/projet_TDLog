@@ -5,6 +5,7 @@
 import random
 from hexagon import Basic, Sand, Forest, Rock
 import scale
+import pygame
 
 S = scale.scale
 
@@ -12,6 +13,7 @@ S = scale.scale
 class Board:
     def __init__(self):
         self.list = []
+        self.mat_distance = []
 
     def generate_board(self, num_rows, num_cols):
         for row in range(num_rows):
@@ -45,6 +47,32 @@ class Board:
                 self.list.append(hexagon)
                 hexagon.index = len(self.list) - 1
 
+    def distance_between_hexagons(self, index1, index2, num_cols):
+        # Assurez-vous que les indices sont valides
+        if index1 < 0 or index2 < 0 or index1 >= len(self.list) or index2 >= len(self.list):
+            raise ValueError("Invalid indices")
+
+        # Calculez les coordonnées (ligne, colonne) pour chaque indice
+        row1, col1 = divmod(index1, num_cols)
+        row2, col2 = divmod(index2, num_cols)
+
+        # Calculez la distance en utilisant les coordonnées
+        delta_col = abs(col1 - col2)
+        delta_row = abs(row1 - row2)
+
+        # Gestion des déplacements en diagonale avec décalage
+        if delta_col != 0:
+            if delta_col <= delta_row:
+                if delta_row % 2 != 0:
+                    delta_col += 1
+                return delta_row + (delta_col)//2
+            if delta_col > delta_row:
+                if delta_row % 2 != 0:
+                    delta_row += 1
+                return delta_col + (delta_row)//2
+        else:
+            return delta_row
+
     # gives list of the neighbors of an hexagon
     def list_neighbors(self, hexagon1):
         neighbors = []
@@ -77,15 +105,6 @@ class Board:
             return False
 
     # gives the distance between two hexagons
-    def distance_on_board(self, hex1, hex2):
-        k = 15
-        s = 0
-        for i in range(1, 16):
-            while s == 0 and i < 16:
-                if self.isdistance(hex1, hex2, i):
-                    k = i
-                    s = 1
-        return k
 
     def larger_list_neighbors(self, hexagon1):
         neighbors = []
@@ -139,11 +158,12 @@ class Board:
     # qui rapproche d'un deuxième hexagone (bot logic)
     def find_destination_hex(self, hexagon1, hexagon2):
         hexagon1_neighbors = self.list_neighbors(hexagon1)
-
+        desti = None
         for neighbor in hexagon1_neighbors:
-            # check if the distance between neighbor and hexagon2 is
-            # equal to the distance between hexagon1 and hexagon2 minus 1
-            if self.isdistance(neighbor, hexagon2, hexagon1.rect.width / (60 * S) - 1):
-                return neighbor
+            if neighbor.accessible and not neighbor.occupied:
+                pygame.time.delay(10)
+                if (self.distance_between_hexagons(neighbor.index, hexagon2.index, 10)
+                        == self.distance_between_hexagons(hexagon1.index, hexagon2.index, 10) - 1):
+                    desti = neighbor
 
-        return None
+        return desti
