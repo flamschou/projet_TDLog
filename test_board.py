@@ -65,19 +65,3 @@ def test_isdistance():
     assert board.isdistance(board.list[0], board.list[8], 3)
     assert not board.isdistance(board.list[0], board.list[2], 1)
     assert not board.isdistance(board.list[0], board.list[8], 2)
-
-
-"""
-def test_larger_list_neighbors():
-    board = Board()
-    board.generate_board(3, 3)
-    assert len(board.larger_list_neighbors(board.list[0])) == 4
-    assert len(board.larger_list_neighbors(board.list[1])) == 6
-    assert len(board.larger_list_neighbors(board.list[2])) == 4
-    assert len(board.larger_list_neighbors(board.list[3])) == 6
-    assert len(board.larger_list_neighbors(board.list[4])) == 9
-    assert len(board.larger_list_neighbors(board.list[5])) == 6
-    assert len(board.larger_list_neighbors(board.list[6])) == 4
-    assert len(board.larger_list_neighbors(board.list[7])) == 6
-    assert len(board.larger_list_neighbors(board.list[8])) == 4
-"""
