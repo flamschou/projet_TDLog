@@ -14,6 +14,7 @@ class Troop:
         self.hex = hex
         self.hex.occupied = True
         self.health = 0
+        self.default_health = 0
         self.attack_capacity = 0
         self.attack_power = 0
         self.healing_power = 0
@@ -159,6 +160,7 @@ class Assassin(Troop):
         super().__init__("assassin", hex)
         self.color = (255, 0, 0)
         self.health = 100
+        self.default_health = 100
         self.attack_power = 20
         self.healing_power = 10
         self.attack_capacity = 1
@@ -188,6 +190,7 @@ class Magician(Troop):
         self.attack_power = 50
         self.healing_power = 50
         self.attack_capacity = 1
+        self.default_health = 200
         self.speed = 3
         self.default_speed = self.speed
         self.default_attack_power = self.attack_power
@@ -212,6 +215,7 @@ class Turret(Troop):
         self.health = 500
         self.default_health = self.health
         self.attack_power = 100
+        self.default_health = 500
         self.attack_capacity = 1
         self.healing_power = 20
         self.speed = 1
@@ -240,6 +244,7 @@ class Archer(Troop):
         self.attack_power = 20
         self.attack_capacity = 1
         self.healing_power = 10
+        self.default_health = 100
         self.speed = 5
         self.default_speed = self.speed
         self.default_attack_power = self.attack_power
@@ -264,6 +269,7 @@ class Engineer(Troop):
         self.health = 200
         self.default_health = self.health
         self.attack_power = 50
+        self.default_health = 200
         self.attack_capacity = 1
         self.healing_power = 20
         self.speed = 3
@@ -289,6 +295,7 @@ class Shield(Troop):
         self.health = 500
         self.default_health = self.health
         self.attack_power = 100
+        self.default_health = 500
         self.attack_capacity = 1
         self.healing_power = 20
         self.speed = 1
