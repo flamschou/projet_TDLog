@@ -8,6 +8,7 @@ import scale
 S = scale.scale
 num_cols = 10
 
+
 class Bot(Player):
     def __init__(self, name, player_type):
         super().__init__(name)
@@ -224,16 +225,16 @@ class AttackerBot(Bot):
             while i < len(possibilities) and troop[1] != 0:
                 if (
                     not possibilities[entiers_aleatoires[i]].occupied
-                    and possibilities[entiers_aleatoires[i]].accessible):
-
+                    and possibilities[entiers_aleatoires[i]].accessible
+                ):
                     possibilities[entiers_aleatoires[i]].occupied = True
                     if troop[0] == "assassin":
                         new_troop = Assassin(possibilities[entiers_aleatoires[i]])
 
-                    elif troop[0]  == "magician":
+                    elif troop[0] == "magician":
                         new_troop = Magician(possibilities[entiers_aleatoires[i]])
 
-                    elif troop[0]  == "turret":
+                    elif troop[0] == "turret":
                         new_troop = Turret(possibilities[entiers_aleatoires[i]])
 
                     self.add_troop(new_troop)
@@ -281,7 +282,6 @@ class DefenderBot(Bot):
 
     # si une troupe est sélectionnée, l'utiliser
     def use_selected_troop(self, selected_troop, game, player, screen):
-
         # start with searching attackable troops
         print(self.find_attackable_troop(game, selected_troop, player))
         target_troop = self.find_attackable_troop(game, selected_troop, player)[0]
@@ -290,7 +290,7 @@ class DefenderBot(Bot):
         # vérifier si la troupe a une capacité d'attaque non nulle
         if selected_troop.attack_capacity > 0:
             # vérifier si la troupe peut attaquer une troupe ennemie
-            print ("attacke chosen")
+            print("attacke chosen")
             pygame.time.delay(50)
             if d_target <= selected_troop.attack_range:
                 # attaquer une troupe ennemie si il y en a une à portée
@@ -305,11 +305,17 @@ class DefenderBot(Bot):
                     if d_target <= selected_troop.attack_range + selected_troop.speed:
                         print
                         # sé déplacer et attaquer si la troupe est à porté suffisante après le déplacement considérant la vitesse restante
-                        while (selected_troop.speed > 0 and selected_troop.attack_range < d_target):
+                        while (
+                            selected_troop.speed > 0
+                            and selected_troop.attack_range < d_target
+                        ):
                             destination_hex = game.board.find_destination_hex(
-                                selected_troop.hex, target_troop.hex)
+                                selected_troop.hex, target_troop.hex
+                            )
                             pygame.time.delay(50)
-                            self.action_towards_attacker(game, destination_hex, selected_troop, screen)
+                            self.action_towards_attacker(
+                                game, destination_hex, selected_troop, screen
+                            )
                             d_target -= 1
                         # attack after moving
                         if selected_troop.is_troop_allowed_to_strike(target_troop, game):

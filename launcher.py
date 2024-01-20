@@ -95,7 +95,10 @@ for i in range(2):
     print(test.current_player.name)
     while test.current_player.end_ini() and running:
         test.draw(screen)
-        if (test.current_player.name == "AttackerBot" or test.current_player.name == "DefenderBot"):
+        if (
+            test.current_player.name == "AttackerBot"
+            or test.current_player.name == "DefenderBot"
+        ):
             test.current_player.initialize_bot(test, screen)
             print("ini essayée bot")
 
@@ -118,7 +121,6 @@ for i in range(2):
 
 # Game phase
 while running and test.time > 0 and test.winner is None:
-
     if (
         test.current_player.name == "AttackerBot"
         or test.current_player.name == "DefenderBot"

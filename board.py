@@ -49,7 +49,12 @@ class Board:
 
     def distance_between_hexagons(self, index1, index2, num_cols):
         # Assurez-vous que les indices sont valides
-        if index1 < 0 or index2 < 0 or index1 >= len(self.list) or index2 >= len(self.list):
+        if (
+            index1 < 0
+            or index2 < 0
+            or index1 >= len(self.list)
+            or index2 >= len(self.list)
+        ):
             raise ValueError("Invalid indices")
 
         # Calculez les coordonnées (ligne, colonne) pour chaque indice
@@ -65,11 +70,11 @@ class Board:
             if delta_col <= delta_row:
                 if delta_row % 2 != 0:
                     delta_col += 1
-                return delta_row + (delta_col)//2
+                return delta_row + (delta_col) // 2
             if delta_col > delta_row:
                 if delta_row % 2 != 0:
                     delta_row += 1
-                return delta_col + (delta_row)//2
+                return delta_col + (delta_row) // 2
         else:
             return delta_row
 
@@ -162,8 +167,13 @@ class Board:
         for neighbor in hexagon1_neighbors:
             if neighbor.accessible and not neighbor.occupied:
                 pygame.time.delay(10)
-                if (self.distance_between_hexagons(neighbor.index, hexagon2.index, 10)
-                        == self.distance_between_hexagons(hexagon1.index, hexagon2.index, 10) - 1):
+                if (
+                    self.distance_between_hexagons(neighbor.index, hexagon2.index, 10)
+                    == self.distance_between_hexagons(
+                        hexagon1.index, hexagon2.index, 10
+                    )
+                    - 1
+                ):
                     desti = neighbor
 
         return desti
