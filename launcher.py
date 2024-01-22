@@ -128,7 +128,6 @@ while running and test.time > 0 and test.winner is None:
         screen.fill(WHITE)
         test.draw(screen)
         test.display_info(screen)
-        utils.drawButton_end_turn(screen, SCREEN_WIDTH, SCREEN_HEIGHT, BLACK)
         pygame.display.flip()
         pygame.time.delay(500)
         test.current_player.make_move_bot(test, screen)

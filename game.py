@@ -181,6 +181,8 @@ class Game:
         if pygame.Rect(
             (SCREEN_WIDTH - 190 * S, SCREEN_HEIGHT - 60 * S), (180 * S, 40 * S)
         ).collidepoint(clicked):
+            for troop in self.current_player.troops:
+                troop.selected = False
             self.change_player()
             self.current_player.regenerate_speed()
             if self.current_player.name == "Defender":
