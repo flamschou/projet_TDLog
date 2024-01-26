@@ -47,8 +47,9 @@ class Board:
                 self.list.append(hexagon)
                 hexagon.index = len(self.list) - 1
 
+    # gives the distance between two hexagons
     def distance_between_hexagons(self, index1, index2, num_cols):
-        # Assurez-vous que les indices sont valides
+        # checks for valid indexs
         if (
             index1 < 0
             or index2 < 0
@@ -57,15 +58,13 @@ class Board:
         ):
             raise ValueError("Invalid indices")
 
-        # Calculez les coordonnées (ligne, colonne) pour chaque indice
         row1, col1 = divmod(index1, num_cols)
         row2, col2 = divmod(index2, num_cols)
 
-        # Calculez la distance en utilisant les coordonnées
         delta_col = abs(col1 - col2)
         delta_row = abs(row1 - row2)
 
-        # Gestion des déplacements en diagonale avec décalage
+        # gives the distance between two hexagons
         if delta_col != 0:
             if delta_col <= delta_row:
                 if delta_row % 2 != 0:
@@ -109,8 +108,7 @@ class Board:
                     return True
             return False
 
-    # gives the distance between two hexagons
-
+    # creates a list of heaxgons at distance larger than in the list_neighbors function
     def larger_list_neighbors(self, hexagon1):
         neighbors = []
 
@@ -125,6 +123,7 @@ class Board:
 
         return neighbors
 
+    # again but with a larger distance again (we should have made a function with a parameter k but we didn't)
     def quite_larger_list_neighbors(self, hexagon1):
         neighbors = []
 
@@ -138,6 +137,7 @@ class Board:
         random.shuffle(neighbors)
         return neighbors
 
+    # test for larger neighbors
     def larger_neighbors(self, hexagon, hexagon1):
         if hexagon in self.larger_list_neighbors(hexagon1):
             return True
@@ -159,8 +159,7 @@ class Board:
                 i += 1
         return far_hex
 
-    # permet de trouver un hexagon accessible à partir d'un hexagon donné
-    # qui rapproche d'un deuxième hexagone (bot logic)
+    # select a destination hexagon for a troop to go towards any hexagon
     def find_destination_hex(self, hexagon1, hexagon2):
         hexagon1_neighbors = self.list_neighbors(hexagon1)
         desti = None
