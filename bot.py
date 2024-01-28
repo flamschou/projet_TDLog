@@ -8,6 +8,7 @@ import scale
 S = scale.scale
 num_cols = 10
 
+
 # define the class bot and it's methods from players class
 class Bot(Player):
     def __init__(self, name, player_type):
@@ -35,7 +36,7 @@ class Bot(Player):
                     )
                 )
         return L, I
-    
+
     # gives the list of the reachabe allies for a troop
     def reachable_allies(self, game, troop):
         L = []
@@ -49,7 +50,7 @@ class Bot(Player):
                 ):
                     L.append(ally_troop)
         return L
-    
+
     # gives the list of the reachabe allies for a troop
     def ally_to_heal(self, game, troop):
         L = self.reachable_allies(game, troop)
@@ -60,15 +61,15 @@ class Bot(Player):
                 I.append(n)
             i = I.index(min(I))
             return L[i]
-        else : 
-            return None  
+        else:
+            return None
 
     # gives the closest reachabe ennemy for a troop
     def find_attackable_troop(self, game, troop, player):
         List, Index = self.distance_with_opponants(game, troop, player)
         i = Index.index(min(Index))
         return List[i]
-    
+
     # for a given reahable ally troop, heals it
     def heal(self, game, troop, screen):
         ally_to_heal = self.ally_to_heal(game, troop)
@@ -124,17 +125,17 @@ class AttackerBot(Bot):
         player = game.defender
         # selects a troop
         for selected_troop in self.troops:
-                if game.winner == None:
-                    if selected_troop.health > 0:
-                        selected_troop.selected = True
-                        game.screen_update_bot(screen)
-                        pygame.time.delay(500)
-                        print(self.distance_with_opponants(game, selected_troop, player))
-                        self.use_selected_troop(selected_troop, game, player, screen)
-                        game.screen_update_bot(screen)
-                        pygame.time.delay(1500)
-                        selected_troop.selected = False
-                    print("action terminée du bot !")
+            if game.winner == None:
+                if selected_troop.health > 0:
+                    selected_troop.selected = True
+                    game.screen_update_bot(screen)
+                    pygame.time.delay(500)
+                    print(self.distance_with_opponants(game, selected_troop, player))
+                    self.use_selected_troop(selected_troop, game, player, screen)
+                    game.screen_update_bot(screen)
+                    pygame.time.delay(1500)
+                    selected_troop.selected = False
+                print("action terminée du bot !")
         # change player for the end of the turn when the bot has finished
         game.change_player()
         game.current_player.regenerate_speed()
@@ -165,8 +166,8 @@ class AttackerBot(Bot):
 
         # test if the troop is able to attack
         elif selected_troop.attack_capacity > 0:
-            # test if the troop can attack an ennemy troop 
-            print ("attacke chosen")
+            # test if the troop can attack an ennemy troop
+            print("attacke chosen")
             pygame.time.delay(50)
             if d_target <= selected_troop.attack_range:
                 if selected_troop.is_troop_allowed_to_strike(target_troop, game):
@@ -179,7 +180,10 @@ class AttackerBot(Bot):
                     # flake8: noqa
                     if d_target <= selected_troop.attack_range + selected_troop.speed:
                         print
-                        while (selected_troop.speed > 0 and selected_troop.attack_range < d_target):
+                        while (
+                            selected_troop.speed > 0
+                            and selected_troop.attack_range < d_target
+                        ):
                             destination_hex = game.board.find_destination_hex(
                                 selected_troop.hex, target_troop.hex
                             )
@@ -194,7 +198,6 @@ class AttackerBot(Bot):
                         ):
                             selected_troop.action(target_troop.hex, game)
                             pygame.time.delay(10)
-                            
 
                     # if no move is possible, tries to heal allies
                     else:
@@ -217,7 +220,6 @@ class AttackerBot(Bot):
             # no attack capacity, move towards the defend hexagon
             self.go_towards_defended_hexagon(game, selected_troop, screen)
 
-
     # makes the move for a troop
     def action_towards_defender(self, game, destination_hex, troop, screen):
         if destination_hex != None and destination_hex.occupied == False:
@@ -226,7 +228,6 @@ class AttackerBot(Bot):
             game.screen_update_bot(screen)
             pygame.time.delay(500)
             print("troupe déplacée : " + str(troop))
-
 
     # initialize the troops of the bot
     def initialize_bot(self, game, screen):
@@ -309,7 +310,7 @@ class DefenderBot(Bot):
         target_troop = self.find_attackable_troop(game, selected_troop, player)[0]
         d_target = self.find_attackable_troop(game, selected_troop, player)[1]
         print("target troop : " + str(target_troop))
-        # test if the defender troop is able to strike 
+        # test if the defender troop is able to strike
         if selected_troop.attack_capacity > 0:
             print("attacke chosen")
             pygame.time.delay(50)
@@ -375,7 +376,6 @@ class DefenderBot(Bot):
             game.screen_update_bot(screen)
             pygame.time.delay(500)
             print("troupe déplacée : " + str(troop))
-
 
     def initialize_bot(self, game, screen):
         # select a random hexagon to defend
